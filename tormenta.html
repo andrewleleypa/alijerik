@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NUESTRA TORMENTA — tratamientos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@700;900&family=Space+Mono&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #000; color: #f0f0f0; font-family: "Space Mono", monospace; padding: 4vh 4vw 12vh; }
+      h1 { font-size: 0.8rem; letter-spacing: 0.3em; color: rgba(240,240,240,0.5); text-align: center; margin-bottom: 0.5rem; }
+      .hint { text-align: center; font-size: 0.72rem; color: rgba(240,240,240,0.4); margin-bottom: 5vh; }
+
+      .row { position: relative; border-top: 1px solid rgba(240,240,240,0.08); padding: 7vh 0 5vh; text-align: center; overflow: hidden; }
+      /* Banda brillante simulando el disco, para probar legibilidad */
+      .row::before {
+        content: ""; position: absolute; left: 50%; top: 58%; transform: translate(-50%,-50%);
+        width: 80%; height: 90px; border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255,255,255,0.5), rgba(255,120,60,0.15) 50%, transparent 75%);
+        filter: blur(8px); z-index: 0;
+      }
+      .stack { position: relative; z-index: 1; }
+      .setup { font-family: "Bebas Neue"; font-size: clamp(1.2rem,3vw,2.2rem); letter-spacing: 0.16em; color: rgba(240,240,240,0.82); }
+      .storm { font-family: "Bebas Neue"; font-size: clamp(2.6rem,7vw,5.6rem); line-height: 0.95; margin-top: 0.05em; }
+      .meta { margin-top: 2.6rem; display: flex; gap: 0.9rem; justify-content: center; align-items: baseline; flex-wrap: wrap; position: relative; z-index: 1; }
+      .num { font-family: "Orbitron"; font-weight: 900; color: #00e5ff; font-size: 1.1rem; }
+      .name { font-size: 0.85rem; letter-spacing: 0.1em; }
+      .desc { font-size: 0.72rem; color: rgba(240,240,240,0.45); }
+
+      /* 0 — actual (ember / "terror") */
+      .t0 { color: transparent; background: linear-gradient(100deg,#ff6a1f,#ffa23f 48%,#ffd27a); -webkit-background-clip: text; background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(255,125,45,0.6)) drop-shadow(0 0 48px rgba(255,85,15,0.32)); }
+
+      /* 1 — oro limpio, sin glow */
+      .t1 { color: transparent; background: linear-gradient(100deg,#ffcaa0,#ffb070 50%,#ff9a4d); -webkit-background-clip: text; background-clip: text;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.55)); }
+
+      /* 2 — plasma eléctrico (tormenta = rayo) */
+      .t2 { color: transparent; background: linear-gradient(100deg,#ffffff,#9af0ff 45%,#00e5ff); -webkit-background-clip: text; background-clip: text;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 18px rgba(0,229,255,0.45)); }
+
+      /* 3 — blanco puro, premium */
+      .t3 { color: #f5f8fb; text-shadow: 0 2px 16px rgba(0,0,0,0.7); }
+
+      /* 4 — cian sólido eléctrico */
+      .t4 { color: #00e5ff; text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 16px rgba(0,229,255,0.35); }
+
+      /* 5 — bicolor frío→cálido limpio */
+      .t5 { color: transparent; background: linear-gradient(100deg,#7b2fff,#00e5ff 55%,#ffffff); -webkit-background-clip: text; background-clip: text;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+    </style>
+  </head>
+  <body>
+    <h1>NUESTRA TORMENTA · TRATAMIENTOS</h1>
+    <p class="hint">Misma banda brillante de fondo (simula el disco). Elijan el número.</p>
+
+    <div class="row"><div class="stack"><div class="setup">TU VISIÓN.</div><div class="storm t0">NUESTRA TORMENTA.</div></div>
+      <div class="meta"><span class="num">0</span><span class="name">EMBER (actual)</span><span class="desc">fuego sobre negro → "terror"</span></div></div>
+
+    <div class="row"><div class="stack"><div class="setup">TU VISIÓN.</div><div class="storm t1">NUESTRA TORMENTA.</div></div>
+      <div class="meta"><span class="num">1</span><span class="name">ORO LIMPIO</span><span class="desc">cálido pero sin glow, crisp</span></div></div>
+
+    <div class="row"><div class="stack"><div class="setup">TU VISIÓN.</div><div class="storm t2">NUESTRA TORMENTA.</div></div>
+      <div class="meta"><span class="num">2</span><span class="name">PLASMA ELÉCTRICO</span><span class="desc">tormenta = rayo · frío, energía</span></div></div>
+
+    <div class="row"><div class="stack"><div class="setup">TU VISIÓN.</div><div class="storm t3">NUESTRA TORMENTA.</div></div>
+      <div class="meta"><span class="num">3</span><span class="name">BLANCO PURO</span><span class="desc">premium · el color vive en la escena</span></div></div>
+
+    <div class="row"><div class="stack"><div class="setup">TU VISIÓN.</div><div class="storm t4">NUESTRA TORMENTA.</div></div>
+      <div class="meta"><span class="num">4</span><span class="name">CIAN SÓLIDO</span><span class="desc">eléctrico, directo</span></div></div>
+
+    <div class="row"><div class="stack"><div class="setup">TU VISIÓN.</div><div class="storm t5">NUESTRA TORMENTA.</div></div>
+      <div class="meta"><span class="num">5</span><span class="name">NEBULA→PLASMA</span><span class="desc">púrpura a cian a blanco · cósmico</span></div></div>
+  </body>
+</html>

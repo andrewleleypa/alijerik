@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALIJERIK — Comparador de tipografías</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@700;900&family=Syncopate:wght@700&family=Archivo+Black&family=Audiowide&family=Michroma&family=Chakra+Petch:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background:
+          radial-gradient(ellipse 60% 40% at 50% 30%, rgba(255,61,0,0.10), transparent 60%),
+          #000;
+        color: #f0f0f0;
+        font-family: "Space Mono", monospace;
+        padding: 4vh 4vw 10vh;
+        min-height: 100vh;
+      }
+      h1 {
+        font-family: "Space Mono", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.3em;
+        color: rgba(240,240,240,0.5);
+        text-align: center;
+        margin-bottom: 0.6rem;
+      }
+      .hint {
+        text-align: center;
+        font-size: 0.72rem;
+        color: rgba(240,240,240,0.4);
+        margin-bottom: 5vh;
+        letter-spacing: 0.05em;
+      }
+      .row {
+        border-top: 1px solid rgba(240,240,240,0.08);
+        padding: 5.5vh 0;
+        text-align: center;
+        position: relative;
+      }
+      .word {
+        color: #fff;
+        line-height: 1;
+        text-shadow:
+          0 0 18px rgba(255,255,255,0.45),
+          0 0 42px rgba(255,61,0,0.55),
+          0 0 90px rgba(255,61,0,0.30),
+          0 0 140px rgba(0,229,255,0.16);
+      }
+      .meta {
+        margin-top: 2.4rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .num {
+        font-family: "Orbitron", sans-serif;
+        font-weight: 900;
+        color: var(--lava, #ff3d00);
+        font-size: 1.1rem;
+      }
+      .name { font-size: 0.85rem; letter-spacing: 0.12em; color: #fff; }
+      .vibe { font-size: 0.72rem; color: rgba(240,240,240,0.45); }
+
+      .f-bebas    { font-family: "Bebas Neue", sans-serif; font-size: clamp(3rem,9vw,8rem); letter-spacing: clamp(0.3rem,1.6vw,1.6rem); }
+      .f-orbitron { font-family: "Orbitron", sans-serif; font-weight: 900; font-size: clamp(2rem,6vw,5rem); letter-spacing: clamp(0.2rem,1vw,1rem); }
+      .f-syncopate{ font-family: "Syncopate", sans-serif; font-weight: 700; font-size: clamp(1.6rem,5vw,4.2rem); letter-spacing: clamp(0.2rem,1.2vw,1.2rem); }
+      .f-archivo  { font-family: "Archivo Black", sans-serif; font-size: clamp(2.2rem,6.5vw,5.5rem); letter-spacing: clamp(0.05rem,0.4vw,0.4rem); }
+      .f-audiowide{ font-family: "Audiowide", sans-serif; font-size: clamp(2rem,6vw,5rem); letter-spacing: clamp(0.1rem,0.6vw,0.6rem); }
+      .f-michroma { font-family: "Michroma", sans-serif; font-size: clamp(1.7rem,5vw,4.2rem); letter-spacing: clamp(0.15rem,0.9vw,0.9rem); }
+      .f-chakra   { font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: clamp(2.4rem,7vw,6rem); letter-spacing: clamp(0.2rem,1vw,1rem); }
+    </style>
+  </head>
+  <body>
+    <h1>ALIJERIK · TIPOGRAFÍA DEL WORDMARK</h1>
+    <p class="hint">Mismo glow, mismo fondo. Elijan el número que más les guste — tú y tu mujer.</p>
+
+    <div class="row">
+      <div class="word f-bebas">ALIJERIK</div>
+      <div class="meta"><span class="num">0</span><span class="name">BEBAS NEUE</span><span class="vibe">actual · condensada, alta, común</span></div>
+    </div>
+    <div class="row">
+      <div class="word f-orbitron">ALIJERIK</div>
+      <div class="meta"><span class="num">1</span><span class="name">ORBITRON</span><span class="vibe">geométrica · espacial / tech</span></div>
+    </div>
+    <div class="row">
+      <div class="word f-syncopate">ALIJERIK</div>
+      <div class="meta"><span class="num">2</span><span class="name">SYNCOPATE</span><span class="vibe">ancha y espaciada · premium, expansiva</span></div>
+    </div>
+    <div class="row">
+      <div class="word f-michroma">ALIJERIK</div>
+      <div class="meta"><span class="num">3</span><span class="name">MICHROMA</span><span class="vibe">limpia y sobria · agencia espacial</span></div>
+    </div>
+    <div class="row">
+      <div class="word f-archivo">ALIJERIK</div>
+      <div class="meta"><span class="num">4</span><span class="name">ARCHIVO BLACK</span><span class="vibe">grotesca pesada · confianza, moderna</span></div>
+    </div>
+    <div class="row">
+      <div class="word f-audiowide">ALIJERIK</div>
+      <div class="meta"><span class="num">5</span><span class="name">AUDIOWIDE</span><span class="vibe">retro-futurista · más jugada</span></div>
+    </div>
+    <div class="row">
+      <div class="word f-chakra">ALIJERIK</div>
+      <div class="meta"><span class="num">6</span><span class="name">CHAKRA PETCH</span><span class="vibe">tech con cortes · ingeniería</span></div>
+    </div>
+  </body>
+</html>

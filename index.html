@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALIJERIK — Tu visión nos impulsa a nuevas fronteras.</title>
+    <meta name="description" content="Tecnología de punta que potencia lo que ya eres. Infraestructura IT, Microsoft 365, desarrollo a medida y seguridad. Hecho en Panamá." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Canvas WebGL del hero (fijo, detrás de todo) -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- HERO — "El Portal" -->
+    <section class="hero" id="hero">
+      <!-- El wordmark vive DENTRO del agujero negro -->
+      <div class="hero__mark" data-reveal>
+        <span class="hero__brand">ALIJERIK</span>
+      </div>
+
+      <div class="hero__content">
+        <h1 class="hero__headline">
+          <span class="line" data-reveal>TU VISIÓN NOS IMPULSA</span>
+          <span class="line line--accent" data-reveal>A NUEVAS FRONTERAS.</span>
+        </h1>
+        <p class="hero__subhead" data-reveal>
+          Tecnología de punta que potencia lo que ya eres.<br />
+          Sin borrar tu originalidad. Sin abandonar tu dirección.
+        </p>
+        <div class="hero__cta" data-reveal>
+          <a href="#servicios" class="btn btn--primary">[ ENTRAR AL SISTEMA ]</a>
+          <a href="#whiteshield" class="btn btn--ghost">[ VER WHITESHIELD ]</a>
+        </div>
+      </div>
+
+      <div class="hero__scroll" aria-hidden="true">
+        <span class="hero__scroll-label">SCROLL</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+:root {
+  --void: #000000;
+  --lava: #ff3d00;
+  --plasma: #00e5ff;
+  --nebula: #7b2fff;
+  --forge: #ff8c00;
+  --deep: #0a0a0f;
+  --text: #f0f0f0;
+  --ghost: rgba(240, 240, 240, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: "Space Mono", monospace;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Canvas WebGL ---------- */
+#hero-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+/* Velo inferior: oscurece donde vive el copy, deja limpio el agujero negro */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 44%,
+    rgba(0, 0, 0, 0.32) 60%,
+    rgba(0, 0, 0, 0.6) 78%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+}
+
+/* Wordmark dentro de la singularidad */
+.hero__mark {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Velo radial detrás del wordmark: "sombra de la singularidad" */
+.hero__mark::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(120vw, 1100px);
+  height: 46vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse 50% 50% at center,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.45) 38%,
+    transparent 70%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero__brand {
+  --ls: clamp(0.2rem, 1vw, 1rem);
+  position: relative;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.9rem, 6vw, 5rem);
+  letter-spacing: var(--ls);
+  margin-right: calc(-1 * var(--ls)); /* cancela el espacio final del tracking → centra */
+  line-height: 0.9;
+  color: transparent;
+  /* Plasma cósmico: blanco → cian claro → plasma */
+  background: linear-gradient(100deg, #ffffff 0%, #b8f3ff 48%, #18e3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Halo oscuro para legibilidad sobre el anillo + glow cian (no naranja) */
+  filter: drop-shadow(0 2px 18px rgba(0, 0, 0, 0.72))
+          drop-shadow(0 0 22px rgba(120, 240, 255, 0.5))
+          drop-shadow(0 0 60px rgba(0, 229, 255, 0.28));
+}
+
+/* Copy de marketing */
+.hero__content {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(3.5rem, 9vh, 6.5rem);
+  transform: translateX(-50%);
+  z-index: 3;
+  width: min(92vw, 820px);
+  text-align: center;
+}
+
+.hero__headline {
+  position: relative;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: 0.06em;
+}
+
+/* Respaldo oscuro uniforme: el texto se asienta limpio sobre el disco texturizado */
+.hero__headline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 132%;
+  height: 210%;
+  background: radial-gradient(
+    ellipse 60% 50% at center,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.62) 55%,
+    rgba(0, 0, 0, 0.25) 78%,
+    transparent 92%
+  );
+  filter: blur(12px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero__headline .line {
+  display: block;
+  font-size: clamp(1.3rem, 3.3vw, 2.5rem); /* setup: más chico, antesala */
+  color: rgba(240, 240, 240, 0.82);
+  letter-spacing: 0.16em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9), 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero__headline .line--accent {
+  font-size: clamp(2.5rem, 6.8vw, 5.4rem); /* payoff: domina */
+  letter-spacing: 0.02em;
+  margin-top: 0.08em;
+}
+
+.hero__headline .line--accent {
+  color: transparent;
+  /* Blanco sólido: limpio sobre el respaldo oscuro, deja el color a ALIJERIK */
+  color: #f5f8fb;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+}
+
+.hero__subhead {
+  margin-top: 1.6rem;
+  font-size: clamp(0.78rem, 1.2vw, 0.98rem);
+  line-height: 1.7;
+  color: rgba(240, 240, 240, 0.78);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+}
+
+.hero__cta {
+  margin-top: 2.4rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: "Space Mono", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  padding: 0.95rem 1.6rem;
+  border: 1px solid transparent;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  color: var(--void);
+  background: var(--lava);
+  box-shadow: 0 0 0 rgba(255, 61, 0, 0);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(255, 61, 0, 0.6);
+}
+
+.btn--ghost {
+  color: var(--text);
+  background: var(--ghost);
+  border-color: rgba(0, 229, 255, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.btn--ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--plasma);
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.35);
+  color: var(--plasma);
+}
+
+/* Indicador de scroll */
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 2.2rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.hero__scroll-label {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: rgba(240, 240, 240, 0.4);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(to bottom, rgba(0, 229, 255, 0.7), transparent);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ---------- Modo LITE: gradientes CSS en vez de WebGL ---------- */
+#hero-canvas.lite-bg {
+  background:
+    radial-gradient(circle at 50% 41%, rgba(255, 61, 0, 0.55) 0%, transparent 26%),
+    radial-gradient(circle at 50% 41%, rgba(0, 0, 0, 1) 0%, transparent 12%),
+    radial-gradient(circle at 50% 41%, rgba(0, 229, 255, 0.18) 18%, transparent 42%),
+    radial-gradient(ellipse at 50% 41%, rgba(123, 47, 255, 0.16) 0%, transparent 55%),
+    var(--void);
+  animation: litePulse 6s ease-in-out infinite;
+}
+
+@keyframes litePulse {
+  0%, 100% { filter: brightness(0.85) saturate(1); transform: scale(1); }
+  50% { filter: brightness(1.15) saturate(1.2); transform: scale(1.02); }
+}
+
+body.lite .hero__brand {
+  animation: liteFlicker 4s ease-in-out infinite;
+}
+
+@keyframes liteFlicker {
+  0%, 100% { text-shadow: 0 0 18px rgba(255,255,255,0.5), 0 0 42px rgba(255,61,0,0.5); }
+  50% { text-shadow: 0 0 24px rgba(255,255,255,0.7), 0 0 60px rgba(255,61,0,0.7), 0 0 100px rgba(0,229,255,0.25); }
+}
+
+/* ---------- Estado inicial de reveals (GSAP los anima) ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
+
+/* Si no hay JS / reduced motion, mostrar todo */
+.no-anim [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  .hero__mark { top: 38%; }
+  .hero__content { bottom: clamp(5rem, 12vh, 8rem); }
+  .btn { width: 100%; text-align: center; }
+}

@@ -1,0 +1,8 @@
+node_modules
+dist
+
+# Scratch de verificación visual (capturas headless)
+hero-*.png
+closeup.png
+shot.png
+*.log
