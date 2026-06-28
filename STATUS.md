@@ -45,19 +45,58 @@ node closeup.mjs    # zoom del headline
 El sitio ahora tiene un propósito de negocio urgente: **soporta la verificación de Meta de Alijerik
 como Tech Provider** (para Eficore). Meta puede revisar el dominio + que el negocio exista → hay que
 **publicar** con info real.
-- **Alcance mínimo publicable acordado:** agregar **Contacto + Footer** (footer dice "Eficore es un
-  producto de Alijerik") y **arreglar los CTAs del hero** que apuntan a `#servicios`/`#whiteshield`
-  (secciones que NO existen → botones rotos hoy).
-- **Dirección oficial (del recibo de internet):** PH Torres de Monserrat, Apto 2B, Pueblo Nuevo,
-  Ciudad de Panamá, Panamá.
+
+### ✅ HECHO (sesión 2026-06-28, build verificado `npm run build` OK)
+Se construyeron las secciones de contenido bajo el hero, fieles al concepto cósmico/terminal
+(NO look de IA genérico): **índices de misión 01/02 + rail de plasma + paneles flotantes con
+profundidad estilo Eficore + íconos Phosphor duotone inline**.
+- **Hero CTAs arreglados:** `[ CONOCER EFICORE ]`→`#eficore`, `[ CONTACTO ]`→`#contacto`
+  (ya NO apuntan a las secciones inexistentes `#servicios`/`#whiteshield`). [index.html]
+- **Sección 01 · EFICORE** (`#eficore`): eyebrow "// PRODUCTO · OPERADO POR ALIJERIK", título,
+  lead, y **card flotante** (ícono chats-circle + "Eficore" + `eficore.alijerik.com`) que abre
+  `https://eficore.alijerik.com` en pestaña nueva.
+- **Sección 02 · CONTACTO** (`#contacto`): 3 canales con Phosphor duotone —
+  WhatsApp **+507 6926-4937** (`wa.me/50769264937`, CONFIRMADO por JC = el número real de Eficore,
+  `phone_number_id=1169340419595588`), correo **contacto@alijerik.com** (`mailto:`),
+  y ubicación **PH Torres de Monserrat, Apto 2B, Pueblo Nuevo, Ciudad de Panamá**.
+- **Footer:** wordmark ALIJERIK + línea **"Eficore es un producto de Alijerik"** (con glyph) +
+  links a **Privacidad** y **Eliminación de datos** (a `eficore.alijerik.com/privacidad` y
+  `/eliminacion-de-datos`) + © 2026.
+- **Reveals al scrollear** en `main.js` (`initSectionReveals`, `gsap.from` + ScrollTrigger):
+  patrón SEGURO — el contenido es visible por defecto en CSS, el JS solo lo anima; si el JS falla
+  el contenido NO desaparece (importante: la página la va a revisar Meta).
+- Placeholder en `<head>` de index.html: comentario `META DOMAIN VERIFICATION` donde JC pega el
+  `<meta name="facebook-domain-verification" ...>` que da Business Manager.
+- Íconos Phosphor inline en index.html (whatsapp-logo, envelope-simple, map-pin, arrow-up-right,
+  chats-circle), todos duotone, `class="ic"`, `currentColor`. Carpeta `src/icons/` quedó vacía
+  (se inlinearon directo en el HTML, no se usó archivo).
+
+### ⏳ SIGUE — al retomar (incl. después de cambiar de cuenta de Claude)
+1. **VERIFICAR EN BROWSER** (no se alcanzó a hacer esta sesión por límite de créditos):
+   `npm run dev` → http://localhost:5173 → revisar las 2 secciones + footer en **desktop Y móvil**
+   (ver [[feedback-responsive-siempre]]), probar hover de card/canales, que los anchors `#eficore`/
+   `#contacto` hagan scroll suave con Lenis, y modo lite. Herramienta: `node shot.mjs` o agent-browser.
+   ⚠️ Posible roce: Lenis puede pelear con los anchors nativos `#`; si no hace scroll suave al hacer
+   clic en los CTAs, hay que interceptar el click y usar `lenis.scrollTo(target)`.
+2. **JC: crear el alias `contacto@alijerik.com`** ANTES de que el sitio esté público (si rebota, peor
+   que no ponerlo). Igual para `privacidad@alijerik.com` (pendiente de antes).
+3. **DEPLOY a Railway:** servir el build estático (`dist/`) + DNS de `alijerik.com`
+   (+ verificación de dominio de Meta vía meta-tag en el head o TXT en DNS).
+4. Opcional: swap del logo placeholder `public/logo.png` por el real
+   (`OneDrive/Desktop/logo_alijerik.png`).
+
+### Datos LOCKED
+- **Dirección oficial (del recibo):** PH Torres de Monserrat, Apto 2B, Pueblo Nuevo, Ciudad de
+  Panamá, Panamá.
 - **Email:** contacto@alijerik.com (JC lo creará).
-- **Teléfono:** JC comprará un chip nuevo y usará el MISMO número para sitio + verificación de Meta
-  → **NO hardcodear** hasta tenerlo; publicar con email y agregar el teléfono después.
-- **Hosting:** Railway (como Eficore). Falta: servir el build estático + DNS de alijerik.com
-  (+ opcional: verificación de dominio de Meta vía meta-tag/DNS TXT).
-- **Logos reales disponibles:** `OneDrive/Desktop/logo_alijerik.png` y `logo_alijerik_noslogan.png`.
+- **Teléfono:** **+507 6926-4937** — CONFIRMADO, es el número real/principal que Eficore ya usa
+  (cambió el plan viejo del "chip nuevo": se reusa este para sitio + verificación = coincide con
+  la WABA registrada en Meta). El de prueba sandbox (+1 555-667-5094) NO se usa.
+- **Hosting:** Railway (como Eficore).
+- **Logos reales:** `OneDrive/Desktop/logo_alijerik.png` y `logo_alijerik_noslogan.png`.
 - Contexto completo del Tech Provider: `eficore/docs/PLAN-tech-provider-onboarding.md` + memoria
-  `project-alijerik-meta-techprovider`.
+  `project-alijerik-meta-techprovider`. Recordatorio: la página es necesaria pero NO suficiente —
+  la verificación de negocio la gatea el registro legal (~15 días) + docs que coincidan.
 
 ## Mapa de archivos
 - `index.html` — markup del hero

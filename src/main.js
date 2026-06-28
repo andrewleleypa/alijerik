@@ -94,6 +94,22 @@ function revealHero() {
   });
 }
 
+// ── Reveals de secciones al scrollear ───────────────────────────────
+// Seguro: el contenido es visible por defecto (sin opacity:0 en CSS);
+// gsap.from solo lo anima desde un estado oculto si el JS corre.
+function initSectionReveals() {
+  if (reducedMotion) return;
+  gsap.utils.toArray("[data-sec-reveal]").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 30,
+      duration: 0.9,
+      ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 84%" },
+    });
+  });
+}
+
 // ── Lenis smooth scroll (solo si hay más secciones / no reduced) ─────
 async function initSmoothScroll() {
   if (reducedMotion) return;
@@ -110,3 +126,4 @@ async function initSmoothScroll() {
 
 boot();
 initSmoothScroll();
+initSectionReveals();

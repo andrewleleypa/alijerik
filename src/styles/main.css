@@ -310,3 +310,235 @@ body.lite .hero__brand {
   .hero__content { bottom: clamp(5rem, 12vh, 8rem); }
   .btn { width: 100%; text-align: center; }
 }
+
+/* ============================================================
+   CONTENIDO — secciones bajo el hero (sobre el canvas fijo)
+   Concepto: log de misión / consola cósmica. Índices 01/02,
+   rail de plasma, paneles flotantes con profundidad (lenguaje
+   de Eficore), íconos Phosphor duotone.
+   ============================================================ */
+.ic { display: block; }
+
+.deck {
+  position: relative;
+  z-index: 2;
+  background:
+    radial-gradient(120% 60% at 85% 0%, rgba(123, 47, 255, 0.10), transparent 55%),
+    radial-gradient(90% 50% at 0% 28%, rgba(0, 229, 255, 0.06), transparent 50%),
+    var(--deep);
+  border-top: 1px solid rgba(0, 229, 255, 0.10);
+}
+
+/* ---- Panel (sección de contenido) ---- */
+.panel {
+  display: grid;
+  grid-template-columns: clamp(40px, 8vw, 96px) 1fr;
+  gap: clamp(1rem, 4vw, 3rem);
+  width: min(92vw, 920px);
+  margin: 0 auto;
+  padding: clamp(4rem, 11vh, 8rem) 0;
+}
+.panel + .panel { border-top: 1px solid var(--ghost); }
+
+.panel__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding-top: 0.35rem;
+}
+.panel__index {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  color: rgba(0, 229, 255, 0.85);
+}
+.panel__rail-line {
+  flex: 1;
+  width: 1px;
+  min-height: 56px;
+  background: linear-gradient(to bottom, rgba(0, 229, 255, 0.55), transparent);
+}
+
+.panel__eyebrow {
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: rgba(240, 240, 240, 0.45);
+  margin-bottom: 1rem;
+}
+.panel__title {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  letter-spacing: 0.03em;
+  line-height: 1.02;
+}
+.grad {
+  color: transparent;
+  background: linear-gradient(100deg, #ffffff 0%, #b8f3ff 48%, #18e3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.panel__lead {
+  margin-top: 1.4rem;
+  max-width: 54ch;
+  font-size: clamp(0.88rem, 1.3vw, 1.02rem);
+  line-height: 1.85;
+  color: rgba(240, 240, 240, 0.72);
+}
+
+/* ---- Card de Eficore: panel flotante con profundidad ---- */
+.card {
+  margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.1rem 1.3rem;
+  max-width: 480px;
+  text-decoration: none;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0, 229, 255, 0.14);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(0, 229, 255, 0.36),
+    0 0 34px rgba(0, 229, 255, 0.12);
+}
+.card__glyph {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: var(--plasma);
+  background: rgba(0, 229, 255, 0.10);
+}
+.card__glyph .ic { width: 26px; height: 26px; }
+.card__text { display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
+.card__name {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+.card__sub { font-family: "Space Mono", monospace; font-size: 0.72rem; color: rgba(240, 240, 240, 0.5); }
+.card__go {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--plasma);
+  white-space: nowrap;
+}
+.card__go .ic { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.card:hover .card__go .ic { transform: translate(2px, -2px); }
+
+/* ---- Canales de contacto ---- */
+.channels {
+  list-style: none;
+  margin-top: 2.2rem;
+  display: grid;
+  gap: 0.8rem;
+  max-width: 520px;
+}
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+a.channel:hover {
+  transform: translateX(4px);
+  background: rgba(0, 229, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.28), 0 0 24px rgba(0, 229, 255, 0.08);
+}
+.channel--static { cursor: default; }
+.channel__glyph {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  color: var(--plasma);
+  background: rgba(0, 229, 255, 0.09);
+}
+.channel__glyph .ic { width: 23px; height: 23px; }
+.channel__meta { display: flex; flex-direction: column; gap: 3px; }
+.channel__label {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 0.26em;
+  color: rgba(240, 240, 240, 0.42);
+}
+.channel__value { font-size: clamp(0.9rem, 1.5vw, 1.05rem); line-height: 1.45; }
+
+/* ---- Footer ---- */
+.footer {
+  position: relative;
+  z-index: 2;
+  background: var(--void);
+  border-top: 1px solid rgba(0, 229, 255, 0.10);
+  padding: 3.2rem 1.5rem 2.6rem;
+  text-align: center;
+}
+.footer__brand {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  font-size: 1rem;
+  color: rgba(240, 240, 240, 0.9);
+}
+.footer__tie {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(0, 229, 255, 0.75);
+  letter-spacing: 0.03em;
+}
+.footer__tie .ic { width: 16px; height: 16px; }
+.footer__links {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 1.4rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.footer__links a {
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  color: rgba(240, 240, 240, 0.55);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+.footer__links a:hover { color: var(--plasma); }
+.footer__legal {
+  margin-top: 1.4rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  color: rgba(240, 240, 240, 0.38);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .panel { padding: clamp(3rem, 9vh, 5rem) 0; gap: 0.9rem; }
+  .card { flex-wrap: wrap; gap: 0.8rem; }
+  .card__text { margin-right: 0; }
+  .card__go { width: 100%; }
+}
