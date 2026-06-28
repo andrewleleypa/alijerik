@@ -72,12 +72,11 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
   (se inlinearon directo en el HTML, no se usó archivo).
 
 ### ⏳ SIGUE — al retomar (incl. después de cambiar de cuenta de Claude)
-1. **VERIFICAR EN BROWSER** (no se alcanzó a hacer esta sesión por límite de créditos):
-   `npm run dev` → http://localhost:5173 → revisar las 2 secciones + footer en **desktop Y móvil**
-   (ver [[feedback-responsive-siempre]]), probar hover de card/canales, que los anchors `#eficore`/
-   `#contacto` hagan scroll suave con Lenis, y modo lite. Herramienta: `node shot.mjs` o agent-browser.
-   ⚠️ Posible roce: Lenis puede pelear con los anchors nativos `#`; si no hace scroll suave al hacer
-   clic en los CTAs, hay que interceptar el click y usar `lenis.scrollTo(target)`.
+1. ✅ **VERIFICADO EN BROWSER (2026-06-28, headless Chrome, desktop 1440 + móvil 390):** las 2
+   secciones + footer se ven bien en ambos, WebGL renderiza (no cae a lite), **0 errores de JS**
+   (solo un 404 cosmético, probablemente favicon — agregar uno al desplegar). La card de Eficore
+   envuelve bien en móvil. NO se probó manualmente el scroll suave de los anchors con Lenis al hacer
+   clic (riesgo abierto): si al clic en los CTAs no baja suave, interceptar y usar `lenis.scrollTo()`.
 2. **JC: crear el alias `contacto@alijerik.com`** ANTES de que el sitio esté público (si rebota, peor
    que no ponerlo). Igual para `privacidad@alijerik.com` (pendiente de antes).
 3. **DEPLOY a Railway:** servir el build estático (`dist/`) + DNS de `alijerik.com`
