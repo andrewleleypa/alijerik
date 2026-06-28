@@ -46,6 +46,21 @@ El sitio ahora tiene un propósito de negocio urgente: **soporta la verificació
 como Tech Provider** (para Eficore). Meta puede revisar el dominio + que el negocio exista → hay que
 **publicar** con info real.
 
+### 🚀 DESPLEGADO Y VIVO (2026-06-28) — `alijerik.com` PÚBLICO en Cloudflare Pages
+- **DNS migrado a Cloudflare** (registrar sigue en Namecheap; solo se cambiaron nameservers a
+  `denver`/`marge.ns.cloudflare.com`). Se copiaron TODOS los records (eficore CNAME en GRIS, MX
+  privateemail, SPF/DKIM `default` y `resend`, DMARC, `_railway-verify`, send.mfa SES). **App de
+  Eficore y correo VERIFICADOS intactos** (OTP llega, `eficore.alijerik.com` → 303 login).
+- **Web en Cloudflare Pages** (proyecto `alijerik`, repo `andrewleleypa/alijerik`, build
+  `npm run build`, output `dist`). Vive en `alijerik.pages.dev` Y en **`alijerik.com`** (apex 200,
+  título correcto, `/privacidad/` y `/eliminacion-de-datos/` 200). `www` tardó un poco (522 transitorio).
+- Doc completo: `docs/DEPLOY-CLOUDFLARE.md`.
+- **PENDIENTE en Meta (JC):** verificación de dominio (meta-tag en `<head>`, placeholder listo) +
+  actualizar las URLs legales de la app a `alijerik.com/privacidad` y `/eliminacion-de-datos`.
+- Menor: `/noexiste` da 200 (soft-404 de Pages) — afinar con not_found_handling/404 si se quiere.
+- Fase 4 (capa 1 de la app): proxiar `eficore` tras CF (naranja) + WAF, antes de la clínica. El origen
+  `*.up.railway.app` HOY NO está oculto (eficore en gris) — eso se logra recién en Fase 4.
+
 ### ✅ HECHO (sesión 2026-06-28, build verificado `npm run build` OK)
 Se construyeron las secciones de contenido bajo el hero, fieles al concepto cósmico/terminal
 (NO look de IA genérico): **índices de misión 01/02 + rail de plasma + paneles flotantes con
@@ -77,12 +92,32 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
    (solo un 404 cosmético, probablemente favicon — agregar uno al desplegar). La card de Eficore
    envuelve bien en móvil. NO se probó manualmente el scroll suave de los anchors con Lenis al hacer
    clic (riesgo abierto): si al clic en los CTAs no baja suave, interceptar y usar `lenis.scrollTo()`.
-2. **JC: crear el alias `contacto@alijerik.com`** ANTES de que el sitio esté público (si rebota, peor
-   que no ponerlo). Igual para `privacidad@alijerik.com` (pendiente de antes).
-3. **DEPLOY a Railway:** servir el build estático (`dist/`) + DNS de `alijerik.com`
-   (+ verificación de dominio de Meta vía meta-tag en el head o TXT en DNS).
-4. Opcional: swap del logo placeholder `public/logo.png` por el real
-   (`OneDrive/Desktop/logo_alijerik.png`).
+2. ✅ **Alias `contacto@alijerik.com` y `privacidad@alijerik.com` YA existen** (JC, 2026-06-28).
+3. ✅ **PÁGINAS LEGALES PORTADAS AL SITIO (opción B, decidida 2026-06-28):** `/privacidad/` y
+   `/eliminacion-de-datos/` ahora son canónicas en alijerik.com (contenido Ley 81 verbatim de
+   Eficore `app/main.py`, re-estilizado al tema cósmico). Vite multipágina (`vite.config.js`),
+   footer apunta a las locales. **Verificado en local** (`npx serve dist`): todas 200 (con y sin
+   slash), /noexiste 404, favicon 200. **JC va a cambiar las URLs en Meta a `alijerik.com/privacidad`
+   y `/eliminacion-de-datos`** (decidió actualizarlas en vez de redirect; el redirect desde el
+   subdominio queda como cortesía OPCIONAL, no se hizo). Hacerlo ANTES de mandar el App Review.
+4. **DEPLOY a Railway (pendiente, NECESITA MANOS DE JC):** el repo ya está deploy-ready —
+   `npm run build` → `npm start` (`serve dist -l $PORT`, `serve` ya en deps). Pasos: (a) `railway
+   login` (browser, interactivo — Claude no puede) o conectar el repo `andrewleleypa/alijerik` en
+   el dashboard de Railway; (b) **DNS del APEX `alijerik.com`** — ⚠️ SNAG REAL: Namecheap NO soporta
+   ALIAS/ANAME en el apex; opciones = usar `www.alijerik.com` (CNAME→Railway) + redirect apex→www,
+   o mover el DNS a Cloudflare (CNAME flattening; JC ya usa CF para R2). Decidir esto fija la URL
+   que va en Meta. (c) verificación de dominio de Meta (meta-tag, placeholder ya en `<head>`).
+   NOTA ASESOR: para un sitio estático, Railway corre un contenedor 24/7 (algo desperdiciado);
+   Vercel o Cloudflare Pages serían gratis + apex + URLs limpias automáticas. JC eligió Railway por
+   consistencia con Eficore — respetado, pero queda anotado.
+5. **Plan de JC para cuando vuelva (con correcciones):** probar números para el multitenant (Eficore,
+   independiente) + hacer la **verificación del NEGOCIO**. ⚠️ CORRECCIÓN: la verificación de negocio
+   NO depende de que la web "propague un par de horas" — eso destraba la **verificación de DOMINIO**
+   (meta-tag) y los checks de URL del App Review. La **verificación de negocio** la gatea el
+   **registro legal (~15 días)** + documentos que coincidan (Aviso de Operación/RUC). Si el registro
+   no está listo, la verificación de negocio se traba aunque la web esté viva.
+6. Opcional: swap del logo placeholder `public/logo.png` por el real
+   (`OneDrive/Desktop/logo_alijerik.png`). Favicon cósmico propio YA hecho (`public/favicon.svg`).
 
 ### Datos LOCKED
 - **Dirección oficial (del recibo):** PH Torres de Monserrat, Apto 2B, Pueblo Nuevo, Ciudad de
