@@ -41,6 +41,24 @@ node closeup.mjs    # zoom del headline
 3. **Perf**: FPS midió 60 en frío y bajó a ~43 en mediciones sucesivas → **throttling térmico** de la Intel Iris Xe por testeo repetido, no el código. Pendiente **medir en frío**. Si hace falta, optimizar el shader de nebulosa (fbm caro) — pero JC dijo no tocar nebulosas aún.
 4. **Deuda menor**: `dispose()` no libera geometrías/materiales (leak si se desmonta el hero; hoy irrelevante). Mover `puppeteer-core` a `devDependencies`.
 
+## ⭐ 2026-06-28 — Publicar para verificación de Meta (NUEVA prioridad)
+El sitio ahora tiene un propósito de negocio urgente: **soporta la verificación de Meta de Alijerik
+como Tech Provider** (para Eficore). Meta puede revisar el dominio + que el negocio exista → hay que
+**publicar** con info real.
+- **Alcance mínimo publicable acordado:** agregar **Contacto + Footer** (footer dice "Eficore es un
+  producto de Alijerik") y **arreglar los CTAs del hero** que apuntan a `#servicios`/`#whiteshield`
+  (secciones que NO existen → botones rotos hoy).
+- **Dirección oficial (del recibo de internet):** PH Torres de Monserrat, Apto 2B, Pueblo Nuevo,
+  Ciudad de Panamá, Panamá.
+- **Email:** contacto@alijerik.com (JC lo creará).
+- **Teléfono:** JC comprará un chip nuevo y usará el MISMO número para sitio + verificación de Meta
+  → **NO hardcodear** hasta tenerlo; publicar con email y agregar el teléfono después.
+- **Hosting:** Railway (como Eficore). Falta: servir el build estático + DNS de alijerik.com
+  (+ opcional: verificación de dominio de Meta vía meta-tag/DNS TXT).
+- **Logos reales disponibles:** `OneDrive/Desktop/logo_alijerik.png` y `logo_alijerik_noslogan.png`.
+- Contexto completo del Tech Provider: `eficore/docs/PLAN-tech-provider-onboarding.md` + memoria
+  `project-alijerik-meta-techprovider`.
+
 ## Mapa de archivos
 - `index.html` — markup del hero
 - `src/main.js` — bootstrap, lite, GSAP reveals, Lenis, scroll→burst
