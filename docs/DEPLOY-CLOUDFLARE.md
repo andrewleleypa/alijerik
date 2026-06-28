@@ -36,17 +36,27 @@ Ya verificado en build headless 2026-06-28: las 3 rutas dan 200 (con y sin slash
 ## Fase 1 — Mover el DNS a Cloudflare (la llave de todo)
 
 1. Cloudflare → **Add a site** → `alijerik.com` → plan **Free**.
-2. CF escanea los records existentes. ⚠️ **VERIFICAR que importó TODO**, sobre todo:
-   - **MX + SPF/TXT del correo** → si faltan, los alias `contacto@` y `privacidad@alijerik.com`
-     **dejan de recibir**. Copiarlos a mano ANTES de seguir.
-   - El **CNAME `eficore`** → Railway (la app viva).
-   - Cualquier TXT de verificación existente.
+2. CF escanea los records existentes. ⚠️ **VERIFICAR contra el panel "Advanced DNS" de Namecheap
+   que importó TODO** (el auto-scan suele perder records). Records actuales conocidos (2026-06-28):
+   - CNAME `eficore` → `mp441wir.up.railway.app` → **dejar en GRIS (DNS only)** = mantiene la app viva.
+   - MX `@` → `mx1.privateemail.com` (pri 10) y `mx2.privateemail.com` (pri 10) = correo.
+   - **+ SPF/DKIM/DMARC + autodiscover/SRV** de Namecheap Private Email → NO salieron en el `nslookup`;
+     copiarlos EXACTOS desde Namecheap o los alias `contacto@`/`privacidad@` **dejan de recibir**.
+   - Apex `alijerik.com`: hoy NO tiene A público real → se apuntará a Pages (Fase 2), nada que preservar.
+   - NS actuales (Namecheap): `dns1.registrar-servers.com`, `dns2.registrar-servers.com`.
 3. CF te da **2 nameservers**. En **Namecheap → Domain → Nameservers → Custom DNS** → pegar esos 2.
-   (Único cambio en Namecheap. El dominio NO se transfiere.)
+   (Único cambio en Namecheap. El dominio NO se transfiere; Namecheap sigue siendo el registrar.)
 4. Esperar activación (minutos a pocas horas; CF avisa por correo). **Esto es la propagación.**
+   Durante el solape, Namecheap y CF conviven → si ambos tienen el record de `eficore`, **cero downtime**.
 
 > Mientras propaga, la app de Eficore sigue funcionando por el CNAME `eficore` (déjalo
 > "DNS only" / gris al inicio; proxy naranja se activa en la Fase 4, con cuidado).
+
+**Lado Railway (verificado 2026-06-28 con la pantalla Networking del servicio):** `eficore.alijerik.com`
+es un **Custom Domain del servicio de Railway** (Port 8080 interno, check verde = verificado). El CNAME
+que Railway pide es `eficore` → `mp441wir.up.railway.app`. **NO hay que tocar nada en Railway** en la
+migración: con el CNAME idéntico y en gris en CF, Railway sigue viendo el mismo destino → check verde
+intacto, cero downtime. No re-agregar ni borrar el domain en Railway.
 
 ---
 
