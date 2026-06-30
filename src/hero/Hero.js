@@ -72,6 +72,12 @@ export class Hero {
       0.1,
       100
     );
+    // Encuadre de diseño: el FOV vertical 38 está pensado para apaisado.
+    // En vertical (móvil) bloqueamos el FOV horizontal para que los meteoros
+    // y nebulosas laterales no se salgan de cuadro.
+    this.baseFov = 38;
+    this.baseAspect = 16 / 9;
+    this._applyFov();
     this.camera.position.set(0, 2.5, 6.4);
     this.camera.lookAt(0, 0, 0);
 
@@ -360,13 +366,26 @@ export class Hero {
     );
   }
 
-  _onResize() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    this.camera.aspect = w / h;
+  // FOV adaptativo: en pantallas verticales (aspect < base) crecemos el FOV
+  // vertical para mantener constante el horizontal del encuadre apaisado.
+  _applyFov() {
+    const aspect = window.innerWidth / window.innerHeight;
+    this.camera.aspect = aspect;
+    if (aspect < this.baseAspect) {
+      const baseV = (this.baseFov * Math.PI) / 180;
+      const targetH = 2 * Math.atan(Math.tan(baseV / 2) * this.baseAspect);
+      this.camera.fov =
+        (2 * Math.atan(Math.tan(targetH / 2) / aspect) * 180) / Math.PI;
+    } else {
+      this.camera.fov = this.baseFov;
+    }
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(w, h);
-    this.composer.setSize(w, h);
+  }
+
+  _onResize() {
+    this._applyFov();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.composer.setSize(window.innerWidth, window.innerHeight);
   }
 
   // 0..1 — empuja las partículas hacia afuera al hacer scroll
