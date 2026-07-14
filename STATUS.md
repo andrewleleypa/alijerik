@@ -2,6 +2,20 @@
 
 > Handoff para retomar. Sesión 1 cerrada por límite de tokens. Continuamos mañana.
 
+## ⚠️ LEER PRIMERO (actualizado 2026-07-14)
+
+- **Hosting REAL: Cloudflare Pages conectado a este repo — push a `main` = deploy automático
+  a `alijerik.com`.** Toda mención a "deploy a Railway" más abajo en este archivo quedó
+  OBSOLETA (era el plan viejo; se decidió Pages y se desplegó 2026-06-28+).
+- **Las páginas legales de este sitio son un requisito VIVO del App Review de Meta** para la
+  app "Eficore" (App ID 1478069710303881). URLs registradas en Meta → Configuración Básica:
+  - `/privacidad/` — política de privacidad
+  - `/condiciones/` — condiciones del servicio (agregada 2026-07-14, commit `89551d5`)
+  - `/eliminacion-de-datos/` — instrucciones de eliminación de datos
+  **Mover, renombrar o romper esas rutas rompe la config de Meta sin que nada truene aquí.**
+  Si se rediseña el sitio, preservarlas (o poner redirects y actualizar Meta DESPUÉS del
+  review — nunca durante). Detalle: `eficore/docs/INFRAESTRUCTURA.md §7`.
+
 ## Qué es
 Landing one-page para Alijerik (IT, M365, desarrollo, seguridad — Panamá).
 Concepto: tecnología como fuerza natural que **impulsa** la dirección del cliente.
