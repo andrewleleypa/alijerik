@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 
-// Sitio multipágina: el one-page cósmico + las 2 páginas legales (canónicas
+// Sitio multipágina: el one-page cósmico + las 3 páginas legales (canónicas
 // en alijerik.com, requisito de Meta). URLs limpias vía carpeta/index.html.
 export default defineConfig({
   appType: "mpa",
@@ -10,6 +10,7 @@ export default defineConfig({
         main: "index.html",
         privacidad: "privacidad/index.html",
         eliminacion: "eliminacion-de-datos/index.html",
+        condiciones: "condiciones/index.html",
       },
     },
   },
