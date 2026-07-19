@@ -7,32 +7,115 @@
   <meta name="description" content="Eficore: una sola bandeja de WhatsApp, conversaciones asignadas y supervisión real. Un producto de Alijerik." />
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    html,body{height:100%}
+    :root{
+      --espresso:#17120D; --espuma:#FBF5EA; --leche:#E8D3B0;
+      --terracota:#C2410C; --terracota-luz:#E8743C; --arena:#A8957E;
+    }
+    html{scroll-behavior:auto}
     body{
-      background:#17120D;
-      background-image:radial-gradient(1100px 700px at 50% 34%, #261b11 0%, #17120D 68%);
-      color:#FBF5EA;
+      background:var(--espresso); color:var(--espuma);
       font-family:"Segoe UI",system-ui,sans-serif;
-      overflow:hidden;
     }
-    #scene{position:fixed;inset:0;display:block}
+    /* ── Escenario fijo ── */
+    #stage{position:fixed;inset:0;overflow:hidden}
+    #seq{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .vignette{
+      position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(120% 90% at 50% 45%, transparent 40%, rgba(23,18,13,.55) 100%),
+        linear-gradient(to bottom, rgba(23,18,13,.35), transparent 22%, transparent 72%, rgba(23,18,13,.6));
+    }
+    /* ── Marca ── */
     .brand{
-      position:fixed;top:28px;left:36px;z-index:2;
+      position:fixed;top:26px;left:34px;z-index:6;
       display:flex;align-items:baseline;gap:10px;
-      letter-spacing:.18em;font-size:14px;font-weight:600;
-      color:#FBF5EA;user-select:none;
+      letter-spacing:.18em;font-size:13px;font-weight:600;user-select:none;
+      text-shadow:0 1px 12px rgba(23,18,13,.8);
     }
-    .brand small{letter-spacing:.08em;font-weight:400;color:#A8957E;font-size:11px}
+    .brand small{letter-spacing:.08em;font-weight:400;color:var(--arena);font-size:11px}
+    /* ── Textos coreografiados ── */
+    .stage-text{
+      position:fixed;z-index:5;left:50%;transform:translate(-50%,12px);
+      width:min(88vw,760px);text-align:center;opacity:0;pointer-events:none;
+      text-shadow:0 2px 24px rgba(23,18,13,.85), 0 1px 6px rgba(23,18,13,.9);
+    }
+    .stage-text h2{font-size:clamp(28px,5vw,54px);font-weight:650;line-height:1.12;letter-spacing:-.01em}
+    .stage-text p{margin-top:14px;font-size:clamp(15px,2vw,19px);color:var(--leche)}
+    #t1,#t2{top:44%}
+    #t3{top:42%}
+    #t4{top:38%;pointer-events:auto;padding:48px 20px 56px;border-radius:32px;
+        background:radial-gradient(closest-side, rgba(23,18,13,.5), rgba(23,18,13,.28) 60%, transparent)}
+    #t4 .wordmark{font-size:clamp(44px,8vw,96px);font-weight:700;letter-spacing:.14em}
+    #t4 .sub{margin-top:6px;color:var(--arena);letter-spacing:.1em;font-size:clamp(12px,1.6vw,15px)}
+    #t4 .cta{
+      display:inline-block;margin-top:30px;padding:15px 34px;border-radius:999px;
+      background:var(--terracota);color:var(--espuma);text-decoration:none;
+      font-weight:600;letter-spacing:.06em;font-size:15px;
+      box-shadow:0 8px 32px rgba(194,65,12,.45);
+      transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    #t4 .cta:hover{transform:translateY(-2px);background:var(--terracota-luz);box-shadow:0 12px 40px rgba(232,116,60,.5)}
+    /* ── Hint de scroll ── */
+    #hint{
+      position:fixed;bottom:34px;left:50%;transform:translateX(-50%);z-index:5;
+      font-size:11px;letter-spacing:.3em;color:var(--leche);opacity:.85;
+      text-shadow:0 1px 10px rgba(23,18,13,.9);transition:opacity .5s;
+    }
+    #hint::after{
+      content:"";display:block;width:1px;height:34px;margin:10px auto 0;
+      background:linear-gradient(to bottom,var(--leche),transparent);
+      animation:drip 1.6s ease-in-out infinite;
+    }
+    @keyframes drip{0%{transform:scaleY(.2);transform-origin:top}55%{transform:scaleY(1)}100%{transform:scaleY(.2);transform-origin:top;opacity:0}}
+    /* ── Loader ── */
+    #loader{
+      position:fixed;inset:0;z-index:10;background:var(--espresso);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+      transition:opacity .6s ease;
+    }
+    #loader .lw{letter-spacing:.24em;font-weight:600;font-size:15px}
+    #loader .bar{width:min(52vw,260px);height:2px;background:#2A2019;border-radius:2px;overflow:hidden}
+    #loader .bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--terracota),var(--terracota-luz));transition:width .2s}
+    /* ── Pista de scroll ── */
+    #track{height:560vh}
     .proto{
-      position:fixed;bottom:22px;right:28px;z-index:2;
-      font-size:10px;letter-spacing:.14em;color:#6F5F4E;user-select:none;
+      position:fixed;bottom:20px;right:26px;z-index:6;
+      font-size:10px;letter-spacing:.14em;color:var(--arena);opacity:.6;user-select:none;
+      text-shadow:0 1px 8px rgba(23,18,13,.9);
     }
   </style>
 </head>
 <body>
+  <div id="stage">
+    <canvas id="seq"></canvas>
+    <div class="vignette"></div>
+  </div>
+
   <div class="brand">EFICORE <small>· un producto de Alijerik</small></div>
-  <canvas id="scene"></canvas>
-  <div class="proto">PROTOTIPO · HERO 01</div>
+
+  <div class="stage-text" id="t1">
+    <h2>Tu WhatsApp hoy:<br>un remolino.</h2>
+    <p>Mensajes que llegan a cinco celulares y nadie sabe quién responde.</p>
+  </div>
+  <div class="stage-text" id="t2">
+    <h2>Eficore le da forma.</h2>
+    <p>Cada conversación llega a una sola bandeja y tiene un responsable.</p>
+  </div>
+  <div class="stage-text" id="t3">
+    <h2>Y todo queda a la vista.</h2>
+    <p>Supervisión en tiempo real, sin perseguir a nadie.</p>
+  </div>
+  <div class="stage-text" id="t4">
+    <div class="wordmark">EFICORE</div>
+    <div class="sub">LA PLATAFORMA DE WHATSAPP PARA EQUIPOS</div>
+    <a class="cta" href="https://eficore.alijerik.com" target="_blank" rel="noopener">Conocer la plataforma</a>
+  </div>
+
+  <div id="hint">DESLIZA</div>
+  <div id="loader"><div class="lw">EFICORE</div><div class="bar"><i id="lbar"></i></div></div>
+  <div class="proto">PROTOTIPO · HERO 02 · SCRUB</div>
+
+  <div id="track"></div>
   <script type="module" src="/src/eficore/main.js"></script>
 </body>
 </html>
