@@ -156,8 +156,10 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
 - `*.mjs` — herramientas de verificación (puppeteer)
 
 ## 🚧 EN CURSO — Página de producto Eficore (rama `eficore-page`)
-- Hero 3D cappuccino: jarra de acero (Alijerik) + taza + corazón de la marca formándose
-  en la espuma. Prototipo 01 aprobación pendiente de JC. NO tocar main hasta cerrar.
+- Hero 01 (3D a mano) DESCARTADO por JC en compuerta de calidad (se veía tosco).
+- Hero 02 VIGENTE: scroll-scrub de metraje real de latte art (técnica Apple/Mercury),
+  176 cuadros en public/eficore-seq/ (licencia libre, ver FUENTE.md). Caos→orden = pitch.
+  Pendiente veredicto de JC en preview. NO tocar main hasta cerrar.
 - Ruta nueva `/eficore/` (aditiva — las rutas legales de Meta intactas).
 - Preview: push a la rama → Cloudflare Pages genera URL de preview del branch.
 - Plan completo acordado en sesión 2026-07-19: 3 actos (elaboración → revelación →
