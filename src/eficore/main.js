@@ -84,8 +84,11 @@ function draw(idx) {
 
 // ── Scroll → progreso → cuadro (con lerp) + coreografía de textos ──
 let current = 0;
+const track = document.getElementById("track");
 function progress() {
-  const max = document.documentElement.scrollHeight - innerHeight;
+  // El progreso del hero se mide contra la pista, no contra el documento:
+  // debajo de la pista ahora viven las secciones de producto.
+  const max = track.offsetHeight - innerHeight;
   return max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
 }
 
