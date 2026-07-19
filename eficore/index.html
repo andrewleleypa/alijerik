@@ -105,41 +105,22 @@
     .sec .lead{margin-top:16px;font-size:clamp(15px,1.9vw,18px);color:var(--leche);max-width:560px;line-height:1.6}
     .ic{width:34px;height:34px;color:var(--terracota-luz)}
 
-    /* Mockup ilustrativo del inbox */
-    .frame{
-      margin-top:54px;border:1px solid #2A2019;border-radius:18px;overflow:hidden;
-      background:#1D1610;box-shadow:0 30px 80px rgba(0,0,0,.5);
+    /* Capturas reales: escritorio (paper) + celular (espresso) superpuesto */
+    .shots{position:relative;margin-top:54px}
+    .shots__desk{
+      width:88%;display:block;border-radius:16px;border:1px solid #2A2019;
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
     }
-    .frame__bar{display:flex;gap:7px;padding:13px 16px;border-bottom:1px solid #2A2019}
-    .frame__bar i{width:10px;height:10px;border-radius:50%;background:#3A3327}
-    .frame__body{display:grid;grid-template-columns:290px 1fr;min-height:420px}
-    .convs{border-right:1px solid #2A2019;padding:10px}
-    .conv{display:flex;gap:11px;padding:12px;border-radius:12px;align-items:center}
-    .conv.active{background:#25160e}
-    .conv .av{
-      width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
-      background:#3a1a0c;color:var(--terracota-luz);font-weight:650;font-size:14px;
+    .shots__cel{
+      position:absolute;right:0;bottom:34px;width:23%;display:block;
+      border-radius:18px;border:1px solid #3A3327;
+      box-shadow:0 34px 90px rgba(0,0,0,.65);
     }
-    .conv b{display:block;font-size:13.5px;font-weight:600;color:var(--espuma)}
-    .conv span{display:block;font-size:12px;color:var(--arena);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
-    .chip{
-      flex:none;font-size:10px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;
-      background:rgba(194,65,12,.16);color:var(--terracota-luz);border:1px solid rgba(194,65,12,.35);
+    .shots figcaption{margin-top:16px;font-size:11.5px;color:var(--arena);letter-spacing:.04em}
+    @media (max-width:760px){
+      .shots__desk{width:100%}
+      .shots__cel{width:32%;bottom:28px;right:-6px}
     }
-    .chat{display:flex;flex-direction:column}
-    .chat__head{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 20px;border-bottom:1px solid #2A2019;font-size:13px;
-    }
-    .chat__head .who{font-weight:600}
-    .chat__head .asig{color:var(--arena)}
-    .chat__head .asig b{color:var(--leche);font-weight:600}
-    .msgs{flex:1;padding:22px 20px;display:flex;flex-direction:column;gap:10px}
-    .m{max-width:62%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.45}
-    .m.in{background:#241b13;color:var(--espuma);border-bottom-left-radius:4px;align-self:flex-start}
-    .m.out{background:#3a1a0c;color:var(--espuma);border-bottom-right-radius:4px;align-self:flex-end}
-    .m time{display:block;font-size:10px;color:var(--arena);margin-top:5px;text-align:right}
-    .frame__cap{padding:14px 20px;border-top:1px solid #2A2019;font-size:11.5px;color:var(--arena);letter-spacing:.04em}
 
     /* Features */
     .grid{margin-top:54px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
@@ -204,12 +185,7 @@
 
     @media (max-width:760px){
       .sec{padding:80px 20px}
-      .frame__body{grid-template-columns:1fr}
-      .convs{display:flex;overflow-x:auto;border-right:none;border-bottom:1px solid #2A2019}
-      .conv{flex:none}
-      .conv span{max-width:120px}
       .grid{grid-template-columns:1fr}
-      .m{max-width:82%}
     }
   </style>
 </head>
@@ -258,43 +234,11 @@
       <p class="lead">Los mensajes de tus clientes dejan de vivir en el celular de alguien.
       Entran a Eficore, se asignan, y cualquiera del equipo puede ver el hilo completo.</p>
 
-      <div class="frame" role="img" aria-label="Vista ilustrativa del inbox de Eficore">
-        <div class="frame__bar"><i></i><i></i><i></i></div>
-        <div class="frame__body">
-          <div class="convs">
-            <div class="conv active">
-              <span class="av">LM</span>
-              <div><b>Laura Mendoza</b><span>Perfecto, quedo pendiente del…</span></div>
-              <span class="chip">Cobros</span>
-            </div>
-            <div class="conv">
-              <span class="av">RP</span>
-              <div><b>Roberto Pinzón</b><span>¿Me confirman la cita de mañana?</span></div>
-              <span class="chip">Nuevo</span>
-            </div>
-            <div class="conv">
-              <span class="av">CV</span>
-              <div><b>Clínica Vista Mar</b><span>Adjunto la orden firmada 📎</span></div>
-            </div>
-            <div class="conv">
-              <span class="av">JG</span>
-              <div><b>Julio García</b><span>Gracias por la atención de hoy</span></div>
-            </div>
-          </div>
-          <div class="chat">
-            <div class="chat__head">
-              <span class="who">Laura Mendoza</span>
-              <span class="asig">Atiende: <b>María</b></span>
-            </div>
-            <div class="msgs">
-              <div class="m in">Buenas, ¿me pueden decir cómo va mi trámite?<time>9:41</time></div>
-              <div class="m out">¡Buenos días, Laura! Claro que sí — ya está aprobado, hoy mismo le enviamos la confirmación.<time>9:43</time></div>
-              <div class="m in">Perfecto, quedo pendiente del correo. ¡Gracias!<time>9:44</time></div>
-            </div>
-            <div class="frame__cap">Vista ilustrativa · Las capturas reales del producto llegan con el video demo</div>
-          </div>
-        </div>
-      </div>
+      <figure class="shots">
+        <img class="shots__desk" src="/eficore-shot-desktop.jpg" alt="Eficore en escritorio: bandeja, conversación tomada y ficha del cliente (tema paper)" loading="lazy">
+        <img class="shots__cel" src="/eficore-shot-cel.jpg" alt="Eficore en el celular: búsqueda de clientes (tema espresso)" loading="lazy">
+        <figcaption>Capturas reales de la plataforma · tema paper y espresso · escritorio y celular</figcaption>
+      </figure>
     </section>
 
     <section class="sec">
