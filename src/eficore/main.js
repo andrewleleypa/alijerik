@@ -16,7 +16,7 @@ const texts = [
   { el: document.getElementById("t1"), in: 0.03, out: 0.24 },
   { el: document.getElementById("t2"), in: 0.32, out: 0.52 },
   { el: document.getElementById("t3"), in: 0.60, out: 0.78 },
-  { el: document.getElementById("t4"), in: 0.88, out: 1.01 },
+  { el: document.getElementById("t4"), in: 0.88, out: 9 }, // el cierre nunca se desvanece
 ];
 
 // ── Carga progresiva: arranca al 25%, el resto sigue en fondo ──
@@ -89,17 +89,36 @@ function progress() {
   return max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
 }
 
+// Autoplay en reposo: si el usuario está en el tope sin scrollear, la secuencia
+// se reproduce sola (ida y vuelta). Al primer scroll, el usuario retoma el control.
+let lastScroll = performance.now();
+addEventListener("scroll", () => { lastScroll = performance.now(); }, { passive: true });
+let idleFrame = 0, idleDir = 1, lastTs = 0;
+const IDLE_MS = 3500, IDLE_FPS = 9;
+
 function fade(p, tin, tout) {
   const ramp = 0.05;
   const a = Math.min((p - tin) / ramp, 1, (tout - p) / ramp);
   return Math.min(1, Math.max(0, a));
 }
 
-function tick() {
+function tick(ts) {
+  const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.1) : 0;
+  lastTs = ts;
   const p = progress();
 
   // Secuencia: p 0 → SEQ_END recorre los cuadros; después sostiene el último
-  const target = Math.min(p / SEQ_END, 1) * (FRAMES - 1);
+  let target;
+  const idle = started && p < 0.05 && performance.now() - lastScroll > IDLE_MS && loaded >= FRAMES;
+  if (idle) {
+    idleFrame += IDLE_FPS * dt * idleDir;
+    if (idleFrame >= FRAMES - 1) { idleFrame = FRAMES - 1; idleDir = -1; }
+    if (idleFrame <= 0) { idleFrame = 0; idleDir = 1; }
+    target = idleFrame;
+  } else {
+    target = Math.min(p / SEQ_END, 1) * (FRAMES - 1);
+    idleFrame = current; idleDir = 1; // el autoplay retoma desde donde quedó
+  }
   current += (target - current) * 0.18;
   // Si el cuadro destino aún no cargó, retrocede al último disponible
   let idx = Math.round(current);
