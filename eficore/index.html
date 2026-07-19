@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eficore — La plataforma de WhatsApp para equipos</title>
+  <meta name="description" content="Eficore: una sola bandeja de WhatsApp, conversaciones asignadas y supervisión real. Un producto de Alijerik." />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      background:#17120D;
+      background-image:radial-gradient(1100px 700px at 50% 34%, #261b11 0%, #17120D 68%);
+      color:#FBF5EA;
+      font-family:"Segoe UI",system-ui,sans-serif;
+      overflow:hidden;
+    }
+    #scene{position:fixed;inset:0;display:block}
+    .brand{
+      position:fixed;top:28px;left:36px;z-index:2;
+      display:flex;align-items:baseline;gap:10px;
+      letter-spacing:.18em;font-size:14px;font-weight:600;
+      color:#FBF5EA;user-select:none;
+    }
+    .brand small{letter-spacing:.08em;font-weight:400;color:#A8957E;font-size:11px}
+    .proto{
+      position:fixed;bottom:22px;right:28px;z-index:2;
+      font-size:10px;letter-spacing:.14em;color:#6F5F4E;user-select:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="brand">EFICORE <small>· un producto de Alijerik</small></div>
+  <canvas id="scene"></canvas>
+  <div class="proto">PROTOTIPO · HERO 01</div>
+  <script type="module" src="/src/eficore/main.js"></script>
+</body>
+</html>

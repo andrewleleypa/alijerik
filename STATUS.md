@@ -154,3 +154,11 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
 - `src/styles/main.css` — paleta, layout, tipografía, velos, modo lite
 - `fonts.html` / `tormenta.html` — páginas de comparación usadas para decidir (referencia)
 - `*.mjs` — herramientas de verificación (puppeteer)
+
+## 🚧 EN CURSO — Página de producto Eficore (rama `eficore-page`)
+- Hero 3D cappuccino: jarra de acero (Alijerik) + taza + corazón de la marca formándose
+  en la espuma. Prototipo 01 aprobación pendiente de JC. NO tocar main hasta cerrar.
+- Ruta nueva `/eficore/` (aditiva — las rutas legales de Meta intactas).
+- Preview: push a la rama → Cloudflare Pages genera URL de preview del branch.
+- Plan completo acordado en sesión 2026-07-19: 3 actos (elaboración → revelación →
+  inmersión estilo Mercury), tiempo real Three.js, pre-render de plan B.
