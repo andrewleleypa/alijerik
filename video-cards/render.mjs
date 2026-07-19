@@ -11,10 +11,12 @@ const here = import.meta.dirname;
 const shots = [
   ["intro.html", "intro.png", false],
   ["outro.html", "outro.png", false],
-  ["label.html?n=01&t=" + encodeURIComponent("ENTRA SIN CONTRASEÑA"), "l1.png", true],
-  ["label.html?n=02&t=" + encodeURIComponent("TODO LLEGA A UNA SOLA BANDEJA"), "l2.png", true],
-  ["label.html?n=03&t=" + encodeURIComponent("INICIA CONVERSACIONES CON PLANTILLAS"), "l3.png", true],
-  ["label.html?n=04&t=" + encodeURIComponent("ATIENDE CON EL CLIENTE COMPLETO AL LADO"), "l4.png", true],
+  ["pwa.html", "pwa.png", false],
+  ["label.html?n=01&t=" + encodeURIComponent("SEGURIDAD PRIMERO — SIN CONTRASEÑAS QUE ROBAR"), "l1.png", true],
+  ["label.html?n=02&t=" + encodeURIComponent("TODOS TUS NÚMEROS, UNA SOLA BANDEJA"), "l2.png", true],
+  ["label.html?n=03&t=" + encodeURIComponent("ESCRIBE TÚ PRIMERO — PLANTILLAS APROBADAS"), "l3.png", true],
+  ["label.html?n=04&t=" + encodeURIComponent("ATIENDE EN EQUIPO — NOTAS INTERNAS EN EL HILO"), "l4.png", true],
+  ["label.html?n=05&t=" + encodeURIComponent("NOTIFICACIONES QUE SÍ LLEGAN"), "l5.png", true],
 ];
 for (const [src, out, transparent] of shots) {
   const [file, query] = src.split("?");

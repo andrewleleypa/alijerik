@@ -55,6 +55,8 @@ function start() {
   started = true;
   loader.style.opacity = "0";
   setTimeout(() => loader.remove(), 700);
+  // Arranque suave: la escena emerge del espresso en vez de aparecer en seco
+  document.getElementById("stage").classList.add("on");
   requestAnimationFrame(tick);
 }
 
@@ -143,6 +145,7 @@ function tick(ts) {
 if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
   loadFrame(FRAMES - 1).then(() => {
     resize(); current = FRAMES - 1; draw(FRAMES - 1);
+    document.getElementById("stage").classList.add("on");
     texts[3].el.style.opacity = 1;
     loader.remove(); hint.remove();
   });
