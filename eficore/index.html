@@ -150,14 +150,13 @@
     .card h4{margin:16px 0 8px;font-size:18px;font-weight:650}
     .card p{font-size:14.5px;color:var(--leche);line-height:1.6}
 
-    /* Video */
-    .video{
-      margin-top:54px;border:1px dashed #3A3327;border-radius:20px;padding:70px 28px;
-      display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
+    /* Video demo */
+    .demo{
+      margin-top:54px;border:1px solid #2A2019;border-radius:20px;overflow:hidden;
+      background:#1D1610;box-shadow:0 30px 80px rgba(0,0,0,.5);
     }
-    .video .ic{width:52px;height:52px}
-    .video b{font-size:18px;font-weight:650}
-    .video span{font-size:13px;color:var(--arena)}
+    .demo video{width:100%;display:block}
+    .demo-cap{padding:14px 20px;border-top:1px solid #2A2019;font-size:11.5px;color:var(--arena);letter-spacing:.04em}
 
     /* CTA final */
     .cta-fin{text-align:center;padding-bottom:130px}
@@ -330,10 +329,11 @@
 
     <section class="sec">
       <p class="eyebrow">// EN ACCIÓN</p>
-      <div class="video">
-        <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,32a96,96,0,1,0,96,96A96,96,0,0,0,128,32ZM108,168V88l64,40Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48.24-94.78-64-40A8,8,0,0,0,100,88v80a8,8,0,0,0,12.24,6.78l64-40a8,8,0,0,0,0-13.56ZM116,153.57V102.43L156.91,128Z"/></svg>
-        <b>El flujo completo, en 90 segundos</b>
-        <span>Un mensaje entra, se asigna y el supervisor lo ve todo. Próximamente aquí.</span>
+      <h3>El flujo completo, en 40 segundos.</h3>
+      <p class="lead">Entrar, recibir, iniciar y atender — tal como se ve de verdad en la plataforma.</p>
+      <div class="demo">
+        <video controls playsinline preload="metadata" poster="/eficore-demo-poster.jpg" src="/eficore-demo.mp4"></video>
+        <div class="demo-cap">Grabado en la plataforma real · entorno de pruebas con datos ficticios</div>
       </div>
     </section>
 

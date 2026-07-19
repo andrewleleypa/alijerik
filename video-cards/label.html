@@ -1,0 +1,22 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{width:1920px;height:1200px;background:transparent;font-family:"Segoe UI",system-ui,sans-serif}
+  .pill{
+    position:absolute;left:56px;bottom:52px;
+    display:flex;align-items:baseline;gap:16px;
+    background:rgba(23,18,13,.88);border:1px solid #3A3327;border-radius:999px;
+    padding:20px 38px;box-shadow:0 10px 40px rgba(0,0,0,.45);
+  }
+  .num{font-size:26px;letter-spacing:.18em;color:#E8743C;font-weight:650}
+  .txt{font-size:28px;letter-spacing:.1em;color:#FBF5EA;font-weight:600}
+</style>
+<body>
+  <div class="pill"><span class="num" id="n">// 01</span><span class="txt" id="t">ENTRA SIN CONTRASEÑA</span></div>
+  <script>
+    const p = new URLSearchParams(location.search);
+    document.getElementById("n").textContent = "// " + (p.get("n") || "01");
+    document.getElementById("t").textContent = p.get("t") || "";
+  </script>
+</body>
