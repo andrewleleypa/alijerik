@@ -154,3 +154,14 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
 - `src/styles/main.css` — paleta, layout, tipografía, velos, modo lite
 - `fonts.html` / `tormenta.html` — páginas de comparación usadas para decidir (referencia)
 - `*.mjs` — herramientas de verificación (puppeteer)
+
+## ✅ EN VIVO — Página de producto Eficore (`alijerik.com/eficore/`)
+- Hero: scroll-scrub de metraje real de latte art (176 cuadros, public/eficore-seq/,
+  licencia libre ver FUENTE.md) + autoplay en reposo. Hero 01 3D descartado (historial git).
+- Secciones: capturas reales (paper+espresso, desktop+cel), 4 features Phosphor duotone,
+  video demo 47.7s editado con ffmpeg (pipeline reproducible en video-cards/), CTA WhatsApp.
+- APROBADO POR JC y mergeado a main 2026-07-19.
+- Ruta nueva `/eficore/` (aditiva — las rutas legales de Meta intactas).
+- Preview: push a la rama → Cloudflare Pages genera URL de preview del branch.
+- Plan completo acordado en sesión 2026-07-19: 3 actos (elaboración → revelación →
+  inmersión estilo Mercury), tiempo real Three.js, pre-render de plan B.

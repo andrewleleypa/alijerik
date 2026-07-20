@@ -6,3 +6,7 @@ hero-*.png
 closeup.png
 shot.png
 *.log
+video-cards/*.png
+video-cards/*.mp4
+video-cards/*.jpg
+video-cards/lista.txt

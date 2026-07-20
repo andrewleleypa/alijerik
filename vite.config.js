@@ -8,6 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "index.html",
+        eficore: "eficore/index.html",
         privacidad: "privacidad/index.html",
         eliminacion: "eliminacion-de-datos/index.html",
         condiciones: "condiciones/index.html",
