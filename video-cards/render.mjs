@@ -17,6 +17,7 @@ const shots = [
   ["label.html?n=03&t=" + encodeURIComponent("ESCRIBE TÚ PRIMERO — PLANTILLAS APROBADAS"), "l3.png", true],
   ["label.html?n=04&t=" + encodeURIComponent("ATIENDE EN EQUIPO — NOTAS INTERNAS EN EL HILO"), "l4.png", true],
   ["label.html?n=05&t=" + encodeURIComponent("NOTIFICACIONES QUE SÍ LLEGAN"), "l5.png", true],
+  ["label.html?n=06&t=" + encodeURIComponent("CAMPAÑAS — MASIVOS CON BOTÓN DE BAJA"), "l6.png", true],
 ];
 for (const [src, out, transparent] of shots) {
   const [file, query] = src.split("?");
