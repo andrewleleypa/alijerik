@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         main: "index.html",
         eficore: "eficore/index.html",
+        eficoreAlternativa: "eficore/alternativa-panamena/index.html",
         privacidad: "privacidad/index.html",
         eliminacion: "eliminacion-de-datos/index.html",
         condiciones: "condiciones/index.html",
