@@ -1,0 +1,35 @@
+# alijerik.com
+# Todo el sitio es público y queremos que se rastree.
+
+User-agent: *
+Allow: /
+
+# Rastreadores de asistentes de IA: BIENVENIDOS, a propósito.
+# La estrategia de contenido de este sitio es ser citado en respuestas de
+# ChatGPT, Gemini, Claude y Perplexity. Bloquearlos sería trabajar en contra
+# del objetivo. No agregar Disallow para estos agentes.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://alijerik.com/sitemap.xml
