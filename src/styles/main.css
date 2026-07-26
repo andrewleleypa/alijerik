@@ -495,6 +495,23 @@ a.channel:hover {
   letter-spacing: 0.03em;
 }
 .footer__links a:hover { color: var(--plasma); }
+/* Acceso para clientes existentes: deliberadamente secundario.
+   El enlace principal del panel lleva al SITIO de Eficore, no al login. */
+.panel__aside {
+  margin-top: 1.1rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  color: rgba(240, 240, 240, 0.42);
+  letter-spacing: 0.03em;
+}
+.panel__aside a {
+  color: rgba(240, 240, 240, 0.72);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(240, 240, 240, 0.22);
+  transition: color 0.2s, border-color 0.2s;
+}
+.panel__aside a:hover { color: var(--plasma); border-color: var(--plasma); }
+
 .footer__legal {
   margin-top: 1.4rem;
   font-family: "Space Mono", monospace;
