@@ -368,7 +368,9 @@
   <div class="stage-text" id="t4">
     <div class="wordmark">EFICORE</div>
     <div class="sub">LA PLATAFORMA DE WHATSAPP PARA EQUIPOS</div>
-    <a class="cta" href="https://eficore.alijerik.com" target="_blank" rel="noopener">Conocer la plataforma</a>
+    <!-- Baja al producto. NO al login: quien llega aquí no es cliente todavía,
+         y el botón promete "conocer". Mandarlo a una pantalla de acceso lo pierde. -->
+    <a class="cta" href="#producto">Conocer la plataforma</a>
     <a class="cta--precios" href="#precios">Ver precios</a>
   </div>
 
@@ -385,6 +387,7 @@
         <path d="M310 585 C 340 500, 282 440, 316 355 C 344 285, 296 225, 322 150 C 334 112, 320 78, 328 30" opacity=".8"/>
         <path d="M415 555 C 396 490, 442 435, 420 365 C 402 305, 446 250, 428 185 C 419 152, 432 118, 425 88" opacity=".4"/>
       </svg>
+      <span id="producto" aria-hidden="true"></span>
       <p class="eyebrow">// EL PRODUCTO</p>
       <h3>Una bandeja que tu equipo de verdad puede compartir.</h3>
       <p class="lead">Los mensajes de tus clientes dejan de vivir en el celular de alguien.
