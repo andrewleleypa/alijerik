@@ -10,6 +10,7 @@ export default defineConfig({
         main: "index.html",
         eficore: "eficore/index.html",
         eficoreAlternativa: "eficore/alternativa-panamena/index.html",
+        eficoreLey81: "eficore/ley-81/index.html",
         privacidad: "privacidad/index.html",
         eliminacion: "eliminacion-de-datos/index.html",
         condiciones: "condiciones/index.html",
