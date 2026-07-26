@@ -113,6 +113,17 @@
       overflow:hidden;
     }
     .sec{max-width:1080px;margin:0 auto;padding:110px 28px;position:relative}
+    /* ── Ritmo: las secciones NO deben respirar todas igual ──
+       Seis secciones con el mismo padding y el mismo ancho se leen como
+       plantilla. Ver docs/LENGUAJE-VISUAL.md §1. */
+    .sec--aire{padding-top:152px;padding-bottom:138px}
+    .sec--junto{padding-top:74px;padding-bottom:78px}
+    .sec--angosta{max-width:880px}
+    .sec h3.declara{font-size:clamp(34px,5.8vw,62px);max-width:780px}
+    @media (max-width:760px){
+      .sec--aire{padding-top:96px;padding-bottom:88px}
+      .sec--junto{padding-top:60px;padding-bottom:62px}
+    }
     /* Ecos del latte art: line-art sutil, nunca protagonista */
     .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1}
     .motif--swirl{top:-40px;right:-190px;width:640px;opacity:.07}
@@ -383,8 +394,8 @@
       </figure>
     </section>
 
-    <section class="sec">
-      <p class="eyebrow">// LO QUE RESUELVE</p>
+    <!-- Sin eyebrow a propósito: rompe la apertura repetida de las otras secciones -->
+    <section class="sec sec--junto">
       <h3>Orden, responsables y visibilidad. Sin cambiar de app.</h3>
       <div class="grid">
         <div class="card">
@@ -410,9 +421,9 @@
       </div>
     </section>
 
-    <section class="sec" id="campanas">
+    <section class="sec sec--aire" id="campanas">
       <p class="eyebrow">// CAMPAÑAS · ADD-ON</p>
-      <h3>Toda tu cartera, en un solo envío.</h3>
+      <h3>Toda tu cartera, en un solo envío</h3>
       <p class="lead">Recordatorios de pago, renovaciones, promociones: eliges la plantilla y
       a quién le llega, y sale en minutos. Las respuestas caen en la misma bandeja de tu
       equipo, listas para cerrar.</p>
@@ -470,22 +481,22 @@
       </div>
     </section>
 
-    <section class="sec">
-      <p class="eyebrow">// EN ACCIÓN</p>
-      <h3>El flujo completo, en un minuto.</h3>
-      <p class="lead">Seguridad, bandeja, plantillas, equipo, notificaciones y campañas — tal como se ve de verdad en la plataforma.</p>
+    <!-- Sin eyebrow y sin lead: entra directo al video. Segunda variación de apertura. -->
+    <section class="sec sec--junto sec--angosta">
+      <h3>El flujo completo, en un minuto</h3>
       <div class="demo">
         <video controls playsinline preload="metadata" poster="/eficore-demo-poster.jpg" src="/eficore-demo.mp4"></video>
         <div class="demo-cap">Grabado en la plataforma real · entorno de pruebas con datos ficticios</div>
       </div>
     </section>
 
-    <section class="sec" id="precios">
+    <section class="sec sec--aire" id="precios">
       <p class="eyebrow">// PRECIOS</p>
-      <h3>5 usuarios por $39. Sí, cinco.</h3>
-      <p class="lead">Por este precio, otros te venden un solo asiento — o tres. Y en campañas,
-      muchos cobran su propia tarifa por cada mensaje que mandas. Aquí no: un plan, un add-on
-      fijo, y solo la tarifa de Meta.</p>
+      <h3 class="declara">5 usuarios por $39. Sí, cinco.</h3>
+      <p class="lead">En Panamá lo normal es pagar entre $40 y $90 al mes por tres a cinco
+      agentes — y hay quien cobra $89 por cuatro. Además, muchos suman su propia tarifa por
+      cada mensaje de campaña que mandas. Aquí no: un plan, un add-on fijo, y solo la tarifa
+      de Meta a costo.</p>
 
       <div class="p-cards">
         <div class="p-card">
@@ -541,7 +552,7 @@
       </div>
     </section>
 
-    <section class="sec cta-fin">
+    <section class="sec sec--angosta cta-fin">
       <!-- Eco del corazón de la marca, en una sola línea -->
       <svg class="motif motif--heart" viewBox="0 0 48 40" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width=".7" stroke-linecap="round">
         <path d="M24 12.2 C 23 10.6, 20.6 10.2, 19.2 11.7 C 17.6 13.4, 18.8 15.2, 24 17.8 C 29.2 15.2, 30.4 13.4, 28.8 11.7 C 27.4 10.2, 25 10.6, 24 12.2 Z" transform="translate(0 8) scale(1.35) translate(-8 -6)"/>
