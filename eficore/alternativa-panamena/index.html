@@ -28,6 +28,11 @@
       --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
     }
     body{background:var(--espresso);color:var(--espuma);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.6}
+    /* Los motivos viven fuera del contenedor a propósito. Se recortan en <main>,
+       NO en body: overflow en body se propaga al viewport y no clipea nada.
+       `clip` y no `hidden` porque `hidden` fuerza overflow-y:auto y mete
+       una barra de scroll interna. */
+    main{overflow-x:clip}
     a:focus-visible,button:focus-visible{outline:2px solid var(--terracota-luz);outline-offset:3px;border-radius:6px}
 
     /* ── Barra superior ── */
@@ -95,7 +100,9 @@
     .lista{margin-top:26px;max-width:680px;list-style:none}
     .lista li{display:flex;gap:12px;align-items:flex-start;padding:9px 0;font-size:15px;color:var(--leche)}
     .lista li svg{width:19px;height:19px;flex:none;margin-top:3px;color:var(--olivo)}
-    .lista--no li svg{color:var(--arena)}
+    .lista--alcance li{align-items:flex-start}
+    .lista--alcance li svg{width:14px;height:14px;margin-top:6px;color:var(--miel)}
+    .lista--alcance li span strong{display:block;margin-bottom:2px}
 
     /* ── Aviso Ley 81 ── */
     .aviso{
@@ -179,8 +186,70 @@
       font-size:11.5px;color:#6F5F4E;letter-spacing:.04em;
     }
 
+    /* ══ Ecos del latte art: line-art detrás del contenido, nunca protagonista ══ */
+    .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1}
+    .motif--swirl{top:-60px;right:-200px;width:620px;opacity:.07}
+    .motif--heart{left:50%;top:46%;transform:translate(-50%,-50%);width:400px;opacity:.05}
+    .motif--grano{left:-140px;bottom:-40px;width:300px;opacity:.06}
+    .motif--vertido{right:-90px;top:12%;width:340px;opacity:.05}
+    .sec{isolation:isolate}
+
+    /* ══ Sangrado completo ══
+       La sección ya es hija directa de <main>, así que ocupa el ancho sola.
+       Nada de 100vw: eso suma el ancho de la barra de scroll y desborda. */
+    .shot-full{padding:0 0 8px}
+    .shot{
+      display:block;width:100%;height:auto;border-radius:14px;
+      border:1px solid #2A2019;box-shadow:0 44px 110px rgba(0,0,0,.62);
+    }
+    .shot-wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+    .shot-cap{
+      max-width:1320px;margin:18px auto 0;padding:0 28px;
+      font-size:11.5px;color:var(--arena);letter-spacing:.05em;
+    }
+    /* Franja de papel bajo la captura: el contraste espresso/espuma de la marca */
+    .franja{position:relative;padding:96px 0 76px;background:linear-gradient(180deg,#1C1510,#17120D 62%)}
+    .franja::before{
+      content:"";position:absolute;inset:0 0 auto;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(232,116,60,.35),transparent);
+    }
+
+    /* Bloque desfasado: rompe la simetría de la rejilla */
+    .desfase{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center;margin-top:44px}
+    .desfase--invertido{grid-template-columns:.85fr 1.15fr}
+    .desfase img{width:100%;height:auto;border-radius:14px;border:1px solid #2A2019;box-shadow:0 32px 76px rgba(0,0,0,.55)}
+    .desfase p{max-width:none}
+
+    /* ══ Reveal al scroll: CSS puro, contenido VISIBLE por defecto ══
+       Sin soporte de animation-timeline (o con reduced-motion) la pagina
+       se ve completa y estatica. Un rastreador nunca encuentra opacity:0. */
+    @media (prefers-reduced-motion: no-preference){
+      @supports (animation-timeline: view()){
+        .reveal{
+          animation:reveal-in linear both;
+          animation-timeline:view();
+          animation-range:entry 4% cover 26%;
+        }
+        .reveal--lento{animation-range:entry 0% cover 40%}
+        /* Piso de opacidad a .3: el reveal se siente, pero NINGÚN elemento
+           llega jamás a invisible. Si el scroll no dispara — rastreador,
+           herramienta de captura, navegador raro — el contenido igual se lee. */
+        @keyframes reveal-in{
+          from{opacity:.3;transform:translateY(26px)}
+          to{opacity:1;transform:none}
+        }
+      }
+    }
+
     @media (max-width:860px){
       .grid{grid-template-columns:1fr}
+      .desfase,.desfase--invertido{grid-template-columns:1fr;gap:28px}
+      .motif--swirl{width:400px;right:-150px;opacity:.06}
+      .motif--heart{width:280px}
+      .motif--grano{width:200px;left:-90px}
+      .motif--vertido{display:none}
+      .franja{padding:64px 0 52px}
+      .shot-wrap,.shot-cap{padding-left:20px;padding-right:20px}
     }
     @media (max-width:760px){
       .top__in,.wrap{padding-left:20px;padding-right:20px}
@@ -205,21 +274,41 @@
 
   <main>
     <section class="wrap sec sec--first">
+      <!-- Humito de la marca: vetas de vapor subiendo, cada una con su carácter -->
+      <svg class="motif motif--swirl" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#E8743C" stroke-width="1.3" stroke-linecap="round">
+        <path d="M210 560 C 186 480, 238 430, 214 350 C 192 280, 240 220, 222 150 C 212 110, 226 80, 220 48" opacity=".55"/>
+        <path d="M310 585 C 340 500, 282 440, 316 355 C 344 285, 296 225, 322 150 C 334 112, 320 78, 328 30" opacity=".8"/>
+        <path d="M415 555 C 396 490, 442 435, 420 365 C 402 305, 446 250, 428 185 C 419 152, 432 118, 425 88" opacity=".4"/>
+      </svg>
       <div class="eyebrow">COMPARATIVA</div>
       <h1>Alternativa panameña a Whaticket y Wati</h1>
       <p class="lead">Casi todas las plataformas de WhatsApp multiagente que se usan en Panamá son extranjeras, adaptadas por integradores locales. Eficore no: se diseñó, se construyó y se opera en Panamá.</p>
 
       <div class="respuesta">
         <h2>RESPUESTA CORTA</h2>
-        <p><strong>Eficore</strong> es una plataforma de WhatsApp multiagente desarrollada y operada en Panamá por Alijerik. Es una alternativa local a Whaticket, Wati, Respond.io y ManyContacts para empresas que necesitan <strong>bandeja compartida con supervisión y trazabilidad</strong>, factura fiscal panameña y tratamiento de datos alineado a la <strong>Ley 81 de 2019</strong>. Cuesta <strong>$39 al mes e incluye 5 usuarios</strong>, sin cargo de implementación.</p>
+        <p><strong>Eficore</strong> es una plataforma de WhatsApp multiagente desarrollada y operada en Panamá por Alijerik. Es una alternativa local a Whaticket, Wati, Respond.io y ManyContacts para empresas que necesitan <strong>bandeja compartida con supervisión y trazabilidad</strong>, factura fiscal panameña y tratamiento de datos alineado a la <strong>Ley 81 de 2019</strong>. Cuesta <strong>$39 al mes e incluye 5 usuarios</strong>, más <strong>$150 únicos</strong> de implementación con capacitación presencial.</p>
       </div>
     </section>
 
+    <!-- Sangrado completo: la bandeja real se sale de la grilla -->
+    <section class="franja shot-full">
+      <div class="shot-wrap reveal reveal--lento">
+        <img class="shot" src="/eficore-shot-bandeja.jpg" width="1800" height="924" loading="lazy" decoding="async"
+             alt="Bandeja compartida de Eficore: lista de conversaciones con estado y responsable, hilo con historial de plantillas enviadas, y panel del cliente a la derecha." />
+      </div>
+      <p class="shot-cap">Captura real de la plataforma. Datos de demostración: el tenant, los números y los contactos son ficticios.</p>
+    </section>
+
     <section class="wrap sec">
-      <h2>Por qué se busca una alternativa local</h2>
+      <!-- Grano de café: dos trazos, uno la veta -->
+      <svg class="motif motif--grano" viewBox="0 0 120 160" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width="1.1" stroke-linecap="round">
+        <ellipse cx="60" cy="80" rx="42" ry="66" transform="rotate(-18 60 80)"/>
+        <path d="M60 18 C 44 52, 76 108, 60 142" opacity=".8"/>
+      </svg>
+      <h2 class="reveal">Por qué se busca una alternativa local</h2>
       <p>Las plataformas internacionales funcionan bien. El problema aparece en cuatro puntos concretos que no dependen del software, sino de dónde está el proveedor.</p>
 
-      <div class="grid">
+      <div class="grid reveal">
         <article class="card">
           <div class="chip chip--miel"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A16,16,0,0,0,208,40Z" opacity="0.2"/><path d="M208,32H48A24,24,0,0,0,24,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A24,24,0,0,0,208,32Zm8,82.79c0,31.34-11.79,58.17-35,79.72A128.32,128.32,0,0,1,128,224s-88-32-88-109.21V56a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Z"/></svg></div>
           <h3>Responsabilidad sobre los datos</h3>
@@ -244,10 +333,10 @@
     </section>
 
     <section class="wrap sec">
-      <h2>Comparativa honesta</h2>
+      <h2 class="reveal">Comparativa honesta</h2>
       <p>Eficore no gana en todo. Estas son las diferencias reales frente a las opciones más usadas en Panamá.</p>
 
-      <div class="tabla-scroll">
+      <div class="tabla-scroll reveal">
         <table>
           <caption>Comparativa de plataformas de WhatsApp multiagente disponibles en Panamá &middot; julio 2026</caption>
           <thead>
@@ -272,10 +361,10 @@
               <td class="no">Cotización a medida</td>
             </tr>
             <tr>
-              <th scope="row">Cargo de implementación</th>
-              <td class="col-nuestra"><span class="si">Ninguno</span></td>
-              <td>Normalmente ninguno</td>
-              <td class="no">Frecuente</td>
+              <th scope="row">Implementación</th>
+              <td class="col-nuestra"><span class="si">$150, presencial</span></td>
+              <td>Sin cargo, pero autoservicio</td>
+              <td class="no">Frecuente, $200 a $1,000</td>
             </tr>
             <tr>
               <th scope="row">Factura fiscal panameña</th>
@@ -303,13 +392,13 @@
             </tr>
             <tr>
               <th scope="row">Integración con expediente clínico (EMR/HIS)</th>
-              <td class="col-nuestra no">Todavía no</td>
+              <td class="col-nuestra no">No; convive con él</td>
               <td>Algunas</td>
               <td>A medida, con costo</td>
             </tr>
             <tr>
               <th scope="row">Catálogo de integraciones</th>
-              <td class="col-nuestra no">Reducido</td>
+              <td class="col-nuestra no">Acotado</td>
               <td><span class="si">Amplio</span></td>
               <td>A medida</td>
             </tr>
@@ -332,24 +421,39 @@
 
       <div class="precio">
         <div class="n"><b>$39</b><span>al mes &middot; incluye 5 usuarios</span></div>
-        <p class="det">Sin cargo de implementación. Add-on de campañas masivas: <strong>$56 al mes</strong> más la tarifa de Meta por plantilla, cobrada a costo. Los precios están publicados a propósito: si un proveedor no publica precio, la cotización depende de cómo te vea.</p>
+        <p class="det">Implementación con capacitación presencial: <strong>$150, pago único</strong>. Vamos a tu oficina a configurar el número y a capacitar al equipo — no es un enlace de videollamada. La competencia local cobra entre $200 y $1,000 por lo mismo.</p>
+        <p class="det">Add-on de campañas masivas: <strong>$56 al mes</strong> más la tarifa de Meta por plantilla, cobrada a costo. Los precios están publicados a propósito: si un proveedor no publica precio, la cotización depende de cómo te vea.</p>
       </div>
     </section>
 
     <section class="wrap sec">
-      <h2>Qué <em>no</em> hace Eficore</h2>
-      <p>Vale más decirlo aquí que descubrirlo en la tercera semana.</p>
-      <ul class="lista lista--no">
-        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>No se integra todavía con expedientes clínicos ni sistemas HIS/EMR</li>
-        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>No reemplaza a un CRM completo con embudos y pronósticos de venta</li>
-        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>No tiene el catálogo de integraciones de una plataforma con años y capital</li>
+      <h2>Hasta dónde llega Eficore</h2>
+      <p>El alcance es deliberado. Eficore resuelve la conversación con el cliente y deja el resto a los sistemas que ya usas.</p>
+      <ul class="lista lista--alcance">
+        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"/></svg><span><strong>Convive con tu sistema clínico, no lo reemplaza.</strong> La conversación vive en Eficore; el expediente sigue en tu HIS. Hoy son dos sistemas separados, y para muchas clínicas esa separación es justo lo que quieren.</span></li>
+        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"/></svg><span><strong>No es un CRM.</strong> Si ya tienes uno, Eficore no compite con él ni te obliga a migrar nada.</span></li>
+        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"/></svg><span><strong>Integraciones: las que se usan.</strong> No pagas por un catálogo de doscientos conectores que nunca vas a abrir.</span></li>
       </ul>
-      <p style="margin-top:22px">Si tu operación depende de conectar WhatsApp con un expediente clínico, hoy conviene más una plataforma internacional con esa integración ya hecha. Preferimos decirlo.</p>
+      <p style="margin-top:22px">Si tu operación necesita que WhatsApp escriba directamente en el expediente clínico, dilo en la primera conversación. Es la pregunta que más rápido define si Eficore encaja, y preferimos resolverla antes de que firmes.</p>
     </section>
 
     <section class="wrap sec">
-      <h2>WhatsApp y la Ley 81</h2>
+      <!-- Vertido: el chorro que dibuja el corazón -->
+      <svg class="motif motif--vertido" viewBox="0 0 200 300" aria-hidden="true" fill="none" stroke="#E8743C" stroke-width="1.2" stroke-linecap="round">
+        <path d="M96 8 C 92 70, 108 120, 100 178" opacity=".7"/>
+        <path d="M100 178 C 74 200, 68 232, 100 246 C 132 232, 126 200, 100 178 Z" opacity=".85"/>
+      </svg>
+      <h2 class="reveal">WhatsApp y la Ley 81</h2>
       <p>La Ley 81 de 2019 y su reglamento aplican a cualquier empresa panameña que trate datos personales, incluidas las de salud. Si tu equipo atiende clientes o pacientes por WhatsApp, ese canal es tratamiento de datos: necesita finalidad clara, control de acceso, trazabilidad y una política de retención.</p>
+
+      <div class="desfase desfase--invertido reveal">
+        <img src="/eficore-shot-campana.jpg" width="1200" height="870" loading="lazy" decoding="async"
+             alt="Formulario de nueva campaña en Eficore: advierte que se excluyen los contactos con opt-out y declara que el costo de WhatsApp de Meta corre por cuenta del cliente." />
+        <div>
+          <h3>El consentimiento no es una casilla escondida</h3>
+          <p>Cuando envías una campaña, Eficore excluye automáticamente a quien pidió no recibir mensajes — no es una opción que se pueda desmarcar. Y te dice de frente que el costo de Meta corre por tu cuenta, en vez de esconderlo en la factura.</p>
+        </div>
+      </div>
 
       <div class="aviso">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M215.46,216H40.54C27.92,216,20,202.79,26.13,192.09l87.46-151.87a16,16,0,0,1,28.82,0l87.46,151.87C236,202.79,228.08,216,215.46,216Z" opacity="0.2"/><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"/></svg>
@@ -368,7 +472,7 @@
         </details>
         <details>
           <summary>¿Cuánto cuesta Eficore?</summary>
-          <p>$39 al mes, e incluye 5 usuarios. No hay cargo de implementación. Usuarios adicionales se agregan sueltos o en paquetes de cinco. El add-on de campañas masivas cuesta $56 al mes más la tarifa que cobra Meta por plantilla enviada, que se traslada a costo sin margen.</p>
+          <p>$39 al mes, e incluye 5 usuarios. La implementación con capacitación presencial cuesta $150, en un pago único; la competencia local cobra entre $200 y $1,000 por lo mismo. Usuarios adicionales se agregan sueltos o en paquetes de cinco. El add-on de campañas masivas cuesta $56 al mes más la tarifa que cobra Meta por plantilla enviada, que se traslada a costo sin margen.</p>
         </details>
         <details>
           <summary>¿Usa la API oficial de WhatsApp Business?</summary>
@@ -376,7 +480,7 @@
         </details>
         <details>
           <summary>¿Sirve para una clínica o consultorio?</summary>
-          <p>Sí. Es uno de los usos más frecuentes: varias recepcionistas atendiendo el mismo número, con un supervisor que ve toda la operación y un historial auditable que no queda en teléfonos personales. Eficore no reemplaza el expediente clínico ni se integra todavía con sistemas HIS/EMR.</p>
+          <p>Sí. Es uno de los usos más frecuentes: varias recepcionistas atendiendo el mismo número, con un supervisor que ve toda la operación y un historial auditable que no queda en teléfonos personales. Eficore convive con el expediente clínico en lugar de reemplazarlo: la conversación queda en Eficore y el expediente en tu sistema clínico.</p>
         </details>
         <details>
           <summary>¿En qué sectores se usa hoy?</summary>
@@ -398,7 +502,11 @@
     </section>
 
     <section class="wrap cta-fin">
-      <h2>¿Vale la pena para tu operación?</h2>
+      <!-- Eco del corazón de la marca, en una sola línea -->
+      <svg class="motif motif--heart" viewBox="0 0 48 40" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width=".7" stroke-linecap="round">
+        <path d="M24 12.2 C 23 10.6, 20.6 10.2, 19.2 11.7 C 17.6 13.4, 18.8 15.2, 24 17.8 C 29.2 15.2, 30.4 13.4, 28.8 11.7 C 27.4 10.2, 25 10.6, 24 12.2 Z" transform="translate(0 8) scale(1.35) translate(-8 -6)"/>
+      </svg>
+      <h2 class="reveal">¿Vale la pena para tu operación?</h2>
       <p>La forma rápida de saberlo es mirar cómo trabaja tu equipo hoy: cuántas personas responden el mismo número, quién puede ver el conjunto y qué pasa cuando alguien se va de la empresa con el celular en la mano.</p>
       <div class="btns">
         <a class="btn-p" href="https://wa.me/50760933039?text=Hola%2C%20quiero%20ver%20Eficore%20como%20alternativa%20local" target="_blank" rel="noopener">Hablar por WhatsApp</a>
@@ -463,7 +571,7 @@
           "@type": "Offer",
           "price": "39",
           "priceCurrency": "USD",
-          "description": "Plan base mensual, incluye 5 usuarios. Sin cargo de implementación.",
+          "description": "Plan base mensual, incluye 5 usuarios. Implementación con capacitación presencial: $150 en pago único.",
           "availability": "https://schema.org/InStock"
         },
         "author": {
@@ -489,7 +597,7 @@
           {
             "@type": "Question",
             "name": "¿Cuánto cuesta Eficore?",
-            "acceptedAnswer": { "@type": "Answer", "text": "$39 al mes e incluye 5 usuarios, sin cargo de implementación. Usuarios adicionales se agregan sueltos o en paquetes de cinco. El add-on de campañas masivas cuesta $56 al mes más la tarifa de Meta por plantilla, trasladada a costo." }
+            "acceptedAnswer": { "@type": "Answer", "text": "$39 al mes e incluye 5 usuarios. La implementación con capacitación presencial cuesta $150 en un pago único; la competencia local cobra entre $200 y $1,000 por lo mismo. Usuarios adicionales se agregan sueltos o en paquetes de cinco. El add-on de campañas masivas cuesta $56 al mes más la tarifa de Meta por plantilla, trasladada a costo." }
           },
           {
             "@type": "Question",
@@ -499,7 +607,7 @@
           {
             "@type": "Question",
             "name": "¿Sirve para una clínica o consultorio en Panamá?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Sí. Varias recepcionistas atienden el mismo número, un supervisor ve toda la operación y queda un historial auditable fuera de los teléfonos personales. Eficore no reemplaza el expediente clínico ni se integra todavía con sistemas HIS/EMR." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. Varias recepcionistas atienden el mismo número, un supervisor ve toda la operación y queda un historial auditable fuera de los teléfonos personales. Eficore convive con el expediente clínico en lugar de reemplazarlo: la conversación queda en Eficore y el expediente en tu sistema clínico." }
           },
           {
             "@type": "Question",
