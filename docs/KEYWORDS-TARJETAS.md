@@ -35,7 +35,7 @@ verificado (sesión 36).
 
 ### La conclusión que ordena todo el copy
 
-Una imprenta panameña cobra **$20 a $350 solo por imprimir cartón**, sin diseñar nada. Ese
+Una imprenta panameña cobra **$20 a $350 solo por imprimir tarjetas**, sin diseñar nada. Ese
 rango es el ancla de precio que ya vive en la cabeza del comprador panameño.
 
 Por eso la página **no compite contra Tu Contacto en precio** — a $25/año con una plantilla

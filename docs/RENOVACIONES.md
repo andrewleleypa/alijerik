@@ -42,7 +42,7 @@ público, no una intención:
 2. Si no renueva, **se le entregan sus archivos**: la vCard y el arte vectorial del QR.
    Son suyos.
 3. **La página sigue en línea 30 días más** después del vencimiento, para que quien ya
-   tenga el cartón impreso no se tope con un error.
+   tenga la tarjeta impresa no se tope con un error.
 
 > El punto 3 es el diferenciador que ningún competidor ofrece, y el que más va a costar
 > sostener cuando un cliente no pague. **Sostenerlo igual.** Una tarjeta apagada de golpe
