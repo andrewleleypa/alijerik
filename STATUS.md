@@ -170,8 +170,12 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
 Producto nuevo para vender desde el sitio: **tarjetas de presentación digitales con QR,
 como servicio a medida** (no plataforma self-service). Nace de la tarjeta que se le hizo
 a Arias Design; esta vez con estructura de precio corregida — se cobra el **diseño**
-(lo escaso), no el hosting (que cuesta $0 en Pages). Precios públicos: $180 único +
-$60/año · $350 + $90 · $600 + $180 (equipo ≤5). El competidor real es Kolor Media
+(lo escaso), no el hosting (que cuesta $0 en Pages). Precios públicos **corregidos el
+28-jul** (ver [`docs/adr/0002-...`](docs/adr/0002-precio-tarjetas-renovacion-plana-y-plastico-incluido.md)):
+**$179 · $349 · $599, los tres + $60/año**, con **un plástico PVC por persona diseñado e
+impreso incluido** y dominio propio en los tres planes. Lo publicado el 27-jul
+($180+$60 · $350+$90 · $600+$180, impresión por cuenta del cliente, Esencial bajo
+`alijerik.com`) quedó obsoleto en menos de 24 h. El competidor real es Kolor Media
 (cotización, no publica precio), NO Tu Contacto Panamá ($25/año, plantilla) — contra
 plantillas de $25 esa pelea se pierde. Análisis completo: `docs/KEYWORDS-TARJETAS.md`.
 

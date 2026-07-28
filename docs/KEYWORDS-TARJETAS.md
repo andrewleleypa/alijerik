@@ -46,6 +46,14 @@ Kolor Media: diseño a medida, vendido por su calidad.
 nombre. Es un autogol (§4 de `LENGUAJE-VISUAL.md`). El contraste se hace contra **la tarjeta
 de papel**, que no es un competidor sino una categoría que todo el mundo entiende.
 
+> **Actualización 28-jul-2026 — el eje del contraste se movió.** Desde
+> [`docs/adr/0002`](adr/0002-precio-tarjetas-renovacion-plana-y-plastico-incluido.md) el precio
+> **incluye el plástico impreso**, así que la comparación ya no es *"nosotros diseñamos, tú
+> imprimes"*. El contraste nuevo, que es más fuerte, es **de cantidad**: la imprenta te vende
+> una **tanda** que se congela y se acaba; nosotros entregamos **una sola** tarjeta de PVC que
+> se muestra y no se regala. El rango $20–$350 sigue siendo el ancla de precio válida — lo que
+> cambió es la frase que va después de citarlo.
+
 ---
 
 ## 2. Keywords por intención
