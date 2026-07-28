@@ -27,6 +27,11 @@
   "AI" en trazados: `node scripts/gen-qr-ati.mjs` + `node scripts/verificar-qr.mjs`.
   Pendiente del cliente ANTES de entregar: correo, número personal para la vCard, cómo
   firma, foto en alta autorizada; y quitar el conmutador de acento (marcado en el HTML).
+  **Hay DOS propuestas** (decisión JC 2026-07-27): A = `/ati` editorial crema (acento
+  verde/carmesí conmutable) y B = `/ati-b` oscura tech sobre la estética de Infinia MD
+  (noindex, con navegación cruzada A↔B marcada SOLO PROPUESTA). Gane la que gane, la
+  tarjeta final vive en `/ati` y `/ati-b` SE BORRA (de vite.config, verificar-rutas y
+  el repo). El QR ya generado apunta a `/ati` y sirve para ambas.
 
 ## Qué es
 Landing one-page para Alijerik (IT, M365, desarrollo, seguridad — Panamá).

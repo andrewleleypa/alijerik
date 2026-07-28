@@ -21,6 +21,8 @@ export default defineConfig({
         // misma razón que /jc: menos caracteres = QR menos denso al imprimir.
         // Renombrable SOLO hasta que su QR se imprima; después es intocable.
         ati: "ati/index.html",
+        // Propuesta B del mismo cliente — DEMO con noindex, se borra al decidir.
+        atiB: "ati-b/index.html",
         privacidad: "privacidad/index.html",
         eliminacion: "eliminacion-de-datos/index.html",
         condiciones: "condiciones/index.html",
