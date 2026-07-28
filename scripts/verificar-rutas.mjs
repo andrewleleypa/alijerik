@@ -17,7 +17,7 @@ const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const BASE = process.env.BASE || "http://localhost:4318";
 
 const RUTAS = [
-  "/", "/tarjetas/", "/jc/", "/eficore/", "/eficore/alternativa-panamena/",
+  "/", "/tarjetas/", "/jc/", "/ati/", "/eficore/", "/eficore/alternativa-panamena/",
   "/eficore/ley-81/", "/privacidad/", "/condiciones/", "/eliminacion-de-datos/",
 ];
 const ANCHOS = [1440, 390];

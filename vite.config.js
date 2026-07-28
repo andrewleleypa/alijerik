@@ -17,6 +17,10 @@ export default defineConfig({
         // densifica el QR y lo hace fallar al imprimirlo a 2 cm.
         tarjetas: "tarjetas/index.html",
         jc: "jc/index.html",
+        // Tarjeta del Dr. Angel Inostroza (primer cliente). Ruta corta por la
+        // misma razón que /jc: menos caracteres = QR menos denso al imprimir.
+        // Renombrable SOLO hasta que su QR se imprima; después es intocable.
+        ati: "ati/index.html",
         privacidad: "privacidad/index.html",
         eliminacion: "eliminacion-de-datos/index.html",
         condiciones: "condiciones/index.html",

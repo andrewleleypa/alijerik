@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Angel Inostroza — Médico general en Arraiján</title>
+  <meta name="description" content="Tarjeta de presentación digital del Dr. Angel Inostroza. Guarda el contacto, escribe por WhatsApp al Consultorio Médico Panamá o a Clínica Las Villas, y conoce Infinia MD." />
+  <link rel="canonical" href="https://alijerik.com/ati" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#F8F4EC" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Dr. Angel Inostroza — Médico general en Arraiján" />
+  <meta property="og:description" content="Tarjeta de presentación digital. Guarda el contacto en un toque." />
+  <meta property="og:url" content="https://alijerik.com/ati" />
+  <!-- TODO antes de entregar: og:image 1200x630 con capturar-tarjeta.mjs -->
+  <meta property="og:image" content="https://alijerik.com/ati-retrato.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      /* Paleta tomada de las webs del cliente, no inventada:
+         crema entre #F5F0E8 (consultoriomedicopanama) y #FBF8F1 (las villas);
+         carmesí y navy del Consultorio; verde profundo y teal de Las Villas;
+         azul eléctrico de infiniamd. */
+      --crema:#F8F4EC; --papel:#FFFCF5; --tinta:#181410;
+      --suave:rgba(24,20,16,.72); --tenue:rgba(24,20,16,.5);
+      --carmesi:#CE1126; --carmesi-oscuro:#A50D1E; --navy:#041E42;
+      --verde:#14302F; --teal:#2D7A78;
+      --inf-fondo:#06101D; --inf-azul:#35A7FF;
+      --display:"Fraunces",Georgia,serif;
+      --texto:"Manrope",system-ui,sans-serif;
+      /* Acento por defecto: verde Las Villas. */
+      --acento:var(--verde); --acento-hover:#0D2120; --acento-vivo:var(--teal);
+    }
+    /* ── SOLO PROPUESTA: variante carmesí conmutada por CSS puro.
+       Eliminar los radios, el conmutador y este bloque antes de entregar. ── */
+    body:has(#ac-carmesi:checked){
+      --acento:var(--carmesi); --acento-hover:var(--carmesi-oscuro); --acento-vivo:var(--carmesi);
+    }
+    .ac-radio{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+    .conmutador{position:fixed;right:14px;bottom:14px;z-index:30;display:flex;align-items:center;gap:10px;
+      padding:9px 14px;border-radius:999px;background:var(--papel);
+      box-shadow:0 6px 22px rgba(24,20,16,.14), inset 0 0 0 1px rgba(24,20,16,.1);
+      font-family:var(--texto);font-size:11px;letter-spacing:.14em;color:var(--tenue)}
+    .conmutador label{display:inline-block;width:17px;height:17px;border-radius:50%;cursor:pointer;
+      box-shadow:inset 0 0 0 1px rgba(24,20,16,.2)}
+    .conmutador .sw-verde{background:var(--verde)}
+    .conmutador .sw-carmesi{background:var(--carmesi)}
+    body:has(#ac-verde:checked) .sw-verde,
+    body:has(#ac-carmesi:checked) .sw-carmesi{box-shadow:0 0 0 2px var(--crema), 0 0 0 4px var(--tinta)}
+    /* ── fin del bloque de propuesta ── */
+
+    body{
+      background:var(--crema);color:var(--tinta);
+      font-family:var(--texto);line-height:1.6;
+      min-height:100svh;display:flex;flex-direction:column;
+    }
+    /* El clip va en main, no en body: overflow en body se propaga al viewport. */
+    main{overflow-x:clip;flex:1;position:relative;isolation:isolate}
+    a:focus-visible,label:focus-visible{outline:2px solid var(--acento-vivo);outline-offset:3px;border-radius:8px}
+
+    /* Fondo: papel cálido con una sola luz suave, nada cósmico. */
+    .fondo{position:fixed;inset:0;z-index:-2;pointer-events:none;
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 0%, rgba(45,122,120,.07) 0%, transparent 60%),
+        var(--crema);
+    }
+    /* El motivo propietario: la línea de latido que comparten sus marcas.
+       Line art, opacidad .06, detrás del contenido, sangrando fuera. */
+    .latido{position:absolute;z-index:-1;pointer-events:none;top:150px;left:-70px;width:620px;max-width:none;
+      color:var(--tinta);opacity:.06}
+
+    .tarjeta{width:100%;max-width:430px;margin:0 auto;padding-top:42px;padding-bottom:6px;padding-left:20px;padding-right:20px}
+
+    /* ── Sello: el mismo monograma que va al centro del QR ── */
+    .sello{display:flex;justify-content:center}
+    .sello svg{width:52px;height:auto;color:var(--tinta)}
+    .sello text{font-family:var(--display);font-weight:600;font-size:24px;fill:currentColor}
+
+    /* ── Retrato en arco — la geometría de sus dos clínicas.
+       Ligeramente corrido a la derecha a propósito: rompe la simetría. ── */
+    .retrato{width:min(216px,60%);margin-top:26px;margin-left:auto;margin-right:6%;position:relative}
+    .retrato img{display:block;width:100%;height:auto;aspect-ratio:5/6;object-fit:cover;object-position:top;
+      border-radius:999px 999px 18px 18px;
+      filter:saturate(.88);
+      box-shadow:0 18px 44px rgba(24,20,16,.16)}
+    /* Passe-partout: el arco repetido como línea, desfasado. */
+    .retrato::before{content:"";position:absolute;inset:-9px 9px 9px -9px;z-index:-1;
+      border-radius:999px 999px 18px 18px;border:1px solid rgba(24,20,16,.22)}
+
+    .quien{margin-top:28px;text-align:left}
+    h1{font-family:var(--display);font-weight:600;font-size:clamp(31px,8.6vw,38px);line-height:1.06;letter-spacing:-.01em}
+    h1 em{font-style:italic;font-weight:400;color:var(--acento-vivo)}
+    .cargo{margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.22em;color:var(--tenue);text-transform:uppercase}
+    .chip{
+      margin-top:14px;display:inline-flex;align-items:center;gap:7px;
+      padding:7px 14px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.13em;
+      color:var(--acento);box-shadow:inset 0 0 0 1px rgba(24,20,16,.16);
+      background:var(--papel);
+    }
+    .chip svg{width:13px;height:13px}
+
+    /* ── La única acción que importa al escanear ── */
+    .guardar{
+      margin-top:30px;display:flex;align-items:center;justify-content:center;gap:11px;
+      padding:17px 22px;border-radius:14px;text-decoration:none;
+      background:var(--acento);color:var(--crema);
+      font-weight:700;font-size:13.5px;letter-spacing:.11em;
+      box-shadow:0 12px 30px rgba(24,20,16,.18);
+      transition:background .25s ease, transform .25s ease;
+    }
+    .guardar svg{width:19px;height:19px}
+    .guardar:hover{background:var(--acento-hover);transform:translateY(-2px)}
+
+    /* ── Los dos consultorios: bloques sólidos, como las tarjetas de servicio
+       de su propia web. Cada uno con SU color de marca — no con el acento. ── */
+    .negocios{margin-top:14px;display:grid;gap:12px}
+    .negocio{border-radius:18px;padding:22px 20px 20px;color:#fff;position:relative;overflow:hidden}
+    .negocio--cmp{background:linear-gradient(160deg,#DB1830,var(--carmesi) 55%,#B01022)}
+    .negocio--clv{background:linear-gradient(160deg,#1A3D3B,var(--verde) 60%,#0E2423)}
+    .negocio__eti{font-size:10.5px;font-weight:700;letter-spacing:.22em;opacity:.78}
+    .negocio h2{font-family:var(--display);font-weight:600;font-size:23px;line-height:1.12;margin-top:9px;letter-spacing:-.005em}
+    .negocio p{margin-top:8px;font-size:13px;line-height:1.55;color:rgba(255,255,255,.82);max-width:34ch}
+    .negocio__acciones{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 14px;border-radius:999px;text-decoration:none;color:#fff;
+      font-size:12.5px;font-weight:600;letter-spacing:.02em;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.34);
+      transition:background .22s ease, box-shadow .22s ease;
+    }
+    .pill:hover{background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+    .pill svg{width:15px;height:15px;flex:none}
+
+    /* ── Infinia MD: banda a sangre completa, hija directa de <main>.
+       El único bloque oscuro de la página — su plataforma habla su idioma. ── */
+    .banda{margin-top:34px;background:var(--inf-fondo);position:relative}
+    .banda::before{content:"";position:absolute;inset:0 0 auto;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(53,167,255,.5),transparent)}
+    .banda__in{max-width:430px;margin:0 auto;padding-top:34px;padding-bottom:36px;padding-left:20px;padding-right:20px;position:relative;overflow:hidden}
+    .banda__latido{position:absolute;right:-60px;top:12px;width:300px;color:var(--inf-azul);opacity:.1;pointer-events:none}
+    .banda__eti{font-size:10.5px;font-weight:700;letter-spacing:.22em;color:var(--inf-azul)}
+    .banda h2{font-family:var(--display);font-weight:600;font-size:25px;color:#fff;margin-top:10px}
+    .banda p{margin-top:8px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.7);max-width:36ch}
+    .banda p em{color:#fff;font-style:italic}
+    .banda a{
+      margin-top:16px;display:inline-flex;align-items:center;gap:9px;
+      color:var(--inf-azul);text-decoration:none;font-size:13.5px;font-weight:700;
+      border-bottom:1px solid rgba(53,167,255,.35);padding-bottom:2px;
+    }
+    .banda a:hover{border-color:var(--inf-azul)}
+
+    /* ── El pie que convierte — discreto en la tarjeta de un cliente ── */
+    .credito{max-width:430px;margin:26px auto 0;padding-left:20px;padding-right:20px;
+      text-align:center;font-size:11.5px;color:var(--tenue);line-height:1.8}
+    .credito a{color:var(--acento);text-decoration:none;border-bottom:1px solid rgba(24,20,16,.2)}
+    .credito a:hover{border-color:var(--acento)}
+
+    footer{padding:22px 20px 30px;text-align:center;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:var(--tenue)}
+
+    @media (max-width:420px){
+      .tarjeta{padding-top:32px}
+      .retrato{margin-right:2%}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .guardar:hover{transform:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- SOLO PROPUESTA: eliminar los dos radios y el conmutador antes de entregar. -->
+  <input type="radio" name="acento" id="ac-verde" class="ac-radio" checked />
+  <input type="radio" name="acento" id="ac-carmesi" class="ac-radio" />
+
+  <div class="fondo" aria-hidden="true"></div>
+
+  <main>
+    <svg class="latido" viewBox="0 0 620 120" fill="none" aria-hidden="true">
+      <path d="M0 60 H196 L226 18 L258 102 L284 60 H620" stroke="currentColor" stroke-width="1.1"/>
+    </svg>
+
+    <article class="tarjeta">
+
+      <div class="sello">
+        <!-- El mismo monograma bajo arco que va al centro del QR impreso. -->
+        <svg viewBox="0 0 64 80" role="img" aria-label="Monograma AI">
+          <path d="M5 78 V33 A27 27 0 0 1 59 33 V78" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <text x="32" y="62" text-anchor="middle">AI</text>
+        </svg>
+      </div>
+
+      <figure class="retrato">
+        <img src="/ati-retrato.jpg" alt="Dr. Angel Inostroza, médico general" width="600" height="633" fetchpriority="high" />
+      </figure>
+
+      <header class="quien">
+        <h1>Dr. Angel <em>Inostroza</em></h1>
+        <p class="cargo">Médico general</p>
+        <p class="chip">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Z"/></svg>
+          ARRAIJÁN · PANAMÁ OESTE
+        </p>
+      </header>
+
+      <a class="guardar" href="/dr-angel-inostroza.vcf" download>
+        <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,72V208a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8H176Z" opacity="0.2"/><path d="M213.66,66.34l-40-40A8,8,0,0,0,168,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V72A8,8,0,0,0,213.66,66.34ZM160,216H96V184h64Zm40,0H176V184a16,16,0,0,0-16-16H96a16,16,0,0,0-16,16v32H56V40h96V72a8,8,0,0,0,8,8h40Z"/></svg>
+        GUARDAR CONTACTO
+      </a>
+
+      <div class="negocios">
+        <article class="negocio negocio--cmp">
+          <p class="negocio__eti">CONSULTORIO · DESDE 1995</p>
+          <h2>Consultorio Médico Panamá</h2>
+          <p>Medicina general, laboratorio clínico y odontología. Arraiján Cabecera.</p>
+          <div class="negocio__acciones">
+            <a class="pill" href="https://wa.me/50760175845">
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,32A96,96,0,0,0,44.89,176.07L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47A96,96,0,1,0,128,32Z" opacity="0.2"/><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.62-9.74,23,11.48A24,24,0,0,1,152,176Z"/></svg>
+              6017-5845
+            </a>
+            <a class="pill" href="https://www.consultoriomedicopanama.com">
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><circle cx="128" cy="128" r="96" opacity="0.2"/><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg>
+              consultoriomedicopanama.com
+            </a>
+          </div>
+        </article>
+
+        <article class="negocio negocio--clv">
+          <p class="negocio__eti">CLÍNICA · 3:00–9:00 P. M.</p>
+          <h2>Clínica Las Villas</h2>
+          <p>Atención médica en horario extendido, de lunes a viernes. Villas de Arraiján, al lado de Farmacia Real.</p>
+          <div class="negocio__acciones">
+            <a class="pill" href="https://wa.me/50762487958">
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,32A96,96,0,0,0,44.89,176.07L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47A96,96,0,1,0,128,32Z" opacity="0.2"/><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.62-9.74,23,11.48A24,24,0,0,1,152,176Z"/></svg>
+              6248-7958
+            </a>
+            <a class="pill" href="https://www.clinicalasvillasarraijan.com">
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><circle cx="128" cy="128" r="96" opacity="0.2"/><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg>
+              clinicalasvillasarraijan.com
+            </a>
+          </div>
+        </article>
+      </div>
+
+    </article>
+
+    <section class="banda">
+      <div class="banda__in">
+        <svg class="banda__latido" viewBox="0 0 300 90" fill="none" aria-hidden="true">
+          <path d="M0 45 H96 L118 14 L142 76 L162 45 H300" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        <p class="banda__eti">SU PLATAFORMA CLÍNICA</p>
+        <h2>Infinia MD</h2>
+        <p><em>Medicina inteligente, atención sin límites.</em> La práctica clínica completa, en un solo flujo.</p>
+        <a href="https://www.infiniamd.com">infiniamd.com &rarr;</a>
+      </div>
+    </section>
+
+    <p class="credito">
+      Tarjeta digital hecha en Panamá por <a href="https://alijerik.com/">Alijerik</a> ·
+      <a href="/tarjetas/">¿Quieres una así? &rarr;</a>
+    </p>
+  </main>
+
+  <footer>© 2026 DR. ANGEL INOSTROZA · ARRAIJÁN, PANAMÁ</footer>
+
+  <!-- SOLO PROPUESTA: conmutador de acento para decidir con el cliente. -->
+  <div class="conmutador" role="group" aria-label="Variante de acento (solo propuesta)">
+    ACENTO
+    <label class="sw-verde" for="ac-verde" title="Verde Las Villas"></label>
+    <label class="sw-carmesi" for="ac-carmesi" title="Carmesí Consultorio"></label>
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Angel Inostroza",
+    "honorificPrefix": "Dr.",
+    "jobTitle": "Médico general",
+    "url": "https://alijerik.com/ati",
+    "telephone": "+507-6017-5845",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Arraiján",
+      "addressRegion": "Panamá Oeste",
+      "addressCountry": "PA"
+    },
+    "worksFor": [
+      { "@type": "MedicalClinic", "name": "Consultorio Médico Panamá", "url": "https://www.consultoriomedicopanama.com" },
+      { "@type": "MedicalClinic", "name": "Clínica Las Villas", "url": "https://www.clinicalasvillasarraijan.com" }
+    ],
+    "sameAs": ["https://www.infiniamd.com"]
+  }
+  </script>
+</body>
+</html>

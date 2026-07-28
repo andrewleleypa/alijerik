@@ -19,6 +19,14 @@
   de por medio que salve un rename.
   Si se rediseña el sitio, preservarlas (o poner redirects y actualizar Meta DESPUÉS del
   review — nunca durante). Detalle: `eficore/docs/INFRAESTRUCTURA.md §7`.
+- **`/ati` = tarjeta del Dr. Angel Inostroza, PRIMER CLIENTE de tarjetas** (2026-07-27,
+  rama `feat/tarjeta-inostroza`, PROPUESTA — aún no aprobada ni impresa). La ruta es
+  renombrable SOLO hasta que su QR se imprima; después aplica la misma regla que `/jc`.
+  Look & feel derivado de las webs del cliente (Fraunces/Manrope, crema, carmesí/verde),
+  NO de los logos que mandó (clipart IA, no reducen a tamaño QR). QR con monograma
+  "AI" en trazados: `node scripts/gen-qr-ati.mjs` + `node scripts/verificar-qr.mjs`.
+  Pendiente del cliente ANTES de entregar: correo, número personal para la vCard, cómo
+  firma, foto en alta autorizada; y quitar el conmutador de acento (marcado en el HTML).
 
 ## Qué es
 Landing one-page para Alijerik (IT, M365, desarrollo, seguridad — Panamá).

@@ -1,0 +1,18 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Inostroza;Angel;Tadeo;Dr.;
+FN:Dr. Angel Inostroza
+TITLE:Medico general
+item1.TEL;TYPE=CELL,VOICE:+50760175845
+item1.X-ABLabel:Consultorio Medico Panama
+item2.TEL;TYPE=CELL,VOICE:+50762487958
+item2.X-ABLabel:Clinica Las Villas
+item3.URL:https://www.consultoriomedicopanama.com
+item3.X-ABLabel:Consultorio Medico Panama
+item4.URL:https://www.clinicalasvillasarraijan.com
+item4.X-ABLabel:Clinica Las Villas
+item5.URL:https://www.infiniamd.com
+item5.X-ABLabel:Infinia MD
+ADR;TYPE=WORK:;;;Arraijan;Panama Oeste;;Panama
+NOTE:Consultorio Medico Panama · Clinica Las Villas · Infinia MD
+END:VCARD

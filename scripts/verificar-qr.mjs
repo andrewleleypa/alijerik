@@ -17,7 +17,16 @@ const raiz = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const JSQR = resolve(raiz, "node_modules/jsqr/dist/jsQR.js");
 
-const ARCHIVOS = ["alijerik-qr.svg", "alijerik-qr-sin-logo.svg", "alijerik-qr-claro.svg"];
+/* Cada QR del sitio con la URL que DEBE decodificar. Al agregar una tarjeta
+   nueva, agregar aquí sus archivos: una sola corrida verifica todo. */
+const OBJETIVOS = [
+  { archivo: "alijerik-qr.svg", esperado: "https://alijerik.com/jc" },
+  { archivo: "alijerik-qr-sin-logo.svg", esperado: "https://alijerik.com/jc" },
+  { archivo: "alijerik-qr-claro.svg", esperado: "https://alijerik.com/jc" },
+  { archivo: "ati-qr.svg", esperado: "https://alijerik.com/ati" },
+  { archivo: "ati-qr-crema.svg", esperado: "https://alijerik.com/ati" },
+  { archivo: "ati-qr-sin-logo.svg", esperado: "https://alijerik.com/ati" },
+];
 
 /* Un QR de 2 cm fotografiado por un teléfono a distancia normal cae en este
    rango de píxeles. 120px es el caso feo: cámara vieja, lejos, poca luz. */
@@ -35,7 +44,7 @@ await pagina.addScriptTag({ path: JSQR });
 let fallos = 0;
 const filas = [];
 
-for (const archivo of ARCHIVOS) {
+for (const { archivo, esperado } of OBJETIVOS) {
   const svg = readFileSync(resolve(raiz, "public", archivo), "utf8");
 
   for (const tam of TAMANOS) {
@@ -62,7 +71,7 @@ for (const archivo of ARCHIVOS) {
       tam
     );
 
-    const ok = resultado === "https://alijerik.com/jc";
+    const ok = resultado === esperado;
     if (!ok) fallos++;
     filas.push({ archivo, px: tam, ok, leido: resultado ?? "(no decodificó)" });
   }
@@ -82,7 +91,7 @@ for (const f of filas) {
 
 console.log(
   fallos === 0
-    ? "\n  Los tres archivos decodifican en todos los tamanos probados.\n"
+    ? "\n  Todos los archivos decodifican en todos los tamanos probados.\n"
     : `\n  ${fallos} combinacion(es) fallaron. Revisar antes de mandar a imprenta.\n`
 );
 process.exit(fallos === 0 ? 0 : 1);
