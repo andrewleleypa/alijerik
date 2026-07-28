@@ -98,6 +98,18 @@
         </div>
       </section>
 
+      <!-- SILUETA A · franja a sangre completa.
+           Hija directa de .deck, fuera de .panel, para romper el compás.
+           Una captura real del producto es el activo anti-IA más fuerte que
+           existe: ninguna IA puede fabricar tu interfaz. -->
+      <section class="sangre" data-sec-reveal aria-labelledby="eficore">
+        <div class="sangre__in">
+          <img src="/eficore-shot-desktop.jpg" width="2000" height="1054" loading="lazy"
+               alt="Eficore en escritorio: la bandeja compartida, una conversación tomada por un agente y la ficha del cliente al costado." />
+          <p class="sangre__cap">Captura real de Eficore &middot; datos de demostración</p>
+        </div>
+      </section>
+
       <!-- 02 · TARJETAS DIGITALES -->
       <section class="panel" id="tarjetas" data-sec-reveal>
         <div class="panel__rail" aria-hidden="true">
@@ -107,30 +119,38 @@
         <div class="panel__body">
           <p class="panel__eyebrow">// SERVICIO · DISEÑO A MEDIDA</p>
           <h2 class="panel__title grad">TARJETAS DIGITALES</h2>
-          <p class="panel__lead">
-            Tu tarjeta de presentación como una página propia, con un código QR
-            listo para imprimir. Cambias de número o de cargo y no reimprimes
-            ni una tarjeta: el código se queda igual, lo de atrás se edita.
-          </p>
-
-          <a class="card" href="/tarjetas/">
-            <span class="card__glyph">
-              <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M104,52v52H52V52Zm100,0H152v52h52Zm-100,100H52v52h52Z" opacity="0.2"/><path d="M104,44H52A8,8,0,0,0,44,52v52a8,8,0,0,0,8,8h52a8,8,0,0,0,8-8V52A8,8,0,0,0,104,44ZM96,96H60V60H96Zm108-52H152a8,8,0,0,0-8,8v52a8,8,0,0,0,8,8h52a8,8,0,0,0,8-8V52A8,8,0,0,0,204,44Zm-8,52H160V60h36ZM104,144H52a8,8,0,0,0-8,8v52a8,8,0,0,0,8,8h52a8,8,0,0,0,8-8V152A8,8,0,0,0,104,144Zm-8,52H60V160H96Zm70-52h-6a8,8,0,0,0-8,8v54a8,8,0,0,0,8,8h6a8,8,0,0,0,0-16h-6V160h6a8,8,0,0,0,0-16Zm38,0a8,8,0,0,0-8,8v46a8,8,0,0,0,16,0V152A8,8,0,0,0,204,144Z"/></svg>
-            </span>
-            <span class="card__text">
-              <span class="card__name">Tarjetas con QR</span>
-              <span class="card__sub">desde $180 + $60 al año</span>
-            </span>
-            <span class="card__go">
-              Ver el servicio
-              <svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M192,64V168L88,64Z" opacity="0.2"/><path d="M192,56H88a8,8,0,0,0-5.66,13.66L128.69,116,58.34,186.34a8,8,0,0,0,11.32,11.32L140,127.31l46.34,46.35A8,8,0,0,0,200,168V64A8,8,0,0,0,192,56Zm-8,92.69-38.34-38.34h0L107.31,72H184Z"/></svg>
-            </span>
-          </a>
-
-          <p class="panel__aside">
-            ¿Cómo se ve una?
-            <a href="/jc">Abrir mi tarjeta &rarr;</a>
-          </p>
+          <!-- SILUETA B · bloque asimétrico.
+               A propósito NO lleva .card como el panel de Eficore: si los dos
+               paneles cierran con la misma tarjeta, vuelve la métrica uniforme
+               que esta reestructuración vino a romper. -->
+          <div class="duo">
+            <div>
+              <p class="panel__lead" style="margin-top:0">
+                Tu tarjeta de presentación como una página propia, con un código QR
+                listo para imprimir. Cambias de número o de cargo y no reimprimes
+                ni una tarjeta: el código se queda igual, lo de atrás se edita.
+              </p>
+              <div class="duo__cta">
+                <a class="btn btn--primary" href="/tarjetas/">[ VER EL SERVICIO ]</a>
+              </div>
+              <!-- Enlace, no segundo botón: dos botones no caben a la par en
+                   esta columna y apilados quedan con anchos distintos. El
+                   "acción principal + aside" ya es el lenguaje de la portada. -->
+              <p class="panel__aside" style="margin-top:1.1rem">
+                ¿Cómo se ve una?
+                <a href="/jc">Abrir una tarjeta real &rarr;</a>
+              </p>
+            </div>
+            <div>
+              <div class="duo__viz">
+                <img class="duo__qr" src="/alijerik-qr.svg" width="124" height="124" loading="lazy"
+                     alt="Código QR de Alijerik con la marca del anillo al centro, listo para imprenta." />
+                <img class="duo__cel" src="/tarjeta-jc-movil.jpg" width="780" height="1688" loading="lazy"
+                     alt="Una tarjeta digital abierta en un teléfono: nombre, cargo y botón para guardar el contacto." />
+              </div>
+              <p class="duo__pie">El QR de la izquierda abre la tarjeta de la derecha.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -144,7 +164,10 @@
           <p class="panel__eyebrow">// CANALES</p>
           <h2 class="panel__title grad">ESTABLECER CONTACTO</h2>
 
-          <ul class="channels">
+          <!-- SILUETA C · banda ancha, sin tarjeta y sin rejilla angosta.
+               Los canales se reparten a lo ancho y el panel cierra con una
+               forma que no repite ninguna de las dos anteriores. -->
+          <ul class="channels channels--banda">
             <li>
               <a class="channel" href="https://wa.me/50760933039" target="_blank" rel="noopener">
                 <span class="channel__glyph">
