@@ -108,3 +108,21 @@ explícita de JC.
 
 Especificaciones del producto: `eficore/docs/design/REFERENCIAS.md` en el repo de Eficore.
 Composición y ritmo: `docs/LENGUAJE-VISUAL.md` aquí.
+
+---
+
+## 6. Tarjetas de CLIENTES — fuera de este repo y de este dominio (REGLA DURA)
+
+Establecida el 2026-07-27, después de intentarlo mal una vez. Las tarjetas de
+presentación digitales de clientes **no viven en alijerik.com ni en este repo**:
+un cliente que entrega su tarjeta y sale el dominio de otra empresa no tiene
+presentación. `/jc` es la ÚNICA tarjeta de este sitio, porque JC es Alijerik.
+
+- Viven en el repo `~/tarjetas-clientes` → **un solo servicio** en Railway
+  (proyecto `tarjetas-clientes`) para TODOS los clientes. Nada de un ambiente
+  de Railway por cliente.
+- El dominio que ve el mundo es **del cliente**: si lo tiene se conecta al
+  servicio; si no lo tiene, conseguírselo es un ítem de la propuesta de valor.
+- **El QR de un cliente se genera SOLO cuando su dominio final existe y
+  responde.** Un QR impreso es estático y eterno. Reglas completas y guardas:
+  `tarjetas-clientes/CLAUDE.md`.
