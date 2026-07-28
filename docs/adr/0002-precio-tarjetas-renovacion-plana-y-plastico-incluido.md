@@ -110,7 +110,10 @@ Cuatro reglas que se derivan de ahí y aplican a toda cotización futura:
 **A favor**
 
 - El titular *"Se cobra el diseño, no el alojamiento"* ahora es literal y demostrable, y
-  la rejilla de precios lo prueba sola: las tres tarjetas muestran `+ $60 al año`.
+  la rejilla de precios lo prueba sola: las tres tarjetas dicen
+  **"El próximo año: solo $60"**. Esa redacción es de JC, y es mejor que el `+ $60 al año`
+  que yo había puesto: `+ $60` obliga a sumar, *"el próximo año"* pone la fecha y el alivio
+  en la misma frase.
 - Se elimina el trámite entre pagar y tener la tarjeta en la mano. El QR se imprime, se
   escanea, y el escaneo es lo que hace que el cliente renueve.
 - El argumento de "un solo plástico" diferencia contra Kolor Media (cotización, QR+NFC
@@ -130,6 +133,28 @@ Cuatro reglas que se derivan de ahí y aplican a toda cotización futura:
   `.com.pa` por más. El margen real del anual queda en ~$40–45, no en $60.
 
 ---
+
+## Corrección de la corrección — lo que JC encontró al revisar la página corriendo
+
+Dos cosas, y la segunda vale plata:
+
+1. **La renovación se redacta, no se suma.** `+ $60 al año` obliga al lector a hacer
+   aritmética. Queda **"El próximo año: solo $60"** en las tres tarjetas (más *", todo el
+   equipo"* en Equipo). Regla que sale de aquí: en una rejilla de precios, el cargo
+   recurrente se dice **cuándo llega y cuánto es**, no como operando de una suma.
+
+2. **"Más de 5 personas: cotización" estaba enterrado como último bullet del plan Equipo,
+   y JC lo encontró de casualidad buscándolo él mismo.** Es el ticket más alto de toda la
+   página viviendo dentro de una lista de chulitos, que es justo donde el ojo deja de
+   leer. Ahora es una **banda propia debajo de la rejilla** (`.mas5`), enlazada a WhatsApp
+   con mensaje precargado, y rompe a propósito la métrica de tres columnas para que se vea
+   distinta de un plan.
+
+   El bullet liberado en Equipo se reemplazó por uno que sí es una característica: *"Un QR
+   propio para cada persona"*.
+
+   **Regla general:** *"esto se cotiza"* nunca es una viñeta. Es la salida del embudo para
+   quien tiene el presupuesto más grande, y necesita su propio bloque.
 
 ## Riesgo abierto — leer antes de cerrar la primera venta
 

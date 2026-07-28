@@ -129,11 +129,27 @@
     .plan__p{margin-top:18px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
     .plan__p b{font-family:var(--display);font-weight:900;font-size:34px;letter-spacing:-.01em;color:var(--text)}
     .plan__p span{font-family:var(--mono);font-size:12px;color:var(--tenue)}
-    .plan__anual{margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--plasma)}
+    /* min-height de dos renglones: el plan Equipo lleva "todo el equipo" y envuelve.
+       Sin esto, su lista de chulitos arranca un renglón más abajo que las otras dos. */
+    .plan__anual{margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--plasma);
+      line-height:1.45;min-height:2.9em}
     .plan ul{list-style:none;margin-top:20px;padding-top:18px;border-top:1px solid #1a1f29;display:grid;gap:9px}
     .plan li{display:flex;gap:10px;font-size:13.5px;color:var(--suave);line-height:1.5}
     .plan li svg{width:15px;height:15px;flex:none;margin-top:4px;color:var(--plasma)}
     .nota-precio{margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--tenue);max-width:70ch}
+    /* Banda de "más de 5": rompe a propósito la métrica de tres columnas. Estaba como
+       último bullet del plan Equipo y JC la encontró de casualidad — siendo el ticket
+       más alto de la página, no puede vivir dentro de una lista de chulitos. */
+    .mas5{margin-top:18px;max-width:940px;display:flex;align-items:center;gap:18px;
+      padding:20px 24px;border-radius:16px;text-decoration:none;color:var(--suave);
+      background:linear-gradient(100deg,#12151f,#0b0d13 70%);border:1px solid #1d222e;
+      transition:border-color .2s ease,transform .2s ease}
+    .mas5:hover{border-color:rgba(0,229,255,.42);transform:translateY(-2px)}
+    .mas5__n{font-family:var(--display);font-weight:900;font-size:27px;line-height:1;
+      color:var(--plasma);flex:none}
+    .mas5__t{font-size:14px;line-height:1.55}
+    .mas5__t strong{display:block;color:var(--text);font-weight:600;margin-bottom:3px}
+    .mas5__go{margin-left:auto;flex:none;color:var(--plasma);font-size:20px}
 
     /* ── SILUETA 4: sección sin rejilla, solo texto y aviso ── */
     .alcance{max-width:720px}
@@ -206,6 +222,7 @@
       .prueba{grid-template-columns:1fr;gap:34px}
       .desfase{grid-template-columns:1fr;gap:30px}
       .precios{grid-template-columns:1fr;max-width:460px}
+      .mas5{max-width:460px}
       .motif--malla,.motif--esquina{display:none}
       .motif--loc-a{width:300px;right:-110px}
       .motif--loc-b{width:240px;left:-100px}
@@ -216,6 +233,11 @@
       .franja{padding:56px 0 50px}
       .respuesta{padding:24px 22px}
       .plan__quien{min-height:0}
+      /* Apilado, el texto crece a 5 renglones y el "+5" centrado queda flotando lejos
+         del título. Se ancla arriba, a la altura de la pregunta. */
+      .mas5{gap:14px;padding:18px 18px;align-items:flex-start}
+      .mas5__n{margin-top:1px}
+      .mas5__go{display:none}
     }
     @media (prefers-reduced-motion: reduce){
       .btn-p:hover{transform:none}
@@ -421,7 +443,7 @@
           <p class="plan__n">ESENCIAL</p>
           <p class="plan__quien">Una persona. Profesional independiente.</p>
           <p class="plan__p"><b>$179</b><span>pago único</span></p>
-          <p class="plan__anual">+ $60 al año</p>
+          <p class="plan__anual">El próximo año: solo $60</p>
           <ul>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Diseño a medida</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Tu plástico, diseñado e impreso</li>
@@ -436,7 +458,7 @@
           <p class="plan__n">PROFESIONAL</p>
           <p class="plan__quien">Quien la usa para vender y quiere marca propia.</p>
           <p class="plan__p"><b>$349</b><span>pago único</span></p>
-          <p class="plan__anual">+ $60 al año</p>
+          <p class="plan__anual">El próximo año: solo $60</p>
           <ul>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Todo lo de Esencial</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dominio propio: lo conseguimos y lo pagamos</li>
@@ -450,16 +472,27 @@
           <p class="plan__n">EQUIPO</p>
           <p class="plan__quien">De 2 a 5 personas con identidad unificada.</p>
           <p class="plan__p"><b>$599</b><span>pago único</span></p>
-          <p class="plan__anual">+ $60 al año, todo el equipo</p>
+          <p class="plan__anual">El próximo año: solo $60, todo el equipo</p>
           <ul>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Hasta 5 personas, un plástico cada una</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Misma identidad, datos propios</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Un dominio para todo el equipo, incluido</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Altas y bajas de personal</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Más de 5 personas: cotización</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Un QR propio para cada persona</li>
           </ul>
         </article>
       </div>
+
+      <a class="mas5" href="https://wa.me/50760933039?text=Hola%2C%20somos%20m%C3%A1s%20de%205%20personas%20y%20quiero%20cotizar%20tarjetas%20digitales%20con%20QR">
+        <span class="mas5__n">+5</span>
+        <span class="mas5__t">
+          <strong>¿Son más de cinco personas?</strong>
+          Ahí ya no aplica un plan de lista: se cotiza. La identidad se diseña una vez para
+          toda la empresa y cada persona recibe su página, su QR y su plástico. Escríbenos
+          con cuántos son.
+        </span>
+        <span class="mas5__go" aria-hidden="true">&rarr;</span>
+      </a>
 
       <p class="nota-precio">
         Precios en dólares, facturados en Panamá. El plástico va incluido: <strong>uno por
