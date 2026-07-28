@@ -41,12 +41,21 @@ for (const ruta of RUTAS) {
 
     const d = await pagina.evaluate(() => {
       const de = document.documentElement;
-      // Elementos de contenido invisibles: matan indexacion y capturas.
-      const ocultos = [...document.querySelectorAll("main *,section *,h1,h2,p")]
-        .filter((el) => {
-          const s = getComputedStyle(el);
-          return parseFloat(s.opacity) === 0 && el.textContent.trim().length > 12;
-        });
+      /* Opacidad EFECTIVA: hay que subir por los ancestros.
+         getComputedStyle(el).opacity de un <h2> devuelve "1" aunque su padre
+         tenga opacity:0 — la opacidad no se hereda como valor, se compone al
+         pintar. Mirar solo el elemento deja pasar bloques enteros invisibles
+         (fue exactamente lo que paso con .stage-text{opacity:0} en /eficore/). */
+      const opacidadReal = (el) => {
+        let o = 1;
+        for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+          o *= parseFloat(getComputedStyle(n).opacity);
+          if (o === 0) return 0;
+        }
+        return o;
+      };
+      const ocultos = [...document.querySelectorAll("main *,section *,h1,h2,h3,p,li")]
+        .filter((el) => el.textContent.trim().length > 12 && opacidadReal(el) === 0);
       return {
         desborde: de.scrollWidth - de.clientWidth,
         h1: document.querySelectorAll("h1").length,
