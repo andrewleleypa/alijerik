@@ -118,7 +118,42 @@ costar eso:
 
 ---
 
-## Trampas (las dos costaron tiempo)
+## Trampas (las tres costaron tiempo)
+
+### El shorthand `padding` que borra el margen lateral — SILENCIOSO
+
+La peor de las tres, porque **no rompe nada visible en escritorio** y estuvo en
+producción sin que nadie la notara.
+
+```css
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.sec{padding:64px 0}          /* ← MAL: anula el 28px lateral de .wrap */
+```
+
+Las secciones llevan **las dos clases en el mismo elemento** (`class="wrap sec"`).
+Misma especificidad, así que gana la que se declara después. El shorthand
+`padding:64px 0` reescribe los cuatro lados: el lateral pasa a `0`.
+
+En escritorio no se ve, porque `max-width:1080px` deja aire de sobra a los lados.
+**En móvil el texto queda pegado al borde de la pantalla.**
+
+```css
+.sec{padding-top:64px;padding-bottom:64px}   /* ← BIEN: longhand */
+```
+
+Se detectó el 2026-07-27 midiendo el borde real del texto, no la caja. Estaba en
+`/eficore/alternativa-panamena/` y `/eficore/ley-81/` desde que se publicaron.
+Aplica igual a `.cta-fin`, `.sec--aire` y a cualquier modificador que comparta
+elemento con `.wrap`.
+
+> **Cómo medirlo bien:** `getBoundingClientRect()` de un elemento devuelve la
+> **caja**, que incluye su propio padding. Un pie de foto con `padding-left:20px`
+> reporta `left: 0` aunque su texto empiece en 20. Para el borde real del texto hay
+> que medir un `Range` sobre el contenido:
+> `const r=document.createRange(); r.selectNodeContents(el); r.getBoundingClientRect()`.
+> Sin esto salen falsos positivos y se persiguen bugs que no existen.
+
+### Las otras dos
 
 ### `overflow-x` en `body` NO recorta nada
 
@@ -156,6 +191,8 @@ cualquier herramienta que renderice y capture sí. **Piso de opacidad en `.3`.**
 - [ ] ¿La captura prueba un argumento del texto, o solo decora?
 - [ ] ¿Motivos del set de latte art, a opacidad .05–.07, detrás del contenido?
 - [ ] ¿`main{overflow-x:clip}` presente?
+- [ ] ¿Ningún shorthand `padding` en clases que compartan elemento con `.wrap`?
+- [ ] ¿Medido el borde IZQUIERDO REAL del texto a 390px? (≥ 20px, con `Range`, no con la caja)
 - [ ] ¿El reveal arranca en `.3` y no en `0`?
 - [ ] ¿Sección de límites redactada como alcance y sin recomendar competencia?
 - [ ] ¿Al menos un dato numérico verificable por sección argumentativa?

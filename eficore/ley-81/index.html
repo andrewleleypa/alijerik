@@ -40,8 +40,10 @@
     .top a.back:hover{color:var(--terracota-luz)}
 
     .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
-    .sec{padding:70px 0;position:relative;isolation:isolate}
-    .sec--aire{padding:118px 0 104px}
+    /* Longhand obligatorio: `.sec` comparte elemento y especificidad con `.wrap`;
+       un shorthand anula el padding lateral y el texto queda pegado al borde. */
+    .sec{padding-top:70px;padding-bottom:70px;position:relative;isolation:isolate}
+    .sec--aire{padding-top:118px;padding-bottom:104px}
     .sec--junto{padding:48px 0 52px}
     .angosta{max-width:760px}
     .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--terracota-luz);margin-bottom:18px}
@@ -147,7 +149,7 @@
     .faq details[open] summary::before{content:"\2013"}
     .faq details p{padding:0 0 22px 28px;font-size:15px}
 
-    .cta-fin{text-align:center;padding:76px 0 96px;position:relative;isolation:isolate}
+    .cta-fin{text-align:center;padding-top:76px;padding-bottom:96px;position:relative;isolation:isolate}
     .cta-fin h2{margin:0 auto}
     .cta-fin p{margin-left:auto;margin-right:auto}
     .btns{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
@@ -184,8 +186,8 @@
 
     @media (max-width:760px){
       .top__in,.wrap{padding-left:20px;padding-right:20px}
-      .sec{padding:50px 0}
-      .sec--aire{padding:76px 0 68px}
+      .sec{padding-top:50px;padding-bottom:50px}
+      .sec--aire{padding-top:76px;padding-bottom:68px}
       .respuesta,.check{padding:26px 22px}
       .paso{padding:24px 0 24px 58px}
       .paso::before{font-size:21px;top:23px}
