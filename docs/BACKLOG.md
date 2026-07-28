@@ -5,13 +5,20 @@
 
 ---
 
-## 1. Avisos de renovación a WhatsApp y correo
+## 1. Dashboard de renovaciones + avisos a WhatsApp y correo
 
-**Estado:** diferido el 2026-07-27 por JC. *"Después lo pones en backlog porque son
-varias cosas, eso y renovaciones mías de dominio etc."*
+**Estado:** diferido el 2026-07-27 por JC, reconfirmado al cierre de la sesión
+(*"tenemos que tener un dashboard con todas las renovaciones... no lo perdamos de
+vista"*). Son la misma iniciativa en dos entregas: primero VER todo, después que
+avise solo.
 
-Hoy `scripts/renovaciones.mjs` funciona pero es **pasivo**: hay que acordarse de
-correrlo. Lo que falta es que el aviso llegue solo.
+**Lo que YA existe (no reconstruir):** `docs/renovaciones.json` +
+`scripts/renovaciones.mjs` — alarma CLI que calcula vencimientos y dice a quién
+cobrarle. Cubre SOLO clientes de tarjetas. Es pasiva: hay que acordarse de correrla.
+
+**Lo que NO existe:** un dashboard que muestre en una sola vista TODAS las
+renovaciones — clientes de tarjetas, dominios propios (alijerik.com y los que
+vengan), certificados, tokens y llaves con vencimiento. Y que el aviso llegue solo.
 
 **Alcance cuando se retome — es más grande que las tarjetas:**
 
