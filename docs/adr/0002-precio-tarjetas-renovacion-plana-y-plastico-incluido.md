@@ -89,18 +89,22 @@ empresa. La página vendía lo que la operación no iba a entregar.
 | Profesional | **$349** | **$60** | Propio, **lo consigue y lo paga Alijerik** | 1, PVC, diseñado e impreso |
 | Equipo (≤5) | **$599** | **$60** | **Uno solo** para todo el equipo, pagado por Alijerik | 1 por persona, hasta 5 |
 
-Cuatro reglas que se derivan de ahí y aplican a toda cotización futura:
+Cinco reglas que se derivan de ahí y aplican a toda cotización futura:
 
 1. **La renovación es $60. Siempre.** No importa el plan ni cuánta gente. La razón que se
    dice en voz alta es la verdadera: *es un solo dominio y un solo servidor, y eso cuesta
    lo mismo para una persona que para cinco.*
 2. **Todo plan incluye el plástico**, diseñado por nosotros e impreso. **Uno por persona.**
    No es una tanda para repartir — es la que se carga.
-3. **Todo plan lleva dominio propio.** Lo único que cambia entre tiers es **quién lo paga**:
+3. **Los $60 cubren los cambios de DATOS sin contador; el trabajo NUEVO se cotiza.** La
+   frontera está entre *datos* y *diseño*, no entre uno y tres cambios al año. Cambiar
+   número, cargo, correo, enlaces, foto o textos entra siempre. Secciones nuevas,
+   identidad nueva o rehacer la tarjeta desde cero, no.
+4. **Todo plan lleva dominio propio.** Lo único que cambia entre tiers es **quién lo paga**:
    el cliente en Esencial, Alijerik en Profesional y Equipo. Esto cierra el escenario 3
    (⚠️ *SIN RESOLVER*) de `tarjetas-clientes/CLAUDE.md` §1: se subió el piso, no se compró
    un dominio neutro.
-4. **Precios terminados en 9** ($179 / $349 / $599). Decisión de marketing de JC, no de
+5. **Precios terminados en 9** ($179 / $349 / $599). Decisión de marketing de JC, no de
    costo.
 
 ---
@@ -109,8 +113,8 @@ Cuatro reglas que se derivan de ahí y aplican a toda cotización futura:
 
 **A favor**
 
-- El titular *"Se cobra el diseño, no el alojamiento"* ahora es literal y demostrable, y
-  la rejilla de precios lo prueba sola: las tres tarjetas dicen
+- El precio se explica solo y sin contradicción: *"Un pago por hacerla. $60 al año por
+  mantenerla"*, y la rejilla lo prueba porque las tres tarjetas dicen
   **"El próximo año: solo $60"**. Esa redacción es de JC, y es mejor que el `+ $60 al año`
   que yo había puesto: `+ $60` obliga a sumar, *"el próximo año"* pone la fecha y el alivio
   en la misma frase.
@@ -155,6 +159,49 @@ Dos cosas, y la segunda vale plata:
 
    **Regla general:** *"esto se cotiza"* nunca es una viñeta. Es la salida del embudo para
    quien tiene el presupuesto más grande, y necesita su propio bloque.
+
+## Segunda pasada de JC — el titular mentía y faltaba la frontera del año
+
+3. **El `<h2>` decía "Se cobra el diseño, no el alojamiento" mientras el párrafo de abajo
+   cobraba $60 al año de alojamiento.** Lo escribí yo y se contradecía solo. JC lo cazó:
+   *"el alojamiento sí se cobra, para eso son los 60 del siguiente año"*. Queda
+   **"Un pago por hacerla. $60 al año por mantenerla."**, que es lo que de verdad pasa.
+   El argumento no se debilita — la renovación sigue siendo barata y plana; lo que se
+   corrigió fue fingir que era gratis.
+
+4. **Se fue toda mención a que el cliente lleve el QR a una imprenta.** Ya no tiene
+   sentido: el plástico va incluido. Los tres puntos donde vivía (*"listo para imprenta"*,
+   *"tú lo llevas a la imprenta que quieras"*, *"es el archivo que se manda a la
+   imprenta"*) se reencuadraron con la idea de JC: **el QR se entrega igual, suelto, y es
+   del cliente para reutilizarlo donde quiera** — vidrio del local, firma de correo,
+   rótulo, carro, etiqueta de producto. Deja de ser una tarea pendiente y pasa a ser un
+   activo que se lleva. El paso 4 del "cómo se hace" se partió en dos (*Imprimimos tu
+   plástico* / *Y el QR queda tuyo*), así que ahora son **cinco pasos**.
+
+   Se conserva a propósito el rango *"$20 a $350 por una tanda"*: ahí la imprenta es el
+   ancla de precio del mercado, no una tarea del cliente.
+
+5. **La frontera de los retrabajos, que no estaba escrita.** JC pidió aclarar que lo que
+   se sale del marco del año cuesta aparte. La discusión fue dónde poner la línea:
+
+   - **Descartado:** contador de cambios (1 al año en Esencial, 3 en Profesional) + precio
+     al cambio adicional. Cobrar por cambiar un teléfono **contradice la promesa central
+     de la página** ("cambias de número y no reimprimes"), y a Alijerik un cambio de datos
+     le cuesta ~10 minutos. Habría que llevar la cuenta de quién gastó cuántos, además.
+   - **Elegido por JC:** la línea va entre **datos y diseño**, no entre uno y dos cambios.
+     Los $60 cubren **cualquier cambio de datos, las veces que haga falta** (número, cargo,
+     correo, enlaces, foto, textos) — *"no hay contador de cambios, hay sentido común"*.
+     Se cotiza aparte el **trabajo nuevo**: secciones que no existían, cambiar la identidad
+     visual, rehacer la tarjeta desde cero.
+
+   Efecto lateral: los bullets *"Un cambio de datos al año"* y *"Tres cambios de datos al
+   año"* desaparecen. Esencial gana *"Cambios de datos, los que necesites"* y Profesional
+   gana *"Vigilamos que el dominio no venza"* — que es real (`scripts/renovaciones.mjs`) y
+   es exactamente el riesgo que el propio `tarjetas-clientes/CLAUDE.md` documenta para el
+   cliente que paga su dominio.
+
+   Va en la sección de honestidad (`<dl>`) y en una FAQ nueva, *"¿Cobran por cambiar mis
+   datos después?"*, que además tiene valor de AEO: es una pregunta que la gente escribe.
 
 ## Riesgo abierto — leer antes de cerrar la primera venta
 
