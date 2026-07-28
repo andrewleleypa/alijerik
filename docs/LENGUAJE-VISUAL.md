@@ -182,6 +182,21 @@ las capturas de verificación salieron en blanco.
 Los rastreadores leen el DOM y no se ven afectados para indexación, pero
 cualquier herramienta que renderice y capture sí. **Piso de opacidad en `.3`.**
 
+**La variante GSAP de la misma trampa (portada, 2026-07-27):**
+`gsap.from(el, {opacity: 0, scrollTrigger})` tiene `immediateRender` activo —
+aplica el `opacity: 0` **al cargar** y solo lo revierte cuando el trigger
+dispara. Un comentario en el código juraba "el contenido es visible por
+defecto"; la portada tenía 38 elementos con texto invisibles. La forma segura
+es `gsap.fromTo(el, {opacity: .3}, {opacity: 1, ...})`: estado inicial
+explícito, piso `.3`, nunca invisible. Y el estado inicial en CSS
+(`[data-reveal]`) también arranca en `.3` — el rescate `.no-anim` solo cubre
+`prefers-reduced-motion`, no un JS que falló en cargar.
+
+**Y la trampa al MEDIR opacidad:** `getComputedStyle(el).opacity` devuelve `"1"`
+aunque un ancestro tenga `opacity: 0` — la opacidad no se hereda como valor, se
+compone al pintar. Para auditar hay que multiplicar la del elemento por la de
+todos sus ancestros (ver `scripts/verificar-rutas.mjs`, `opacidadReal`).
+
 ---
 
 ## Checklist para una página nueva

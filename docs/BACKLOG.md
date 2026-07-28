@@ -38,28 +38,30 @@ entradas ya duele lo suficiente para justificarlo.
 
 ---
 
-## 2. El contenido de la portada nace invisible
+## 2. ✅ RESUELTO (mismo día) — El contenido de la portada nacía invisible
 
-**Detectado el 2026-07-27** al verificar `/tarjetas/` con la opacidad efectiva.
-
-En `/` los tres paneles bajo el hero (Eficore, Tarjetas, Contacto) — **38 elementos con
-texto** — arrancan en `opacity: 0` y solo aparecen cuando GSAP dispara el reveal al
-hacer scroll.
-
-- **Para indexación no es fatal:** los rastreadores leen el DOM y los enlaces existen.
-- **Para AEO sí importa:** cualquier herramienta que renderice sin scrollear ve una
-  portada vacía debajo del hero. Es la misma trampa que documenta
-  `LENGUAJE-VISUAL.md`, pero en la página con secuencia de hero, que usa GSAP y no CSS.
-
-**Arreglo probable:** que el `from` de GSAP sea `opacity: .3` en vez de `0`, igual que
-hace la fórmula en las páginas de contenido. Es un valor.
-
-**Por qué no se tocó:** cambia el carácter de la animación de la portada, que es la
-pieza de marca más visible del sitio. Es decisión de JC, no un arreglo de paso.
+**Detectado y arreglado el 2026-07-27.** Los tres paneles bajo el hero — 38 elementos
+con texto — nacían en `opacity:0` por el `immediateRender` de `gsap.from`+ScrollTrigger.
+JC aprobó tocarlo el mismo día ("hacemos el hero hoy mismo"): ahora es `fromTo` con piso
+`.3`, y `[data-reveal]` en CSS también arranca en `.3`. Medido después: 0 elementos
+ocultos. La trampa quedó documentada en `LENGUAJE-VISUAL.md` y en `STATUS.md`.
 
 ---
 
-## 3. Menor — enlazar `/tarjetas/` desde el pie de `/eficore/`
+## 3. Susurro "Tarjeta por Alijerik" en la tarjeta de Arias Design
+
+**Diferido por JC el 2026-07-27 — NO ejecutar sin su decisión explícita.**
+
+La idea: un pie discreto *"Tarjeta por Alijerik"* enlazando a `/tarjetas/`, para que
+cada escaneo de la tarjeta de Trini descubra que el servicio se vende (mismo circuito
+que el pie de `/jc`). La condición que no cambia: **fue un regalo — el branding
+retroactivo se le pregunta a ella primero, no se retrofitea.** Para clientes nuevos que
+pagan, la regla es la inversa: la marca va declarada desde la cotización y quitarla se
+cobra (+$60).
+
+---
+
+## 4. Menor — enlazar `/tarjetas/` desde el pie de `/eficore/`
 
 Hoy `/tarjetas/` se enlaza desde la portada y desde `/jc/`. Un enlace más desde el pie
 de `/eficore/` no sobra, pero tampoco es urgente: la portada ya la hace descubrible.
