@@ -338,7 +338,9 @@ Las cinco que él no pidió salieron de tirar del hilo de las dos que sí.
 
 ```bash
 npm run build && npx vite preview --port 4318 --strictPort   # OJO: abrir por localhost
-node scripts/verificar-rutas.mjs   # /tarjetas/ debe dar 0px desborde, 1 h1, desc 150, 0 ocultos
+node scripts/verificar-rutas.mjs   # las 9 rutas × 2 anchos deben salir con OCULTOS 0 y exit 0.
+                                   # La columna COREO (12 en /eficore/) es la coreografía del
+                                   # hero, exenta a propósito y explicada en el propio script.
 grep -n '\$180\|\$350\|\$600\|\$90 al\|Dirección en alijerik\|listo para imprenta' tarjetas/index.html
 # Solo debe salir el rango "$20 y $350" de la sección contra el papel (ancla de mercado).
 ```
@@ -352,10 +354,22 @@ mismas 9 que hay en `<summary>` del DOM.
   nosotros"* en producción y **no hay proveedor elegido**. Antes de cerrar la primera
   venta: cotizar **por unidad** (ojo con el mínimo de pedido), fijar tiempo de entrega e
   imprimir una de prueba para escanearla con tres teléfonos.
-- **No se tocó `/eficore/`.** `verificar-rutas.mjs` reporta ahí **6 elementos con opacidad
-  efectiva 0** (los H2/P del hero narrativo) en los dos anchos. Es **previo a esta rama** y
-  es justo la trampa de AEO que advierte `CLAUDE.md` §3: un rastreador no ve ese texto.
-  Queda anotado como hallazgo para otra sesión, no se arregló aquí.
+- **El hallazgo de `/eficore/` resultó ser un falso positivo, y se cerró en el verificador,
+  no en la página.** `verificar-rutas.mjs` marcaba 6 elementos con opacidad efectiva 0: son
+  los cuatro bloques `.stage-text` del hero, que aparecen y se van con el scroll
+  (`src/eficore/main.js` los mueve entre `in`/`out`). Antes de tocar nada se comprobó lo
+  único que importa: **el mensaje de cada beat ya está publicado como contenido visible más
+  abajo** — `<h1>` *"Una bandeja que tu equipo de verdad puede compartir"*, `<h2>` *"Orden,
+  responsables y visibilidad"*, *"Una sola bandeja"* y el bloque de supervisión. Un
+  rastreador sin JS **no pierde ninguna idea**.
+
+  El dato que decide el arreglo: **el verificador corre CON JavaScript**, así que gatear el
+  `opacity:0` con una clase `js` en `<html>` no lo habría limpiado. Lo único que lo ponía en
+  verde de verdad era romper la animación — que `CLAUDE.md` §1 declara la excepción del
+  sitio. Así que la exención vive en el verificador, **estrecha y con condición escrita**:
+  solo `.stage-text`, contada aparte en la columna `COREO` y **siempre impresa** (un límite
+  que no se ve se lee como "aquí no había nada"). Si algún día se mete en un `.stage-text`
+  una idea que no esté publicada en el cuerpo, la exención deja de aplicar.
 - **No se cambió el precio heredado de Arias Design** ($60/año, que ahora coincide con la
   lista). Sí quedó anotado en `docs/RENOVACIONES.md` que ella no recibió plástico.
 - **No se subió el rango "$20 a $350"** de la sección contra el papel: sigue siendo el
