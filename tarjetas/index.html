@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tarjetas de presentación digitales con QR en Panamá — Alijerik</title>
-  <meta name="description" content="Tarjeta de presentación digital con código QR, diseñada a medida en Panamá. Cambias tu información sin reimprimir. Desde $180 más $60 al año." />
+  <meta name="description" content="Tarjeta de presentación digital con código QR, diseñada a medida en Panamá. Un solo plástico que no se reparte ni se acaba. Desde $179 más $60 al año." />
   <link rel="canonical" href="https://alijerik.com/tarjetas/" />
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#05060a" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Tarjetas de presentación digitales con QR en Panamá — Alijerik" />
-  <meta property="og:description" content="Diseñada a medida. Cambias tu información sin reimprimir una sola tarjeta. Desde $180 más $60 al año." />
+  <meta property="og:description" content="Diseñada a medida, con tu plástico impreso incluido. Una sola tarjeta que no se reparte. Desde $179 más $60 al año." />
   <meta property="og:url" content="https://alijerik.com/tarjetas/" />
   <meta property="og:image" content="https://alijerik.com/alijerik-og.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -129,11 +129,27 @@
     .plan__p{margin-top:18px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
     .plan__p b{font-family:var(--display);font-weight:900;font-size:34px;letter-spacing:-.01em;color:var(--text)}
     .plan__p span{font-family:var(--mono);font-size:12px;color:var(--tenue)}
-    .plan__anual{margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--plasma)}
+    /* min-height de dos renglones: el plan Equipo lleva "todo el equipo" y envuelve.
+       Sin esto, su lista de chulitos arranca un renglón más abajo que las otras dos. */
+    .plan__anual{margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--plasma);
+      line-height:1.45;min-height:2.9em}
     .plan ul{list-style:none;margin-top:20px;padding-top:18px;border-top:1px solid #1a1f29;display:grid;gap:9px}
     .plan li{display:flex;gap:10px;font-size:13.5px;color:var(--suave);line-height:1.5}
     .plan li svg{width:15px;height:15px;flex:none;margin-top:4px;color:var(--plasma)}
     .nota-precio{margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--tenue);max-width:70ch}
+    /* Banda de "más de 5": rompe a propósito la métrica de tres columnas. Estaba como
+       último bullet del plan Equipo y JC la encontró de casualidad — siendo el ticket
+       más alto de la página, no puede vivir dentro de una lista de chulitos. */
+    .mas5{margin-top:18px;max-width:940px;display:flex;align-items:center;gap:18px;
+      padding:20px 24px;border-radius:16px;text-decoration:none;color:var(--suave);
+      background:linear-gradient(100deg,#12151f,#0b0d13 70%);border:1px solid #1d222e;
+      transition:border-color .2s ease,transform .2s ease}
+    .mas5:hover{border-color:rgba(0,229,255,.42);transform:translateY(-2px)}
+    .mas5__n{font-family:var(--display);font-weight:900;font-size:27px;line-height:1;
+      color:var(--plasma);flex:none}
+    .mas5__t{font-size:14px;line-height:1.55}
+    .mas5__t strong{display:block;color:var(--text);font-weight:600;margin-bottom:3px}
+    .mas5__go{margin-left:auto;flex:none;color:var(--plasma);font-size:20px}
 
     /* ── SILUETA 4: sección sin rejilla, solo texto y aviso ── */
     .alcance{max-width:720px}
@@ -206,6 +222,7 @@
       .prueba{grid-template-columns:1fr;gap:34px}
       .desfase{grid-template-columns:1fr;gap:30px}
       .precios{grid-template-columns:1fr;max-width:460px}
+      .mas5{max-width:460px}
       .motif--malla,.motif--esquina{display:none}
       .motif--loc-a{width:300px;right:-110px}
       .motif--loc-b{width:240px;left:-100px}
@@ -216,6 +233,11 @@
       .franja{padding:56px 0 50px}
       .respuesta{padding:24px 22px}
       .plan__quien{min-height:0}
+      /* Apilado, el texto crece a 5 renglones y el "+5" centrado queda flotando lejos
+         del título. Se ancla arriba, a la altura de la pregunta. */
+      .mas5{gap:14px;padding:18px 18px;align-items:flex-start}
+      .mas5__n{margin-top:1px}
+      .mas5__go{display:none}
     }
     @media (prefers-reduced-motion: reduce){
       .btn-p:hover{transform:none}
@@ -252,10 +274,11 @@
         <h2>RESPUESTA CORTA</h2>
         <p>
           Alijerik diseña tarjetas de presentación digitales a medida en Ciudad de Panamá.
-          Cada una es una página propia con tu identidad, más un código QR vectorial listo
-          para imprenta que guarda tu contacto en el teléfono de quien lo escanea, en un
-          toque. Desde <strong>$180 de diseño en un pago único, más $60 al año</strong> de
-          alojamiento y cambios. No es una plantilla: se construye una por una.
+          Cada una es una página propia con tu identidad, en su propio dominio, más
+          <strong>una tarjeta de plástico diseñada e impresa por nosotros</strong> con el QR
+          que guarda tu contacto en el teléfono de quien la escanea, en un toque. Desde
+          <strong>$179 en un pago único, más $60 al año</strong>. No es una plantilla: se
+          construye una por una.
         </p>
       </div>
     </section>
@@ -269,7 +292,7 @@
         </div>
         <div>
           <p class="eyebrow">// ESTO NO ES UNA MAQUETA</p>
-          <h2 class="reveal">La tarjeta de arriba está en línea ahora mismo</h2>
+          <h2 class="reveal">Esta tarjeta está en línea ahora mismo</h2>
           <p>
             Es la tarjeta que usa nuestro fundador. Puedes abrirla, tocar <strong>Guardar contacto</strong> y
             ver cómo entra a tu agenda: <a href="/jc" style="color:var(--plasma)">alijerik.com/jc</a>.
@@ -282,7 +305,8 @@
             <div>
               <p>
                 Y este es el QR real de esa tarjeta, en vector, con la marca al centro.
-                Es el archivo que se manda a la imprenta.
+                Ese archivo se entrega junto con el plástico: va impreso en la tarjeta, y
+                queda tuyo para ponerlo donde te sirva.
               </p>
             </div>
           </div>
@@ -343,17 +367,18 @@
             </tr>
             <tr>
               <th scope="row">Se entrega en la mano</th>
-              <td class="si">Sí</td>
-              <td class="col-nuestra si">Sí, con el QR impreso en la tarjeta física</td>
+              <td class="no">Sí, y te quedas sin ella</td>
+              <td class="col-nuestra si">No se entrega: se muestra, la escanean y no la sueltas</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p style="margin-top:24px">
-        La última fila importa: <strong>la tarjeta digital no reemplaza el papel, lo
-        alimenta.</strong> Lo que se imprime deja de ser una lista de datos que caduca y
-        pasa a ser una puerta que se mantiene sola.
+        La última fila es el modelo entero: <strong>dejas de repartir tarjetas.</strong>
+        Cargas un solo plástico, la otra persona lo escanea y quedas guardado en su
+        teléfono — y la tarjeta se queda contigo para el siguiente. Lo que se imprime deja
+        de ser una lista de datos que caduca y pasa a ser una puerta que se mantiene sola.
       </p>
     </section>
 
@@ -368,7 +393,7 @@
       <div class="desfase">
         <div>
           <p class="eyebrow">// CÓMO SE HACE</p>
-          <h2 class="reveal">Cuatro pasos, sin plantilla de por medio</h2>
+          <h2 class="reveal">Cinco pasos, sin plantilla de por medio</h2>
           <p style="font-size:15px">
             No hay un editor donde arrastras bloques hasta que se parezca a algo.
             La tarjeta se diseña como se diseña una pieza de marca.
@@ -395,8 +420,14 @@
           </li>
           <li>
             <div>
-              <h3>Te entregamos el QR listo para imprenta</h3>
-              <p>Vector SVG y PNG de alta resolución, probado a los tamaños en que una cámara de teléfono realmente lo lee. Tú lo llevas a la imprenta que quieras.</p>
+              <h3>Imprimimos tu plástico</h3>
+              <p>La tarjeta de PVC, con tu diseño y tu QR ya probado. Va incluida: llega lista para cargar, sin que tengas que buscar imprenta ni aprobar pruebas por tu cuenta.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Y el QR queda tuyo</h3>
+              <p>Se entrega también suelto, en vector SVG y en PNG de alta resolución. Es tuyo para reutilizarlo donde quieras: el vidrio del local, la firma del correo, un rótulo, el carro, la etiqueta de un producto. Todos abren la misma tarjeta.</p>
             </div>
           </li>
         </ol>
@@ -406,59 +437,76 @@
     <!-- ══ 5 · SILUETA DISTINTA: precios, más angostos que el cuerpo ══ -->
     <section class="wrap sec">
       <p class="eyebrow">// PRECIO</p>
-      <h2 class="reveal">Se cobra el diseño, no el alojamiento</h2>
+      <h2 class="reveal">Un pago por hacerla. $60 al año por mantenerla.</h2>
       <p style="margin-bottom:30px">
-        El trabajo está en construirla. Mantenerla en línea cuesta poco y por eso la
-        renovación cuesta poco — no al revés.
+        El trabajo grande está en construirla, y eso se paga una vez. Mantenerla viva
+        —dominio, servidor y los cambios del año— <strong>sí se cobra</strong>: son los
+        $60 del año siguiente. Cuesta lo mismo para una persona que para un equipo de
+        cinco, y por eso la renovación es la misma en los tres planes. No hay escalera de
+        alojamiento porque no hay nada que escale.
       </p>
 
       <div class="precios">
         <article class="plan">
           <p class="plan__n">ESENCIAL</p>
           <p class="plan__quien">Una persona. Profesional independiente.</p>
-          <p class="plan__p"><b>$180</b><span>pago único</span></p>
-          <p class="plan__anual">+ $60 al año</p>
+          <p class="plan__p"><b>$179</b><span>pago único</span></p>
+          <p class="plan__anual">El próximo año: solo $60</p>
           <ul>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Diseño a medida</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dirección en alijerik.com</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>QR vectorial para imprenta</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Tu plástico, diseñado e impreso</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dominio propio, que pagas tú</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>El QR en vector, tuyo para reutilizar</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Guardar contacto en un toque</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Un cambio de datos al año</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Cambios de datos, los que necesites</li>
           </ul>
         </article>
 
         <article class="plan plan--destacado">
           <p class="plan__n">PROFESIONAL</p>
           <p class="plan__quien">Quien la usa para vender y quiere marca propia.</p>
-          <p class="plan__p"><b>$350</b><span>pago único</span></p>
-          <p class="plan__anual">+ $90 al año</p>
+          <p class="plan__p"><b>$349</b><span>pago único</span></p>
+          <p class="plan__anual">El próximo año: solo $60</p>
           <ul>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Todo lo de Esencial</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Tu propio dominio</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dominio propio: lo conseguimos y lo pagamos</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Sección de servicios o portafolio</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Conteo de escaneos</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Tres cambios de datos al año</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Vigilamos que el dominio no venza</li>
           </ul>
         </article>
 
         <article class="plan">
           <p class="plan__n">EQUIPO</p>
           <p class="plan__quien">De 2 a 5 personas con identidad unificada.</p>
-          <p class="plan__p"><b>$600</b><span>pago único</span></p>
-          <p class="plan__anual">+ $180 al año, todo el equipo</p>
+          <p class="plan__p"><b>$599</b><span>pago único</span></p>
+          <p class="plan__anual">El próximo año: solo $60, todo el equipo</p>
           <ul>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Hasta 5 tarjetas</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Hasta 5 personas, un plástico cada una</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Misma identidad, datos propios</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dominio propio incluido</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Un dominio para todo el equipo, incluido</li>
             <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Altas y bajas de personal</li>
-            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Más de 5 personas: cotización</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Un QR propio para cada persona</li>
           </ul>
         </article>
       </div>
 
+      <a class="mas5" href="https://wa.me/50760933039?text=Hola%2C%20somos%20m%C3%A1s%20de%205%20personas%20y%20quiero%20cotizar%20tarjetas%20digitales%20con%20QR">
+        <span class="mas5__n">+5</span>
+        <span class="mas5__t">
+          <strong>¿Son más de cinco personas?</strong>
+          Ahí ya no aplica un plan de lista: se cotiza. La identidad se diseña una vez para
+          toda la empresa y cada persona recibe su página, su QR y su plástico. Escríbenos
+          con cuántos son.
+        </span>
+        <span class="mas5__go" aria-hidden="true">&rarr;</span>
+      </a>
+
       <p class="nota-precio">
-        Precios en dólares, facturados en Panamá. La impresión física corre por tu cuenta con
-        la imprenta que prefieras — cartón, PVC o metal: nosotros entregamos el arte listo.
+        Precios en dólares, facturados en Panamá. El plástico va incluido: <strong>uno por
+        persona</strong>, en PVC, diseñado por nosotros y ya impreso. No es una tanda para
+        repartir — es la que cargas. En Esencial el dominio lo pagas tú al registrador; en
+        Profesional y Equipo lo conseguimos y lo pagamos nosotros.
       </p>
     </section>
 
@@ -491,6 +539,16 @@
             y nunca se ve a medio armar.
           </dd>
 
+          <dt>Qué entra en los $60 y qué no</dt>
+          <dd>
+            Entra <strong>cualquier cambio de datos</strong>, las veces que haga falta
+            durante el año: número, cargo, correo, enlaces, foto, textos. No hay contador
+            de cambios — hay sentido común. Lo que no entra es el <strong>trabajo
+            nuevo</strong>: secciones que no existían, cambiar la identidad visual, rehacer
+            la tarjeta desde cero. Eso es diseño, no mantenimiento, y se cotiza aparte. Si
+            no sabes de qué lado cae lo tuyo, pregunta antes — se te dice sin compromiso.
+          </dd>
+
           <dt>Es una tarjeta, no un sitio web</dt>
           <dd>
             Una página que presenta a una persona y entrega su contacto. Si lo que necesitas
@@ -498,11 +556,12 @@
             presupuesto.
           </dd>
 
-          <dt>La tarjeta física la imprimes tú</dt>
+          <dt>Es un plástico, no una tanda</dt>
           <dd>
-            Entregamos el arte del QR en vector, probado. Va igual de bien en cartón, en PVC o en
-            metal. La imprenta la eliges tú — en Panamá hay varias buenas y vas a pagar
-            menos yendo directo que a través nuestro.
+            No recibes cien tarjetas para repartir. Recibes <strong>una</strong>, en PVC,
+            diseñada e impresa por nosotros — y esa es la idea: la muestras, la escanean y
+            quedas guardado en su teléfono mientras la tarjeta se queda contigo. Si además
+            necesitas una tanda de papel para un evento, eso se cotiza aparte.
           </dd>
         </dl>
 
@@ -526,11 +585,19 @@
       <div class="faq">
         <details>
           <summary>¿Cuánto cuesta una tarjeta de presentación digital en Panamá?</summary>
-          <p>En Alijerik, desde $180 en un pago único por el diseño, más $60 al año por alojamiento y cambios. El plan Profesional cuesta $350 más $90 al año e incluye dominio propio y conteo de escaneos. Para equipos de 2 a 5 personas son $600 más $180 al año por todo el equipo. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una en vez de rellenar un formato.</p>
+          <p>En Alijerik, desde $179 en un pago único, más $60 al año. El pago único cubre el diseño de la página, el diseño de la tarjeta de plástico y su impresión; los $60 anuales cubren el dominio, el alojamiento y los cambios de datos. La renovación es $60 en los tres planes porque es un solo dominio, valga para una persona o para un equipo de cinco. El plan Profesional cuesta $349 e incluye dominio propio pagado por Alijerik, sección de portafolio y conteo de escaneos. Para equipos de 2 a 5 personas son $599, con un plástico para cada quien. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una y llega impresa, no como un archivo que resuelves tú.</p>
         </details>
         <details>
           <summary>¿Qué incluye exactamente?</summary>
-          <p>Una página propia con tu identidad alojada en línea, un botón que guarda tu contacto en la agenda del teléfono en un toque, enlaces a WhatsApp, correo, sitio y redes, y el código QR en formato vectorial SVG más PNG de alta resolución listo para llevar a la imprenta, en cartón, PVC o metal. El QR se prueba antes de entregarlo a los tamaños en píxeles que una cámara de teléfono realmente captura de un código impreso de 2 centímetros.</p>
+          <p>Una página propia con tu identidad alojada en su propio dominio, un botón que guarda tu contacto en la agenda del teléfono en un toque, enlaces a WhatsApp, correo, sitio y redes, y una tarjeta de plástico PVC diseñada e impresa con tu código QR. También se entrega el QR en formato vectorial SVG y en PNG de alta resolución, por si algún día quieres imprimirlo en otra cosa. El QR se prueba antes de entregarlo a los tamaños en píxeles que una cámara de teléfono realmente captura de un código impreso de 2 centímetros.</p>
+        </details>
+        <details>
+          <summary>¿Cuántas tarjetas físicas me entregan?</summary>
+          <p>Una, en plástico PVC, diseñada e impresa por Alijerik y ya incluida en el precio. No son cien para repartir, y es a propósito: no entregas la tarjeta, la muestras. La otra persona escanea el QR, guarda tu contacto en un toque y tú te quedas con el plástico para el siguiente. En el plan Equipo es una por persona, hasta cinco. Si necesitas reponerla o quieres además una tanda de papel para un evento, se cotiza aparte.</p>
+        </details>
+        <details>
+          <summary>¿Cobran por cambiar mis datos después?</summary>
+          <p>No. Cambiar tu número, tu cargo, tu correo, tus enlaces, tu foto o tus textos entra en los $60 anuales, las veces que haga falta durante el año: no hay contador de cambios. Nos escribes y queda arriba el mismo día hábil. Lo que sí se cotiza aparte es el trabajo nuevo — agregar secciones que no existían, cambiar la identidad visual o rehacer la tarjeta desde cero —, porque eso es diseño y no mantenimiento.</p>
         </details>
         <details>
           <summary>¿Puedo cambiar mi información después de imprimir el QR?</summary>
@@ -538,7 +605,7 @@
         </details>
         <details>
           <summary>¿La tarjeta digital reemplaza la tarjeta de papel?</summary>
-          <p>No, y quien diga lo contrario está vendiendo de más. La tarjeta digital necesita datos o wifi para abrir; el papel funciona siempre. Lo que cambia es qué se imprime en la tarjeta física — sea cartón, PVC o metal: en vez de una lista de datos que caduca el día que cambias de número, se imprime un código que abre una tarjeta que se mantiene sola. Impresa y digital funcionan juntas.</p>
+          <p>No, y quien diga lo contrario está vendiendo de más. La tarjeta digital necesita datos o wifi para abrir; el papel funciona siempre. Lo que cambia es cuántas necesitas: en vez de una tanda de papel con una lista de datos que caduca el día que cambias de número, cargas un solo plástico con un código que abre una tarjeta que se mantiene sola. Impresa y digital funcionan juntas.</p>
         </details>
         <details>
           <summary>¿Qué pasa con mi tarjeta si dejo de pagar la renovación?</summary>
@@ -546,7 +613,7 @@
         </details>
         <details>
           <summary>¿Puedo usar mi propio dominio?</summary>
-          <p>Sí, en los planes Profesional y Equipo. En el plan Esencial la tarjeta vive en una dirección corta dentro de alijerik.com. La dirección corta no es una limitación arbitraria: mientras menos caracteres tiene la dirección, menos denso queda el código QR, y un código menos denso se lee mejor cuando se imprime pequeño o con poca luz.</p>
+          <p>Sí, en los tres planes. Tu tarjeta nunca vive bajo el dominio de Alijerik: una tarjeta de presentación que muestra la marca de otra empresa no se presenta sola. Lo que cambia entre planes es quién paga el dominio. En Esencial lo pagas tú al registrador y queda a tu nombre; en Profesional y Equipo lo buscamos, lo conectamos y lo pagamos nosotros dentro de los $60 al año. Conviene que sea corto: mientras menos caracteres tiene la dirección, menos denso queda el código QR, y un código menos denso se lee mejor cuando se imprime pequeño o con poca luz.</p>
         </details>
         <details>
           <summary>¿QR o NFC, cuál conviene?</summary>
@@ -591,7 +658,7 @@
         "@type": "Service",
         "name": "Tarjetas de presentación digitales con código QR",
         "serviceType": "Diseño de tarjeta de presentación digital",
-        "description": "Diseño a medida de tarjetas de presentación digitales con código QR vectorial listo para imprenta. La información se edita sin reimprimir las tarjetas físicas.",
+        "description": "Diseño a medida de tarjetas de presentación digitales con código QR, en Ciudad de Panamá. Incluye una tarjeta de plástico PVC diseñada e impresa, y el QR en vector para reutilizarlo donde el cliente quiera. La información se edita sin reimprimir nada.",
         "url": "https://alijerik.com/tarjetas/",
         "areaServed": { "@type": "Country", "name": "Panamá" },
         "provider": {
@@ -609,23 +676,23 @@
           {
             "@type": "Offer",
             "name": "Esencial",
-            "price": "180",
+            "price": "179",
             "priceCurrency": "USD",
-            "description": "Diseño a medida para una persona, pago único de $180 más $60 al año de alojamiento y cambios."
+            "description": "Diseño a medida para una persona, con una tarjeta de plástico PVC diseñada e impresa incluida. Pago único de $179 más $60 al año de dominio, alojamiento y cambios. El dominio propio lo paga el cliente al registrador."
           },
           {
             "@type": "Offer",
             "name": "Profesional",
-            "price": "350",
+            "price": "349",
             "priceCurrency": "USD",
-            "description": "Diseño a medida con dominio propio y conteo de escaneos, pago único de $350 más $90 al año."
+            "description": "Diseño a medida con tarjeta de plástico PVC impresa, dominio propio conseguido y pagado por Alijerik, portafolio y conteo de escaneos. Pago único de $349 más $60 al año."
           },
           {
             "@type": "Offer",
             "name": "Equipo",
-            "price": "600",
+            "price": "599",
             "priceCurrency": "USD",
-            "description": "Hasta 5 tarjetas con identidad unificada y dominio propio, pago único de $600 más $180 al año por todo el equipo."
+            "description": "Hasta 5 personas con identidad unificada, una tarjeta de plástico PVC impresa por persona y un dominio para todo el equipo incluido. Pago único de $599 más $60 al año por todo el equipo."
           }
         ]
       },
@@ -635,12 +702,22 @@
           {
             "@type": "Question",
             "name": "¿Cuánto cuesta una tarjeta de presentación digital en Panamá?",
-            "acceptedAnswer": { "@type": "Answer", "text": "En Alijerik, desde $180 en un pago único por el diseño, más $60 al año por alojamiento y cambios. El plan Profesional cuesta $350 más $90 al año e incluye dominio propio y conteo de escaneos. Para equipos de 2 a 5 personas son $600 más $180 al año por todo el equipo. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una en vez de rellenar un formato." }
+            "acceptedAnswer": { "@type": "Answer", "text": "En Alijerik, desde $179 en un pago único, más $60 al año. El pago único cubre el diseño de la página, el diseño de la tarjeta de plástico y su impresión; los $60 anuales cubren el dominio, el alojamiento y los cambios de datos. La renovación es $60 en los tres planes porque es un solo dominio, valga para una persona o para un equipo de cinco. El plan Profesional cuesta $349 e incluye dominio propio pagado por Alijerik, sección de portafolio y conteo de escaneos. Para equipos de 2 a 5 personas son $599, con un plástico para cada quien. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una y llega impresa, no como un archivo que resuelve el cliente." }
           },
           {
             "@type": "Question",
             "name": "¿Qué incluye una tarjeta de presentación digital con QR?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Una página propia con tu identidad alojada en línea, un botón que guarda tu contacto en la agenda del teléfono en un toque, enlaces a WhatsApp, correo, sitio y redes, y el código QR en formato vectorial SVG más PNG de alta resolución listo para llevar a la imprenta, en cartón, PVC o metal. El QR se prueba antes de entregarlo a los tamaños en píxeles que una cámara de teléfono realmente captura de un código impreso de 2 centímetros." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Una página propia con la identidad del cliente alojada en su propio dominio, un botón que guarda el contacto en la agenda del teléfono en un toque, enlaces a WhatsApp, correo, sitio y redes, y una tarjeta de plástico PVC diseñada e impresa con el código QR. También se entrega el QR en formato vectorial SVG y en PNG de alta resolución. El QR se prueba antes de entregarlo a los tamaños en píxeles que una cámara de teléfono realmente captura de un código impreso de 2 centímetros." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuántas tarjetas físicas incluye una tarjeta de presentación digital con QR?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Una, en plástico PVC, diseñada e impresa por Alijerik e incluida en el precio. No son cien para repartir, y es a propósito: la tarjeta no se entrega, se muestra. La otra persona escanea el QR, guarda el contacto en un toque y el plástico se queda con su dueño para el siguiente. En el plan Equipo es una por persona, hasta cinco. Reponerla o imprimir además una tanda de papel para un evento se cotiza aparte." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Alijerik cobra por cambiar los datos de la tarjeta digital?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Cambiar el número, el cargo, el correo, los enlaces, la foto o los textos entra en los $60 anuales, las veces que haga falta durante el año: no hay contador de cambios. El cliente escribe y queda arriba el mismo día hábil. Lo que sí se cotiza aparte es el trabajo nuevo: agregar secciones que no existían, cambiar la identidad visual o rehacer la tarjeta desde cero, porque eso es diseño y no mantenimiento." }
           },
           {
             "@type": "Question",
@@ -650,7 +727,7 @@
           {
             "@type": "Question",
             "name": "¿La tarjeta digital reemplaza la tarjeta de papel?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. La tarjeta digital necesita datos o wifi para abrir; el papel funciona siempre. Lo que cambia es qué se imprime en la tarjeta física, sea cartón, PVC o metal: en vez de una lista de datos que caduca el día que cambias de número, se imprime un código que abre una tarjeta que se mantiene sola. Impresa y digital funcionan juntas." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. La tarjeta digital necesita datos o wifi para abrir; el papel funciona siempre. Lo que cambia es cuántas hacen falta: en vez de una tanda de papel con una lista de datos que caduca el día que cambia el número, se carga un solo plástico con un código que abre una tarjeta que se mantiene sola. Impresa y digital funcionan juntas." }
           },
           {
             "@type": "Question",
@@ -660,7 +737,7 @@
           {
             "@type": "Question",
             "name": "¿Puedo usar mi propio dominio en una tarjeta digital?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Sí, en los planes Profesional y Equipo. En el plan Esencial la tarjeta vive en una dirección corta dentro de alijerik.com. La dirección corta no es una limitación arbitraria: mientras menos caracteres tiene la dirección, menos denso queda el código QR, y un código menos denso se lee mejor cuando se imprime pequeño o con poca luz." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí, en los tres planes. La tarjeta de un cliente nunca vive bajo el dominio de Alijerik: una tarjeta de presentación que muestra la marca de otra empresa no se presenta sola. Lo que cambia entre planes es quién paga el dominio. En Esencial lo paga el cliente al registrador y queda a su nombre; en Profesional y Equipo Alijerik lo consigue, lo conecta y lo paga dentro de los $60 al año. Conviene que sea corto: mientras menos caracteres tiene la dirección, menos denso queda el código QR, y un código menos denso se lee mejor cuando se imprime pequeño o con poca luz." }
           },
           {
             "@type": "Question",

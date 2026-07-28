@@ -96,8 +96,15 @@ lo que haya) y ponerla en `inicio` dentro de `renovaciones.json`. Es un campo.
 ### Sobre el precio de Arias en la renovación
 
 La lista nueva dice $60/año para el plan Esencial, que es exactamente lo que ella paga.
-**No hay que subirle nada.** Lo que se regaló fue el diseño ($180 de la lista nueva), y
+**No hay que subirle nada.** Lo que se regaló fue el diseño ($179 de la lista vigente), y
 eso ya pasó — no se cobra retroactivo.
+
+> **Nota 28-jul-2026 ([ADR 0002](adr/0002-precio-tarjetas-renovacion-plana-y-plastico-incluido.md)):**
+> ahora la renovación es **$60 en los tres planes**, no solo en Esencial. Para las
+> renovaciones eso simplifica todo: **el monto anual de cualquier tarjeta es $60**, sin
+> mirar qué plan compró. Lo que ya no calza con la lista nueva es que Arias **no recibió
+> plástico impreso** — desde el 28-jul el pago único lo incluye. No se le debe nada
+> retroactivo, pero si se le ofrece uno, es cortesía, no obligación.
 
 Si algún día se le agrega algo (dominio propio, más cambios), ahí sí se conversa el
 salto a Profesional. Mientras tanto queda como está: **precio heredado, sin ruido.**

@@ -170,8 +170,12 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
 Producto nuevo para vender desde el sitio: **tarjetas de presentación digitales con QR,
 como servicio a medida** (no plataforma self-service). Nace de la tarjeta que se le hizo
 a Arias Design; esta vez con estructura de precio corregida — se cobra el **diseño**
-(lo escaso), no el hosting (que cuesta $0 en Pages). Precios públicos: $180 único +
-$60/año · $350 + $90 · $600 + $180 (equipo ≤5). El competidor real es Kolor Media
+(lo escaso), no el hosting (que cuesta $0 en Pages). Precios públicos **corregidos el
+28-jul** (ver [`docs/adr/0002-...`](docs/adr/0002-precio-tarjetas-renovacion-plana-y-plastico-incluido.md)):
+**$179 · $349 · $599, los tres + $60/año**, con **un plástico PVC por persona diseñado e
+impreso incluido** y dominio propio en los tres planes. Lo publicado el 27-jul
+($180+$60 · $350+$90 · $600+$180, impresión por cuenta del cliente, Esencial bajo
+`alijerik.com`) quedó obsoleto en menos de 24 h. El competidor real es Kolor Media
 (cotización, no publica precio), NO Tu Contacto Panamá ($25/año, plantilla) — contra
 plantillas de $25 esa pelea se pierde. Análisis completo: `docs/KEYWORDS-TARJETAS.md`.
 
@@ -255,6 +259,108 @@ node scripts/capturar-tarjeta.mjs  # re-captura /jc para /tarjetas/ (dev server 
   teléfonos antes de mandar el lote.
 - **Search Console/Bing**: JC envía `/tarjetas/` y `/jc` tras el deploy.
 - Enlace a `/tarjetas/` desde el pie de `/eficore/` (menor, BACKLOG §3).
+
+## ⭐ 2026-07-28 — Tarjetas QR: el precio y los copys que JC corrigió al día siguiente
+
+> Rama `feat/tarjetas-precios-y-copys`, 3 commits, mergeada a `main`. Escrito para quien
+> no estuvo. Lo valioso de esta sesión no es el código: es **por qué el esquema de precios
+> publicado el 27-jul estaba mal**, y eso vive en
+> [`docs/adr/0002`](docs/adr/0002-precio-tarjetas-renovacion-plana-y-plastico-incluido.md).
+> Aquí va la narrativa; el ADR tiene el detalle.
+
+### Qué pasó
+
+JC leyó la página **ya publicada** y encontró dos cosas. Al desarmarlas salieron siete.
+Las cinco que él no pidió salieron de tirar del hilo de las dos que sí.
+
+**Lo que JC reportó:**
+
+1. El `<h2>` decía *"La tarjeta **de arriba** está en línea ahora mismo"* — cierto en
+   móvil, **falso en desktop**, donde la captura queda a la izquierda. Regla nueva y
+   permanente: [`feedback-copy-sin-posicion`] — el copy nunca ubica un elemento por su
+   posición en pantalla, porque el responsive reordena y el texto no.
+2. El esquema de precios estaba mal: la renovación debe ser **$60 siempre** (es un solo
+   dominio), el pago único debe **incluir el plástico impreso**, y el plástico **hay que
+   diseñarlo**.
+
+**Lo que salió al tirar del hilo:**
+
+3. El plan Esencial anunciaba *"Dirección en alijerik.com"*, que **la regla dura del
+   27-jul prohíbe** (`tarjetas-clientes/CLAUDE.md` §1). Se estaba vendiendo en producción
+   algo que la operación no iba a entregar.
+4. La respuesta de JC sobre el dominio **cerró el escenario 3 que estaba ⚠️ SIN RESOLVER**
+   en ese mismo archivo: ganó *subir el piso* (todos los planes con dominio propio), no
+   comprar un dominio neutro del producto.
+5. El `<h2>` de precios decía *"Se cobra el diseño, no el alojamiento"* mientras el párrafo
+   de abajo cobraba $60 al año de alojamiento. **Un titular mío contradiciendo mi propio
+   cuerpo de texto.**
+6. *"Más de 5 personas: cotización"* vivía como último bullet del plan Equipo. **JC lo
+   encontró de casualidad buscándolo él mismo** — el ticket más alto de la página, dentro
+   de una lista de chulitos.
+7. Toda la página mandaba al cliente a buscar imprenta. Sin sentido con el plástico
+   incluido.
+
+### Los caminos falsos (aquí es donde se pierde el tiempo la segunda vez)
+
+- **Yo asumí que "incluir la impresión" significaba una TANDA.** Pregunté si 100 o 50 por
+  persona, y levanté una objeción de margen sobre eso ($60–120 de PVC comiéndose un pago
+  único de $180). **La pregunta estaba mal planteada.** JC: *"es una sola de plástico por
+  persona, porque de esa los clientes escanean el QR y así no tienes que tener tarjetitas
+  entregables sino que ya vives en el celular de la persona"*. Con una unidad, la objeción
+  de margen se cae sola. **Lección: cuando una respuesta reencuadra el producto, el error
+  no estaba en el número sino en la pregunta.**
+- **Propuse escalar la renovación $60/$90/$180 porque es lo que hacen los SaaS.** Aquí no
+  escala nada: un servicio de Railway, un dominio por plan, también en Equipo.
+- **Propuse cobrar $25 por cambio adicional.** JC eligió la alternativa correcta: la
+  frontera va entre **datos y diseño**, no entre uno y tres cambios. Cobrar por cambiar un
+  teléfono contradice la promesa central de la página, y cuesta ~10 minutos de trabajo.
+- **Escribí `+ $60 al año` en las tarjetas de precio.** Obliga al lector a sumar. JC:
+  *"¿no va mejor decirle que la renovación el próximo año solo son 60?"*. Regla: **el cargo
+  recurrente se dice cuándo llega y cuánto es, no como operando.**
+- **Puse "más de 5 personas" como viñeta.** Regla: ***"esto se cotiza" nunca es una
+  viñeta*** — es la salida del embudo del cliente con más presupuesto y necesita su propio
+  bloque. Ahora es la banda `.mas5`, que rompe a propósito la métrica de tres columnas.
+
+### Trampas del entorno y del CSS (documentadas porque ya costaron)
+
+- **`vite preview` escucha en `localhost` (::1), NO en `127.0.0.1`.** Un puppeteer apuntado
+  a `127.0.0.1:4318` revienta con `ERR_CONNECTION_REFUSED` aunque el servidor esté vivo.
+  Usar `localhost`.
+- **Un script de puppeteer en el scratchpad no resuelve `puppeteer-core`**: la resolución
+  de módulos es relativa al archivo. Copiarlo al raíz del repo, correrlo y borrarlo.
+- **`.plan__anual` necesita `min-height` de dos renglones.** El plan Equipo lleva *", todo
+  el equipo"* y envuelve; sin el `min-height`, su lista de chulitos arranca un renglón más
+  abajo que las otras dos y la rejilla se ve chueca.
+- **Las capturas por elemento salen con la barra `sticky` encima.** Es artefacto del
+  recorte, no un bug de la página. No perseguirlo.
+
+### Cómo verificar (reproducible)
+
+```bash
+npm run build && npx vite preview --port 4318 --strictPort   # OJO: abrir por localhost
+node scripts/verificar-rutas.mjs   # /tarjetas/ debe dar 0px desborde, 1 h1, desc 150, 0 ocultos
+grep -n '\$180\|\$350\|\$600\|\$90 al\|Dirección en alijerik\|listo para imprenta' tarjetas/index.html
+# Solo debe salir el rango "$20 y $350" de la sección contra el papel (ancla de mercado).
+```
+
+Y en el JSON-LD: las 3 `Offer` en 179/349/599, y el `FAQPage` con **9** preguntas — las
+mismas 9 que hay en `<summary>` del DOM.
+
+### Lo que NO se hizo
+
+- 🔴 **Cotizar la impresión de PVC.** La página ya promete *"diseñada e impresa por
+  nosotros"* en producción y **no hay proveedor elegido**. Antes de cerrar la primera
+  venta: cotizar **por unidad** (ojo con el mínimo de pedido), fijar tiempo de entrega e
+  imprimir una de prueba para escanearla con tres teléfonos.
+- **No se tocó `/eficore/`.** `verificar-rutas.mjs` reporta ahí **6 elementos con opacidad
+  efectiva 0** (los H2/P del hero narrativo) en los dos anchos. Es **previo a esta rama** y
+  es justo la trampa de AEO que advierte `CLAUDE.md` §3: un rastreador no ve ese texto.
+  Queda anotado como hallazgo para otra sesión, no se arregló aquí.
+- **No se cambió el precio heredado de Arias Design** ($60/año, que ahora coincide con la
+  lista). Sí quedó anotado en `docs/RENOVACIONES.md` que ella no recibió plástico.
+- **No se subió el rango "$20 a $350"** de la sección contra el papel: sigue siendo el
+  ancla de precio verificada en `docs/KEYWORDS-TARJETAS.md`. Lo que cambió es la frase que
+  va después de citarlo — el contraste ahora es **una tarjeta contra una tanda**.
 
 ## ✅ EN VIVO — Página de producto Eficore (`alijerik.com/eficore/`)
 - Hero: scroll-scrub de metraje real de latte art (176 cuadros, public/eficore-seq/,
