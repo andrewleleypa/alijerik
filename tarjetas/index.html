@@ -84,7 +84,10 @@
     .prueba h2{max-width:16ch}
     .prueba p{font-size:15.5px}
     .qr-fisico{margin-top:26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-    .qr-fisico img{width:124px;height:124px;border-radius:12px;background:#fff;padding:6px;flex:none}
+    /* SIN padding ni background: el SVG ya trae su zona silenciosa de 4
+       módulos (el blanco que exige el estándar y que también se imprime).
+       Sumarle padding blanco en CSS duplica el marco y se ve enorme. */
+    .qr-fisico img{width:132px;height:132px;border-radius:10px;flex:none}
     .qr-fisico div{min-width:min(100%,230px)}
     .qr-fisico p{font-size:13.5px;color:var(--tenue);max-width:34ch}
     .pie-foto{max-width:1080px;margin:22px auto 0;padding:0 28px;font-family:var(--mono);

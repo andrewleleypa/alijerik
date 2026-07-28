@@ -572,9 +572,12 @@ a.channel:hover {
   gap: clamp(1.4rem, 4vw, 2.8rem); align-items: center;
 }
 .duo__viz { display: flex; align-items: center; justify-content: center; gap: clamp(.7rem, 2vw, 1.2rem); }
+/* SIN padding ni background: el SVG del QR ya trae su zona silenciosa de 4
+   módulos — el blanco que exige el estándar. Padding blanco encima duplica
+   el marco y se ve enorme (lo reportó JC desde el celular). */
 .duo__qr {
-  width: clamp(92px, 12vw, 124px); height: auto; flex: none;
-  border-radius: 12px; background: #fff; padding: 7px;
+  width: clamp(98px, 12vw, 132px); height: auto; flex: none;
+  border-radius: 10px;
 }
 .duo__cel {
   width: clamp(104px, 14vw, 142px); height: auto; flex: none;
