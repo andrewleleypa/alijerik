@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarjetas de presentación digitales con QR en Panamá — Alijerik</title>
+  <meta name="description" content="Tarjeta de presentación digital con código QR, diseñada a medida en Panamá. Cambias tu información sin reimprimir. Desde $180 más $60 al año." />
+  <link rel="canonical" href="https://alijerik.com/tarjetas/" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon-180.png" />
+  <meta name="theme-color" content="#05060a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Tarjetas de presentación digitales con QR en Panamá — Alijerik" />
+  <meta property="og:description" content="Diseñada a medida. Cambias tu información sin reimprimir una sola tarjeta. Desde $180 más $60 al año." />
+  <meta property="og:url" content="https://alijerik.com/tarjetas/" />
+  <meta property="og:image" content="https://alijerik.com/alijerik-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --void:#05060a; --deep:#0a0a0f; --panel:#0e1017;
+      --plasma:#00e5ff; --lava:#ff3d00; --nebula:#7b2fff;
+      --text:#f0f0f0; --suave:rgba(240,240,240,.72); --tenue:rgba(240,240,240,.46);
+      --display:"Orbitron",system-ui,sans-serif;
+      --mono:"Space Mono",ui-monospace,monospace;
+      --texto:"Segoe UI",system-ui,-apple-system,sans-serif;
+    }
+    body{background:var(--void);color:var(--text);font-family:var(--texto);line-height:1.68}
+    /* El clip va en <main>, NO en body: en body se propaga al viewport y no
+       recorta nada. `clip` y no `hidden` para no meter scroll interno ni
+       romper el position:sticky de la barra. */
+    main{overflow-x:clip}
+    a:focus-visible,summary:focus-visible{outline:2px solid var(--plasma);outline-offset:3px;border-radius:6px}
+
+    /* ── Barra ── */
+    .top{position:sticky;top:0;z-index:20;background:rgba(5,6,10,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,229,255,.1)}
+    .top__in{max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .top .wm{font-family:var(--display);font-weight:900;letter-spacing:.24em;font-size:13px;color:var(--text);text-decoration:none}
+    .top .back{font-family:var(--mono);color:var(--tenue);text-decoration:none;font-size:12.5px;transition:color .2s}
+    .top .back:hover{color:var(--plasma)}
+
+    .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+    /* OJO: en longhand a propósito. `.sec` y `.wrap` van en el MISMO elemento
+       y tienen la misma especificidad; un shorthand `padding:66px 0` aquí gana
+       por orden y anula el padding lateral de `.wrap`, dejando el texto pegado
+       al borde en móvil. */
+    .sec{padding-top:66px;padding-bottom:66px;position:relative;isolation:isolate}
+    .sec--first{padding-top:74px}
+    .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;color:var(--plasma);margin-bottom:18px}
+    h1{font-family:var(--display);font-weight:900;font-size:clamp(29px,5vw,50px);line-height:1.08;letter-spacing:-.01em;max-width:14ch}
+    h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,3.4vw,34px);line-height:1.16;letter-spacing:0;max-width:20ch;margin-bottom:18px}
+    h3{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.02em;margin-bottom:8px}
+    p{font-size:16px;color:var(--suave);max-width:66ch}
+    p+p{margin-top:14px}
+    .lead{margin-top:22px;font-size:clamp(16px,2vw,18.5px);max-width:60ch}
+    strong{color:var(--text);font-weight:600}
+    .grad{color:transparent;background:linear-gradient(100deg,#fff 0%,#b8f3ff 46%,#18e3ff 100%);-webkit-background-clip:text;background-clip:text}
+
+    /* ── Respuesta corta: el bloque que un asistente puede citar entero ── */
+    .respuesta{margin-top:38px;max-width:760px;padding:30px 30px;border-radius:20px;
+      background:linear-gradient(160deg,#12151f,#0b0d13 65%);
+      box-shadow:0 20px 48px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.045);
+      border-left:3px solid var(--lava)}
+    .respuesta h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--tenue);margin-bottom:14px;max-width:none}
+    .respuesta p{font-size:16.5px;color:var(--text);max-width:none}
+
+    /* ── SILUETA 1: franja a sangre completa (hija directa de <main>) ──
+       Nada de 100vw: eso suma la barra de scroll y desborda siempre. */
+    .franja{position:relative;padding:76px 0 70px;
+      background:linear-gradient(180deg,#0b0e15,#05060a 70%)}
+    .franja::before{content:"";position:absolute;inset:0 0 auto;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(0,229,255,.4),transparent)}
+    .prueba{max-width:1080px;margin:0 auto;padding:0 28px;
+      display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:52px;align-items:center}
+    .prueba__movil{position:relative;justify-self:center}
+    .prueba__movil img{display:block;width:100%;max-width:280px;height:auto;border-radius:22px;
+      border:1px solid #1d222e;box-shadow:0 40px 90px rgba(0,0,0,.7)}
+    .prueba h2{max-width:16ch}
+    .prueba p{font-size:15.5px}
+    .qr-fisico{margin-top:26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+    /* SIN padding ni background: el SVG ya trae su zona silenciosa de 4
+       módulos (el blanco que exige el estándar y que también se imprime).
+       Sumarle padding blanco en CSS duplica el marco y se ve enorme. */
+    .qr-fisico img{width:132px;height:132px;border-radius:10px;flex:none}
+    .qr-fisico div{min-width:min(100%,230px)}
+    .qr-fisico p{font-size:13.5px;color:var(--tenue);max-width:34ch}
+    .pie-foto{max-width:1080px;margin:22px auto 0;padding:0 28px;font-family:var(--mono);
+      font-size:11px;color:var(--tenue);letter-spacing:.04em}
+
+    /* ── Tabla ── */
+    .tabla-scroll{margin-top:34px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+    table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+    caption{text-align:left;font-family:var(--mono);font-size:11.5px;color:var(--tenue);padding-bottom:12px;letter-spacing:.04em}
+    th,td{padding:15px 18px;text-align:left;vertical-align:top;border-bottom:1px solid #171b25}
+    thead th{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--text);background:#0f1219;border-bottom:1px solid #1d222e}
+    tbody th{font-weight:600;color:var(--text);font-size:14px;font-family:var(--texto)}
+    td{color:var(--suave)}
+    tbody tr:last-child th,tbody tr:last-child td{border-bottom:none}
+    .col-nuestra{background:rgba(0,229,255,.05)}
+    .si{color:#6ee7a8;font-weight:600}
+    .no{color:rgba(240,240,240,.4)}
+
+    /* ── SILUETA 2: bloque asimétrico ── */
+    .desfase{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;margin-top:12px}
+    .pasos{list-style:none;counter-reset:p}
+    .pasos li{counter-increment:p;display:grid;grid-template-columns:34px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid #14181f}
+    .pasos li:last-child{border-bottom:none}
+    .pasos li::before{content:"0" counter(p);font-family:var(--display);font-weight:700;font-size:12px;
+      letter-spacing:.1em;color:var(--plasma);padding-top:3px}
+    .pasos p{font-size:14.5px;max-width:44ch}
+
+    /* ── SILUETA 3: precio desplazado, más angosto que el cuerpo ── */
+    .precios{margin-top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:940px}
+    .plan{position:relative;border-radius:20px;padding:28px 24px;overflow:hidden;
+      background:linear-gradient(165deg,#12151f,#0a0c12 68%);
+      box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)}
+    .plan--destacado{box-shadow:0 24px 60px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,229,255,.34)}
+    .plan::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,var(--nebula),var(--plasma))}
+    .plan--destacado::before{background:linear-gradient(90deg,var(--lava),#ffa000)}
+    .plan__n{font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.18em;color:var(--tenue)}
+    .plan__quien{font-size:12.5px;color:var(--tenue);margin-top:6px;min-height:2.6em}
+    .plan__p{margin-top:18px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+    .plan__p b{font-family:var(--display);font-weight:900;font-size:34px;letter-spacing:-.01em;color:var(--text)}
+    .plan__p span{font-family:var(--mono);font-size:12px;color:var(--tenue)}
+    .plan__anual{margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--plasma)}
+    .plan ul{list-style:none;margin-top:20px;padding-top:18px;border-top:1px solid #1a1f29;display:grid;gap:9px}
+    .plan li{display:flex;gap:10px;font-size:13.5px;color:var(--suave);line-height:1.5}
+    .plan li svg{width:15px;height:15px;flex:none;margin-top:4px;color:var(--plasma)}
+    .nota-precio{margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--tenue);max-width:70ch}
+
+    /* ── SILUETA 4: sección sin rejilla, solo texto y aviso ── */
+    .alcance{max-width:720px}
+    .alcance dl{margin-top:26px}
+    .alcance dt{font-family:var(--display);font-weight:700;font-size:14.5px;color:var(--text);margin-top:22px}
+    .alcance dd{font-size:15px;color:var(--suave);margin-top:6px;max-width:64ch}
+    .aviso{margin-top:34px;display:flex;gap:15px;align-items:flex-start;max-width:720px;
+      padding:22px 24px;border-radius:16px;background:rgba(255,61,0,.06);
+      box-shadow:inset 0 0 0 1px rgba(255,61,0,.2)}
+    .aviso svg{width:22px;height:22px;color:var(--lava);flex:none;margin-top:2px}
+    .aviso p{font-size:14.5px}
+
+    /* ── FAQ ── */
+    .faq{margin-top:32px;max-width:820px}
+    .faq details{border-radius:14px;padding:2px 22px;margin-bottom:9px;
+      background:linear-gradient(160deg,#11141c,#0a0c12 64%);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    .faq summary{cursor:pointer;padding:19px 0;font-family:var(--display);font-size:15px;font-weight:700;
+      color:var(--text);list-style:none;display:flex;gap:13px;align-items:flex-start;line-height:1.4}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::before{content:"+";color:var(--plasma);font-size:19px;line-height:1.15;flex:none;font-weight:400;font-family:var(--mono)}
+    .faq details[open] summary::before{content:"\2013"}
+    .faq details p{padding:0 0 21px 26px;font-size:15px}
+
+    /* ── CTA ── */
+    /* Mismo cuidado que en `.sec`: longhand para no anular el padding de `.wrap`. */
+    .cta-fin{text-align:center;padding-top:78px;padding-bottom:96px}
+    .cta-fin h2{margin:0 auto;max-width:22ch}
+    .cta-fin p{margin-left:auto;margin-right:auto}
+    .btns{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-p{display:inline-block;padding:16px 34px;border-radius:12px;background:var(--lava);color:#0b0603;
+      text-decoration:none;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;
+      box-shadow:0 10px 34px rgba(255,61,0,.36);transition:transform .25s, box-shadow .3s}
+    .btn-p:hover{transform:translateY(-2px);box-shadow:0 16px 46px rgba(255,61,0,.5)}
+    .btn-g{display:inline-block;padding:16px 34px;border-radius:12px;color:var(--suave);text-decoration:none;
+      font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;
+      box-shadow:inset 0 0 0 1px rgba(0,229,255,.3);transition:box-shadow .25s, color .25s}
+    .btn-g:hover{box-shadow:inset 0 0 0 1px var(--plasma);color:var(--plasma)}
+
+    /* ── Pie ── */
+    footer{border-top:1px solid rgba(0,229,255,.1);padding:44px 28px 46px;text-align:center}
+    .f-brand{font-family:var(--display);font-weight:900;letter-spacing:.3em;font-size:14px}
+    .f-links{margin-top:20px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+    .f-links a{font-family:var(--mono);font-size:12.5px;color:var(--tenue);text-decoration:none}
+    .f-links a:hover{color:var(--plasma)}
+    .f-legal{margin-top:20px;font-family:var(--mono);font-size:11px;color:rgba(240,240,240,.32)}
+
+    /* ══ Motivos: TODO sale de una sola idea — el código QR ══
+       El patrón localizador (el cuadrado de las esquinas) y la malla de
+       módulos. Line art, nunca relleno, siempre detrás del contenido. */
+    .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1}
+    .motif--loc-a{top:-40px;right:-130px;width:430px;opacity:.07}
+    .motif--loc-b{left:-150px;bottom:-70px;width:360px;opacity:.06}
+    .motif--malla{right:-90px;top:8%;width:400px;opacity:.05}
+    .motif--esquina{left:52%;top:44%;width:320px;opacity:.05}
+
+    /* ══ Reveal: CSS puro, contenido SIEMPRE legible ══
+       Piso de opacidad en .3 — nunca 0. Un navegador headless que no
+       scrollea, o un rastreador, tiene que encontrar la página completa. */
+    @media (prefers-reduced-motion: no-preference){
+      @supports (animation-timeline: view()){
+        .reveal{animation:reveal-in linear both;animation-timeline:view();animation-range:entry 4% cover 26%}
+        @keyframes reveal-in{
+          from{opacity:.3;transform:translateY(24px)}
+          to{opacity:1;transform:none}
+        }
+      }
+    }
+
+    @media (max-width:900px){
+      .prueba{grid-template-columns:1fr;gap:34px}
+      .desfase{grid-template-columns:1fr;gap:30px}
+      .precios{grid-template-columns:1fr;max-width:460px}
+      .motif--malla,.motif--esquina{display:none}
+      .motif--loc-a{width:300px;right:-110px}
+      .motif--loc-b{width:240px;left:-100px}
+    }
+    @media (max-width:760px){
+      .top__in,.wrap,.prueba,.pie-foto{padding-left:20px;padding-right:20px}
+      .sec{padding-top:48px;padding-bottom:48px}
+      .franja{padding:56px 0 50px}
+      .respuesta{padding:24px 22px}
+      .plan__quien{min-height:0}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .btn-p:hover{transform:none}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="top__in">
+      <a class="wm" href="/">ALIJERIK</a>
+      <a class="back" href="/jc">Ver una tarjeta real &rarr;</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ══ 1 · Entrada ══ -->
+    <section class="wrap sec sec--first">
+      <svg class="motif motif--loc-a" viewBox="0 0 200 200" fill="none" stroke="#00e5ff" stroke-width="1.1" aria-hidden="true">
+        <rect x="20" y="20" width="160" height="160" rx="6"/>
+        <rect x="48" y="48" width="104" height="104" rx="4"/>
+        <rect x="76" y="76" width="48" height="48" rx="2"/>
+      </svg>
+
+      <p class="eyebrow">// SERVICIO · PANAMÁ</p>
+      <h1 class="grad">Tarjetas de presentación digitales con QR</h1>
+      <p class="lead">
+        Cambias de teléfono, de cargo o de correo y <strong>no reimprimes ni una
+        tarjeta</strong>. El código impreso se queda igual; lo que hay detrás se edita.
+      </p>
+
+      <div class="respuesta">
+        <h2>RESPUESTA CORTA</h2>
+        <p>
+          Alijerik diseña tarjetas de presentación digitales a medida en Ciudad de Panamá.
+          Cada una es una página propia con tu identidad, más un código QR vectorial listo
+          para imprenta que guarda tu contacto en el teléfono de quien lo escanea, en un
+          toque. Desde <strong>$180 de diseño en un pago único, más $60 al año</strong> de
+          alojamiento y cambios. No es una plantilla: se construye una por una.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══ 2 · SILUETA DISTINTA: franja a sangre completa con la prueba real ══ -->
+    <section class="franja">
+      <div class="prueba">
+        <div class="prueba__movil">
+          <img src="/tarjeta-jc-movil.jpg" width="390" height="844"
+               alt="Tarjeta de presentación digital de Jean Carlos Ducruet vista en un teléfono: marca de Alijerik, nombre, cargo, botón de guardar contacto y canales de WhatsApp, correo y sitio." loading="lazy" />
+        </div>
+        <div>
+          <p class="eyebrow">// ESTO NO ES UNA MAQUETA</p>
+          <h2 class="reveal">La tarjeta de arriba está en línea ahora mismo</h2>
+          <p>
+            Es la tarjeta que usa nuestro fundador. Puedes abrirla, tocar <strong>Guardar contacto</strong> y
+            ver cómo entra a tu agenda: <a href="/jc" style="color:var(--plasma)">alijerik.com/jc</a>.
+            La dirección es corta a propósito — cada carácter de más densifica el código QR
+            y lo hace fallar cuando se imprime pequeño.
+          </p>
+          <div class="qr-fisico">
+            <img src="/alijerik-qr.svg" width="124" height="124"
+                 alt="Código QR de Alijerik que abre alijerik.com/jc, con la marca del anillo en el centro." loading="lazy" />
+            <div>
+              <p>
+                Y este es el QR real de esa tarjeta, en vector, con la marca al centro.
+                Es el archivo que se manda a la imprenta.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="pie-foto">Captura real de la tarjeta publicada en alijerik.com/jc, tomada en pantalla de 390&nbsp;px.</p>
+    </section>
+
+    <!-- ══ 3 · Comparativa contra el papel ══ -->
+    <section class="wrap sec">
+      <svg class="motif motif--malla" viewBox="0 0 120 120" fill="none" stroke="#7b2fff" stroke-width="1" aria-hidden="true">
+        <path d="M0 20h120M0 40h120M0 60h120M0 80h120M0 100h120M20 0v120M40 0v120M60 0v120M80 0v120M100 0v120"/>
+      </svg>
+
+      <p class="eyebrow">// CONTRA EL PAPEL</p>
+      <h2 class="reveal">El papel no desapareció. Se quedó a medias.</h2>
+      <p>
+        Una imprenta panameña cobra entre <strong>$20 y $350</strong> por una tanda de
+        tarjetas, según el acabado. Ese dinero compra tarjetas bien impresas — y una copia
+        congelada de tus datos del día que la mandaste a hacer.
+      </p>
+
+      <div class="tabla-scroll">
+        <table>
+          <caption>Comparación entre una tanda de tarjetas impresas y una tarjeta digital con QR.</caption>
+          <thead>
+            <tr>
+              <th scope="col">&nbsp;</th>
+              <th scope="col">Tarjeta de papel</th>
+              <th scope="col" class="col-nuestra">Tarjeta digital con QR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Cambiar tu número o cargo</th>
+              <td class="no">Reimprimir toda la tanda</td>
+              <td class="col-nuestra si">Se edita la página; el QR impreso no cambia</td>
+            </tr>
+            <tr>
+              <th scope="row">Que te guarden el contacto</th>
+              <td class="no">El otro lo teclea después, o no lo hace</td>
+              <td class="col-nuestra si">Un toque y queda en la agenda</td>
+            </tr>
+            <tr>
+              <th scope="row">Fotos, catálogo o portafolio</th>
+              <td class="no">No cabe</td>
+              <td class="col-nuestra si">Cabe todo lo que quieras enlazar</td>
+            </tr>
+            <tr>
+              <th scope="row">Se pierde en una cartera</th>
+              <td class="no">Constantemente</td>
+              <td class="col-nuestra si">Ya está en el teléfono</td>
+            </tr>
+            <tr>
+              <th scope="row">Funciona sin internet</th>
+              <td class="si">Sí</td>
+              <td class="col-nuestra no">No. Necesita datos para abrir</td>
+            </tr>
+            <tr>
+              <th scope="row">Se entrega en la mano</th>
+              <td class="si">Sí</td>
+              <td class="col-nuestra si">Sí, con el QR impreso en la tarjeta física</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:24px">
+        La última fila importa: <strong>la tarjeta digital no reemplaza el papel, lo
+        alimenta.</strong> Lo que se imprime deja de ser una lista de datos que caduca y
+        pasa a ser una puerta que se mantiene sola.
+      </p>
+    </section>
+
+    <!-- ══ 4 · SILUETA DISTINTA: bloque asimétrico ══ -->
+    <section class="wrap sec">
+      <svg class="motif motif--loc-b" viewBox="0 0 200 200" fill="none" stroke="#ff3d00" stroke-width="1.2" aria-hidden="true">
+        <rect x="20" y="20" width="160" height="160" rx="6"/>
+        <rect x="48" y="48" width="104" height="104" rx="4"/>
+        <rect x="76" y="76" width="48" height="48" rx="2"/>
+      </svg>
+
+      <div class="desfase">
+        <div>
+          <p class="eyebrow">// CÓMO SE HACE</p>
+          <h2 class="reveal">Cuatro pasos, sin plantilla de por medio</h2>
+          <p style="font-size:15px">
+            No hay un editor donde arrastras bloques hasta que se parezca a algo.
+            La tarjeta se diseña como se diseña una pieza de marca.
+          </p>
+        </div>
+        <ol class="pasos">
+          <li>
+            <div>
+              <h3>Nos mandas lo que hay</h3>
+              <p>Logo, colores si los tienes, tus datos y a qué te dedicas. Si no tienes marca definida, se resuelve con lo que hay.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Diseñamos la tarjeta</h3>
+              <p>Una página propia, no una plantilla rellenada. La ves antes de que exista públicamente.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Ajustamos</h3>
+              <p>Una ronda de cambios incluida antes de publicar. Aquí se corrige lo que no te cuadre.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Te entregamos el QR listo para imprenta</h3>
+              <p>Vector SVG y PNG de alta resolución, probado a los tamaños en que una cámara de teléfono realmente lo lee. Tú lo llevas a la imprenta que quieras.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ══ 5 · SILUETA DISTINTA: precios, más angostos que el cuerpo ══ -->
+    <section class="wrap sec">
+      <p class="eyebrow">// PRECIO</p>
+      <h2 class="reveal">Se cobra el diseño, no el alojamiento</h2>
+      <p style="margin-bottom:30px">
+        El trabajo está en construirla. Mantenerla en línea cuesta poco y por eso la
+        renovación cuesta poco — no al revés.
+      </p>
+
+      <div class="precios">
+        <article class="plan">
+          <p class="plan__n">ESENCIAL</p>
+          <p class="plan__quien">Una persona. Profesional independiente.</p>
+          <p class="plan__p"><b>$180</b><span>pago único</span></p>
+          <p class="plan__anual">+ $60 al año</p>
+          <ul>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Diseño a medida</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dirección en alijerik.com</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>QR vectorial para imprenta</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Guardar contacto en un toque</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Un cambio de datos al año</li>
+          </ul>
+        </article>
+
+        <article class="plan plan--destacado">
+          <p class="plan__n">PROFESIONAL</p>
+          <p class="plan__quien">Quien la usa para vender y quiere marca propia.</p>
+          <p class="plan__p"><b>$350</b><span>pago único</span></p>
+          <p class="plan__anual">+ $90 al año</p>
+          <ul>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Todo lo de Esencial</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Tu propio dominio</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Sección de servicios o portafolio</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Conteo de escaneos</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Tres cambios de datos al año</li>
+          </ul>
+        </article>
+
+        <article class="plan">
+          <p class="plan__n">EQUIPO</p>
+          <p class="plan__quien">De 2 a 5 personas con identidad unificada.</p>
+          <p class="plan__p"><b>$600</b><span>pago único</span></p>
+          <p class="plan__anual">+ $180 al año, todo el equipo</p>
+          <ul>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Hasta 5 tarjetas</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Misma identidad, datos propios</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dominio propio incluido</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Altas y bajas de personal</li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Más de 5 personas: cotización</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="nota-precio">
+        Precios en dólares, facturados en Panamá. La impresión física corre por tu cuenta con
+        la imprenta que prefieras — cartón, PVC o metal: nosotros entregamos el arte listo.
+      </p>
+    </section>
+
+    <!-- ══ 6 · SILUETA DISTINTA: sin rejilla, solo texto y aviso ══ -->
+    <section class="wrap sec">
+      <svg class="motif motif--esquina" viewBox="0 0 200 200" fill="none" stroke="#00e5ff" stroke-width="1.1" aria-hidden="true">
+        <rect x="20" y="20" width="160" height="160" rx="6"/>
+        <rect x="76" y="76" width="48" height="48" rx="2"/>
+      </svg>
+
+      <div class="alcance">
+        <p class="eyebrow">// HASTA DÓNDE LLEGA</p>
+        <h2 class="reveal">Lo que este servicio es, y lo que deliberadamente no es</h2>
+        <p>
+          Preferimos decirlo antes de cobrarte que después.
+        </p>
+
+        <dl>
+          <dt>Es QR, no NFC</dt>
+          <dd>
+            El QR lo lee cualquier teléfono con cámara, sin app ni hardware especial. El NFC
+            exige un chip en la tarjeta y que el otro teléfono lo tenga activo. Si tu caso
+            necesita NFC, hoy no lo cubrimos.
+          </dd>
+
+          <dt>Los cambios los hacemos nosotros</dt>
+          <dd>
+            No hay panel donde entres a editar. Nos escribes, lo cambiamos, y queda arriba el
+            mismo día hábil. La contrapartida es que tu tarjeta no se rompe porque alguien tocó algo,
+            y nunca se ve a medio armar.
+          </dd>
+
+          <dt>Es una tarjeta, no un sitio web</dt>
+          <dd>
+            Una página que presenta a una persona y entrega su contacto. Si lo que necesitas
+            es un sitio con varias secciones, catálogo y blog, eso es otro trabajo y otro
+            presupuesto.
+          </dd>
+
+          <dt>La tarjeta física la imprimes tú</dt>
+          <dd>
+            Entregamos el arte del QR en vector, probado. Va igual de bien en cartón, en PVC o en
+            metal. La imprenta la eliges tú — en Panamá hay varias buenas y vas a pagar
+            menos yendo directo que a través nuestro.
+          </dd>
+        </dl>
+
+        <div class="aviso">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,120a12,12,0,1,1,12-12A12,12,0,0,1,128,200Z"/></svg>
+          <p>
+            <strong>Si dejas de renovar, no se apaga de un día para otro.</strong> Te avisamos
+            30 días antes del vencimiento. Si decides no seguir, te entregamos el archivo de
+            contacto y el arte del QR — son tuyos — y la página queda en línea 30 días más
+            para que quien ya escaneó tu tarjeta no encuentre un error.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 7 · FAQ ══ -->
+    <section class="wrap sec">
+      <p class="eyebrow">// PREGUNTAS</p>
+      <h2 class="reveal">Preguntas frecuentes</h2>
+
+      <div class="faq">
+        <details>
+          <summary>¿Cuánto cuesta una tarjeta de presentación digital en Panamá?</summary>
+          <p>En Alijerik, desde $180 en un pago único por el diseño, más $60 al año por alojamiento y cambios. El plan Profesional cuesta $350 más $90 al año e incluye dominio propio y conteo de escaneos. Para equipos de 2 a 5 personas son $600 más $180 al año por todo el equipo. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una en vez de rellenar un formato.</p>
+        </details>
+        <details>
+          <summary>¿Qué incluye exactamente?</summary>
+          <p>Una página propia con tu identidad alojada en línea, un botón que guarda tu contacto en la agenda del teléfono en un toque, enlaces a WhatsApp, correo, sitio y redes, y el código QR en formato vectorial SVG más PNG de alta resolución listo para llevar a la imprenta, en cartón, PVC o metal. El QR se prueba antes de entregarlo a los tamaños en píxeles que una cámara de teléfono realmente captura de un código impreso de 2 centímetros.</p>
+        </details>
+        <details>
+          <summary>¿Puedo cambiar mi información después de imprimir el QR?</summary>
+          <p>Sí, y ese es el punto del servicio. El código QR apunta a una dirección fija que nunca cambia. Lo que se edita es el contenido que vive en esa dirección: tu número, tu cargo, tu correo, tus enlaces. Las tarjetas ya impresas siguen funcionando. Con papel, cambiar un número obliga a reimprimir toda la tanda.</p>
+        </details>
+        <details>
+          <summary>¿La tarjeta digital reemplaza la tarjeta de papel?</summary>
+          <p>No, y quien diga lo contrario está vendiendo de más. La tarjeta digital necesita datos o wifi para abrir; el papel funciona siempre. Lo que cambia es qué se imprime en la tarjeta física — sea cartón, PVC o metal: en vez de una lista de datos que caduca el día que cambias de número, se imprime un código que abre una tarjeta que se mantiene sola. Impresa y digital funcionan juntas.</p>
+        </details>
+        <details>
+          <summary>¿Qué pasa con mi tarjeta si dejo de pagar la renovación?</summary>
+          <p>Alijerik avisa 30 días antes del vencimiento. Si decides no renovar, se entrega el archivo de contacto vCard y el arte vectorial del QR, que son tuyos, y la página permanece en línea 30 días adicionales para que quien ya tenga tu tarjeta impresa no se encuentre con un error. No hay apagado silencioso ni rescate de datos de por medio.</p>
+        </details>
+        <details>
+          <summary>¿Puedo usar mi propio dominio?</summary>
+          <p>Sí, en los planes Profesional y Equipo. En el plan Esencial la tarjeta vive en una dirección corta dentro de alijerik.com. La dirección corta no es una limitación arbitraria: mientras menos caracteres tiene la dirección, menos denso queda el código QR, y un código menos denso se lee mejor cuando se imprime pequeño o con poca luz.</p>
+        </details>
+        <details>
+          <summary>¿QR o NFC, cuál conviene?</summary>
+          <p>El QR funciona en cualquier teléfono con cámara, sin aplicación ni hardware especial, y se imprime en cualquier superficie por centavos. El NFC es más rápido para quien lo tiene activo, pero exige un chip en cada tarjeta y un teléfono compatible con la función encendida. Alijerik trabaja hoy con QR por cobertura, no por precio. Si tu caso exige NFC, este servicio no lo cubre.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ══ 8 · Cierre ══ -->
+    <section class="wrap cta-fin">
+      <p class="eyebrow">// EMPEZAR</p>
+      <h2 class="grad">Escanea la nuestra y decide si quieres una</h2>
+      <p>
+        Es la prueba más honesta que podemos darte: abre nuestra tarjeta, guarda el contacto
+        y mira cómo se siente del otro lado. Si te convence, escríbenos por ahí mismo.
+      </p>
+      <div class="btns">
+        <a class="btn-p" href="https://wa.me/50760933039?text=Hola%2C%20me%20interesa%20una%20tarjeta%20digital%20con%20QR">ESCRIBIR POR WHATSAPP</a>
+        <a class="btn-g" href="/jc">VER LA TARJETA</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p class="f-brand">ALIJERIK</p>
+    <nav class="f-links">
+      <a href="/">Inicio</a>
+      <a href="/jc">Tarjeta de ejemplo</a>
+      <a href="/eficore/">Eficore</a>
+      <a href="/privacidad/">Privacidad</a>
+      <a href="/condiciones/">Condiciones</a>
+    </nav>
+    <p class="f-legal">© 2026 Alijerik · Ciudad de Panamá, Panamá</p>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Tarjetas de presentación digitales con código QR",
+        "serviceType": "Diseño de tarjeta de presentación digital",
+        "description": "Diseño a medida de tarjetas de presentación digitales con código QR vectorial listo para imprenta. La información se edita sin reimprimir las tarjetas físicas.",
+        "url": "https://alijerik.com/tarjetas/",
+        "areaServed": { "@type": "Country", "name": "Panamá" },
+        "provider": {
+          "@type": "Organization",
+          "name": "Alijerik",
+          "url": "https://alijerik.com/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "PH Torres de Monserrat, Apto 2B, Pueblo Nuevo",
+            "addressLocality": "Ciudad de Panamá",
+            "addressCountry": "PA"
+          }
+        },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Esencial",
+            "price": "180",
+            "priceCurrency": "USD",
+            "description": "Diseño a medida para una persona, pago único de $180 más $60 al año de alojamiento y cambios."
+          },
+          {
+            "@type": "Offer",
+            "name": "Profesional",
+            "price": "350",
+            "priceCurrency": "USD",
+            "description": "Diseño a medida con dominio propio y conteo de escaneos, pago único de $350 más $90 al año."
+          },
+          {
+            "@type": "Offer",
+            "name": "Equipo",
+            "price": "600",
+            "priceCurrency": "USD",
+            "description": "Hasta 5 tarjetas con identidad unificada y dominio propio, pago único de $600 más $180 al año por todo el equipo."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Cuánto cuesta una tarjeta de presentación digital en Panamá?",
+            "acceptedAnswer": { "@type": "Answer", "text": "En Alijerik, desde $180 en un pago único por el diseño, más $60 al año por alojamiento y cambios. El plan Profesional cuesta $350 más $90 al año e incluye dominio propio y conteo de escaneos. Para equipos de 2 a 5 personas son $600 más $180 al año por todo el equipo. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una en vez de rellenar un formato." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué incluye una tarjeta de presentación digital con QR?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Una página propia con tu identidad alojada en línea, un botón que guarda tu contacto en la agenda del teléfono en un toque, enlaces a WhatsApp, correo, sitio y redes, y el código QR en formato vectorial SVG más PNG de alta resolución listo para llevar a la imprenta, en cartón, PVC o metal. El QR se prueba antes de entregarlo a los tamaños en píxeles que una cámara de teléfono realmente captura de un código impreso de 2 centímetros." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo cambiar mi información después de imprimir el QR?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí, y ese es el punto del servicio. El código QR apunta a una dirección fija que nunca cambia. Lo que se edita es el contenido que vive en esa dirección: el número, el cargo, el correo, los enlaces. Las tarjetas ya impresas siguen funcionando. Con papel, cambiar un número obliga a reimprimir toda la tanda." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿La tarjeta digital reemplaza la tarjeta de papel?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. La tarjeta digital necesita datos o wifi para abrir; el papel funciona siempre. Lo que cambia es qué se imprime en la tarjeta física, sea cartón, PVC o metal: en vez de una lista de datos que caduca el día que cambias de número, se imprime un código que abre una tarjeta que se mantiene sola. Impresa y digital funcionan juntas." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa con mi tarjeta digital si dejo de pagar la renovación?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Alijerik avisa 30 días antes del vencimiento. Si el cliente decide no renovar, se entrega el archivo de contacto vCard y el arte vectorial del QR, que son suyos, y la página permanece en línea 30 días adicionales para que quien ya tenga la tarjeta impresa no se encuentre con un error. No hay apagado silencioso ni rescate de datos de por medio." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo usar mi propio dominio en una tarjeta digital?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí, en los planes Profesional y Equipo. En el plan Esencial la tarjeta vive en una dirección corta dentro de alijerik.com. La dirección corta no es una limitación arbitraria: mientras menos caracteres tiene la dirección, menos denso queda el código QR, y un código menos denso se lee mejor cuando se imprime pequeño o con poca luz." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Conviene más QR o NFC para una tarjeta de presentación?",
+            "acceptedAnswer": { "@type": "Answer", "text": "El QR funciona en cualquier teléfono con cámara, sin aplicación ni hardware especial, y se imprime en cualquier superficie por centavos. El NFC es más rápido para quien lo tiene activo, pero exige un chip en cada tarjeta y un teléfono compatible con la función encendida. Alijerik trabaja hoy con QR por cobertura. Si el caso exige NFC, este servicio no lo cubre." }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Alijerik", "item": "https://alijerik.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tarjetas digitales con QR", "item": "https://alijerik.com/tarjetas/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

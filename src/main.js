@@ -95,18 +95,32 @@ function revealHero() {
 }
 
 // ── Reveals de secciones al scrollear ───────────────────────────────
-// Seguro: el contenido es visible por defecto (sin opacity:0 en CSS);
-// gsap.from solo lo anima desde un estado oculto si el JS corre.
+// PISO DE OPACIDAD EN .3 — NUNCA 0. Ver docs/LENGUAJE-VISUAL.md.
+//
+// Antes esto era `gsap.from(el, {opacity: 0})`. La intención era buena
+// ("el contenido es visible por defecto"), pero `gsap.from` con
+// ScrollTrigger tiene immediateRender activo: aplica el estado inicial
+// AL CARGAR y solo lo revierte cuando el trigger dispara. Resultado real:
+// las tres secciones de la portada — 38 elementos con texto — nacían en
+// opacity:0 y cualquier cosa que renderizara sin scrollear veía la
+// portada vacía debajo del hero. Justo lo que se vino a ganar con AEO.
+//
+// `fromTo` con piso .3 hace explícito el estado inicial: el reveal se
+// siente igual, pero ningún elemento llega jamás a invisible.
 function initSectionReveals() {
   if (reducedMotion) return;
   gsap.utils.toArray("[data-sec-reveal]").forEach((el) => {
-    gsap.from(el, {
-      opacity: 0,
-      y: 30,
-      duration: 0.9,
-      ease: "power3.out",
-      scrollTrigger: { trigger: el, start: "top 84%" },
-    });
+    gsap.fromTo(
+      el,
+      { opacity: 0.3, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 84%" },
+      }
+    );
   });
 }
 

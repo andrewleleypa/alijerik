@@ -98,17 +98,76 @@
         </div>
       </section>
 
-      <!-- 02 · CONTACTO -->
-      <section class="panel" id="contacto" data-sec-reveal>
+      <!-- SILUETA A · franja a sangre completa.
+           Hija directa de .deck, fuera de .panel, para romper el compás.
+           Una captura real del producto es el activo anti-IA más fuerte que
+           existe: ninguna IA puede fabricar tu interfaz. -->
+      <section class="sangre" data-sec-reveal aria-labelledby="eficore">
+        <div class="sangre__in">
+          <img src="/eficore-shot-desktop.jpg" width="2000" height="1054" loading="lazy"
+               alt="Eficore en escritorio: la bandeja compartida, una conversación tomada por un agente y la ficha del cliente al costado." />
+          <p class="sangre__cap">Captura real de Eficore &middot; datos de demostración</p>
+        </div>
+      </section>
+
+      <!-- 02 · TARJETAS DIGITALES -->
+      <section class="panel" id="tarjetas" data-sec-reveal>
         <div class="panel__rail" aria-hidden="true">
           <span class="panel__index">02</span>
+          <span class="panel__rail-line"></span>
+        </div>
+        <div class="panel__body">
+          <p class="panel__eyebrow">// SERVICIO · DISEÑO A MEDIDA</p>
+          <h2 class="panel__title grad">TARJETAS DIGITALES</h2>
+          <!-- SILUETA B · bloque asimétrico.
+               A propósito NO lleva .card como el panel de Eficore: si los dos
+               paneles cierran con la misma tarjeta, vuelve la métrica uniforme
+               que esta reestructuración vino a romper. -->
+          <div class="duo">
+            <div>
+              <p class="panel__lead" style="margin-top:0">
+                Tu tarjeta de presentación como una página propia, con un código QR
+                listo para imprimir. Cambias de número o de cargo y no reimprimes
+                ni una tarjeta: el código se queda igual, lo de atrás se edita.
+              </p>
+              <div class="duo__cta">
+                <a class="btn btn--primary" href="/tarjetas/">[ VER EL SERVICIO ]</a>
+              </div>
+              <!-- Enlace, no segundo botón: dos botones no caben a la par en
+                   esta columna y apilados quedan con anchos distintos. El
+                   "acción principal + aside" ya es el lenguaje de la portada. -->
+              <p class="panel__aside" style="margin-top:1.1rem">
+                ¿Cómo se ve una?
+                <a href="/jc">Abrir una tarjeta real &rarr;</a>
+              </p>
+            </div>
+            <div>
+              <div class="duo__viz">
+                <img class="duo__qr" src="/alijerik-qr.svg" width="124" height="124" loading="lazy"
+                     alt="Código QR de Alijerik con la marca del anillo al centro, listo para imprenta." />
+                <img class="duo__cel" src="/tarjeta-jc-movil.jpg" width="780" height="1688" loading="lazy"
+                     alt="Una tarjeta digital abierta en un teléfono: nombre, cargo y botón para guardar el contacto." />
+              </div>
+              <p class="duo__pie">El QR de la izquierda abre la tarjeta de la derecha.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · CONTACTO -->
+      <section class="panel" id="contacto" data-sec-reveal>
+        <div class="panel__rail" aria-hidden="true">
+          <span class="panel__index">03</span>
           <span class="panel__rail-line"></span>
         </div>
         <div class="panel__body">
           <p class="panel__eyebrow">// CANALES</p>
           <h2 class="panel__title grad">ESTABLECER CONTACTO</h2>
 
-          <ul class="channels">
+          <!-- SILUETA C · banda ancha, sin tarjeta y sin rejilla angosta.
+               Los canales se reparten a lo ancho y el panel cierra con una
+               forma que no repite ninguna de las dos anteriores. -->
+          <ul class="channels channels--banda">
             <li>
               <a class="channel" href="https://wa.me/50760933039" target="_blank" rel="noopener">
                 <span class="channel__glyph">

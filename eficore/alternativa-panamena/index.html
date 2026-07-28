@@ -45,7 +45,11 @@
     .top a.back:hover{color:var(--terracota-luz)}
 
     .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
-    .sec{padding:64px 0;position:relative}
+    /* Longhand obligatorio: `.sec` y `.wrap` van en el MISMO elemento con la
+       misma especificidad. Un shorthand `padding:64px 0` gana por orden y anula
+       el padding lateral de `.wrap`: el texto queda pegado al borde en movil.
+       Costo encontrarlo; no volver a shorthand aqui. */
+    .sec{padding-top:64px;padding-bottom:64px;position:relative}
     .sec--first{padding-top:72px}
     .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--terracota-luz);margin-bottom:18px}
     h1{font-family:var(--display);font-size:clamp(32px,5.2vw,54px);font-weight:800;line-height:1.06;letter-spacing:-.02em;max-width:800px}
@@ -145,7 +149,7 @@
     .faq details p{padding:0 0 22px 28px;font-size:15px}
 
     /* ── CTA ── */
-    .cta-fin{text-align:center;padding:76px 0 96px}
+    .cta-fin{text-align:center;padding-top:76px;padding-bottom:96px}
     .cta-fin h2{margin:0 auto}
     .cta-fin p{margin-left:auto;margin-right:auto}
     .btns{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
@@ -256,7 +260,7 @@
     }
     @media (max-width:760px){
       .top__in,.wrap{padding-left:20px;padding-right:20px}
-      .sec{padding:48px 0}
+      .sec{padding-top:48px;padding-bottom:48px}
       .respuesta,.precio{padding:26px 22px}
       .f-grid{grid-template-columns:1fr;gap:28px}
     }

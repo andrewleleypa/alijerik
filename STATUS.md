@@ -13,6 +13,10 @@
   - `/condiciones/` — condiciones del servicio (agregada 2026-07-14, commit `89551d5`)
   - `/eliminacion-de-datos/` — instrucciones de eliminación de datos
   **Mover, renombrar o romper esas rutas rompe la config de Meta sin que nada truene aquí.**
+- **`/jc` es el destino de un QR IMPRESO EN FÍSICO** (tarjetas duras de JC, 2026-07-27+).
+  Romper o renombrar esa ruta rompe tarjetas que ya están en manos de gente. Misma regla
+  que las URLs de Meta: no se mueve. El QR es estático y apunta directo — no hay redirector
+  de por medio que salve un rename.
   Si se rediseña el sitio, preservarlas (o poner redirects y actualizar Meta DESPUÉS del
   review — nunca durante). Detalle: `eficore/docs/INFRAESTRUCTURA.md §7`.
 
@@ -154,6 +158,103 @@ profundidad estilo Eficore + íconos Phosphor duotone inline**.
 - `src/styles/main.css` — paleta, layout, tipografía, velos, modo lite
 - `fonts.html` / `tormenta.html` — páginas de comparación usadas para decidir (referencia)
 - `*.mjs` — herramientas de verificación (puppeteer)
+
+## ⭐ 2026-07-27 — Tarjetas digitales con QR: línea de negocio nueva (sesión completa)
+
+> Rama `feat/tarjetas-qr`, 8 commits, mergeada a `main` al cierre. Escrito para alguien
+> que no estuvo aquí. Los caminos falsos están porque ahí es donde se pierde el tiempo
+> la segunda vez.
+
+### Qué se construyó y por qué
+
+Producto nuevo para vender desde el sitio: **tarjetas de presentación digitales con QR,
+como servicio a medida** (no plataforma self-service). Nace de la tarjeta que se le hizo
+a Arias Design; esta vez con estructura de precio corregida — se cobra el **diseño**
+(lo escaso), no el hosting (que cuesta $0 en Pages). Precios públicos: $180 único +
+$60/año · $350 + $90 · $600 + $180 (equipo ≤5). El competidor real es Kolor Media
+(cotización, no publica precio), NO Tu Contacto Panamá ($25/año, plantilla) — contra
+plantillas de $25 esa pelea se pierde. Análisis completo: `docs/KEYWORDS-TARJETAS.md`.
+
+- **`/tarjetas/`** — página de venta. Fórmula de `docs/LENGUAJE-VISUAL.md` con look
+  cósmico de Alijerik (NO cappuccino: eso es Eficore). Motivos = el patrón localizador
+  del propio QR. Cero JS, JSON-LD `Service`+`FAQPage`+`BreadcrumbList`.
+- **`/jc`** — la tarjeta real de JC. Es el destino del QR impreso Y el demo vivo que
+  `/tarjetas/` usa como prueba ("esto no es una maqueta"). Su pie vende: "Esta tarjeta
+  es el producto → Quiero una así". Cargo: **Fundador** (decidido por JC — y es literal:
+  Ali de Alicia su madrina, Je de Jean, rik de Erika su esposa).
+- **QR para imprenta** — `public/alijerik-qr.svg` (+variantes), nivel H, marca al centro
+  (~7% del área), URL corta a propósito (`/jc` → versión 3, 29×29 módulos). Generado por
+  `scripts/gen-qr.mjs` (estático, sin redirector de terceros que pueda morir).
+  **Verificado decodificando de verdad**: `scripts/verificar-qr.mjs`, 15/15 a los px que
+  una cámara captura de un QR de 2 cm.
+- **Portada reestructurada** — el hero NO se tocó (la secuencia canvas es la excepción
+  documentada). Los 3 paneles de abajo tenían la misma silueta (la firma de IA); ahora:
+  01 franja a sangre con captura real · 02 bloque asimétrico QR+tarjeta · 03 banda de
+  contacto con ícono arriba.
+- **`/eficore/` ganó su `<h1>`** (no tenía NINGUNO, siendo prioridad 1.0 del sitemap).
+  Sin cambiar un píxel: se promovió el heading de la primera sección de producto y los
+  demás h3→h2. El look cappuccino intacto.
+- **Renovaciones** — `docs/RENOVACIONES.md` + `renovaciones.json` + alarma ejecutable
+  `scripts/renovaciones.mjs`. Arias Design: inicio 2026-07-17, vence 2027-07-17.
+  ⚠️ JC: falta el evento de calendario (~17-jun-2027) que dispare correr el script.
+- **Firma de correo** — `docs/firma-correo.html`. Sin QR (nadie escanea su propia
+  pantalla) y sin imágenes (Outlook/Gmail las bloquean por defecto).
+
+### Caminos falsos de esta sesión (no repetirlos)
+
+1. **El h1 de `/eficore/` casi va al hero** — donde "suena" el título. Pero `.stage-text`
+   lleva `opacity:0` revelado por GSAP: habría sido un h1 invisible, peor que ninguno.
+   Va en `<main>`. Los 6 "ocultos" que el verificador reporta en `/eficore/` son eso
+   mismo y son ESTRUCTURALES: textos `position:fixed` superpuestos que se revelan por
+   scrub; mostrarlos a .3 apilaría 4 bloques encima del canvas. No "arreglarlos".
+2. **`gsap.from` + ScrollTrigger deja el contenido invisible AL CARGAR** (immediateRender).
+   El comentario viejo de `main.js` juraba lo contrario. La portada tenía 38 elementos
+   con texto en opacidad efectiva 0. Arreglo: `fromTo` con piso `.3`. Y en CSS,
+   `[data-reveal]` también arranca en `.3` — el rescate `.no-anim` solo cubría
+   reduced-motion, no un JS caído.
+3. **Medir bordes con `getBoundingClientRect()` del elemento da falsos positivos**: la
+   caja incluye su propio padding (un pie de foto con padding-left:20 reporta left:0).
+   Lo correcto: `Range.selectNodeContents` + su rect. Documentado en LENGUAJE-VISUAL.
+4. **El shorthand `padding` que anula `.wrap`** — estaba EN PRODUCCIÓN en las 2 páginas
+   AEO (texto pegado al borde en móvil, invisible en desktop por el max-width).
+   Trampa #3 de LENGUAJE-VISUAL con su regla longhand.
+5. **El primer arreglo del correo desbordado fue el equivocado**: `min-width:0` +
+   `overflow-wrap` partía `contacto@alijer/ik.com`. La causa real: el ícono en fila
+   robaba ~60px. Arreglo de fondo: ícono ARRIBA en la banda.
+6. **Doble marco blanco del QR**: el SVG ya trae zona silenciosa de 4 módulos; el CSS
+   le sumaba padding blanco. Se quita el del CSS, JAMÁS el del SVG (se escanea desde
+   pantallas y es lo que se imprime).
+7. **Dirección**: fuera de `/jc` y del `.vcf` (es un apartamento; la tarjeta se guarda
+   en agendas de desconocidos). SE QUEDA en portada, JSON-LD de `/tarjetas/` y las 3
+   legales — contra eso verifica Meta. Ojo: al quitarla hubo que RE-CAPTURAR
+   `tarjeta-jc-movil.jpg` y corregir width/height declarados (780×1794→780×1688).
+8. **PowerShell bloquea `npx`** (ExecutionPolicy). Usar Git Bash, o
+   `node node_modules\vite\bin\vite.js`, o `Set-ExecutionPolicy -Scope CurrentUser
+   RemoteSigned` (decisión de JC, afloja un control).
+
+### Cómo verificar (todo reproducible)
+
+```bash
+npm run build && npx vite preview --port 4318 --strictPort
+node scripts/verificar-rutas.mjs   # 9 rutas × 2 anchos: desborde, h1, opacidad EFECTIVA
+node scripts/verificar-qr.mjs      # decodifica los 3 SVG a 5 tamaños (15/15)
+node scripts/renovaciones.mjs      # a quién hay que cobrarle
+node scripts/capturar-tarjeta.mjs  # re-captura /jc para /tarjetas/ (dev server 4319)
+```
+
+### Lo que NO se hizo (deliberado)
+
+- **Plataforma SaaS self-service**: diferida CON número — a $60/año se necesitan 400
+  clientes para el MRR que 51 de Eficore dan. Disparador para reconsiderar: **10
+  tarjetas vendidas en un trimestre**.
+- **Avisos de renovación a WhatsApp/correo**: `docs/BACKLOG.md §1` — es el MISMO
+  problema que el inventario de dependencias; resolverlos juntos.
+- **Susurro "Tarjeta por Alijerik" en la tarjeta de Arias**: diferido por JC (27-jul).
+  No ejecutar sin su decisión — fue un regalo, el branding retroactivo se pregunta.
+- **Impresión física de prueba**: pendiente de JC — imprimir UNA y escanearla con 3
+  teléfonos antes de mandar el lote.
+- **Search Console/Bing**: JC envía `/tarjetas/` y `/jc` tras el deploy.
+- Enlace a `/tarjetas/` desde el pie de `/eficore/` (menor, BACKLOG §3).
 
 ## ✅ EN VIVO — Página de producto Eficore (`alijerik.com/eficore/`)
 - Hero: scroll-scrub de metraje real de latte art (176 cuadros, public/eficore-seq/,

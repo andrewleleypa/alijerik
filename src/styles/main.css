@@ -259,9 +259,15 @@ body.lite .hero__brand {
   50% { text-shadow: 0 0 24px rgba(255,255,255,0.7), 0 0 60px rgba(255,61,0,0.7), 0 0 100px rgba(0,229,255,0.25); }
 }
 
-/* ---------- Estado inicial de reveals (GSAP los anima) ---------- */
+/* ---------- Estado inicial de reveals (GSAP los anima) ----------
+   Piso de opacidad en .3, NUNCA 0 (ver docs/LENGUAJE-VISUAL.md).
+   Antes esto era opacity:0, y `.no-anim` — el rescate — solo se aplica
+   cuando hay prefers-reduced-motion. Si el JS fallaba por cualquier otra
+   razón (red, error, bloqueador), el titular del hero se quedaba
+   invisible para siempre. A .3 el peor caso es un texto tenue, no un
+   texto ausente. */
 [data-reveal] {
-  opacity: 0;
+  opacity: 0.3;
   transform: translateY(24px);
   will-change: transform, opacity;
 }
@@ -445,14 +451,21 @@ a.channel:hover {
   background: rgba(0, 229, 255, 0.09);
 }
 .channel__glyph .ic { width: 23px; height: 23px; }
-.channel__meta { display: flex; flex-direction: column; gap: 3px; }
+/* min-width:0 es obligatorio: un hijo flex arranca en min-width:auto y NO se
+   encoge por debajo del ancho de su contenido. Sin esto, contacto@alijerik.com
+   desbordaba su tarjeta y se montaba sobre la de al lado. */
+.channel__meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .channel__label {
   font-family: "Orbitron", sans-serif;
   font-size: 0.56rem;
   letter-spacing: 0.26em;
   color: rgba(240, 240, 240, 0.42);
 }
-.channel__value { font-size: clamp(0.9rem, 1.5vw, 1.05rem); line-height: 1.45; }
+.channel__value {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  line-height: 1.45;
+  overflow-wrap: anywhere; /* el correo parte antes que desbordar */
+}
 
 /* ---- Footer ---- */
 .footer {
@@ -520,9 +533,92 @@ a.channel:hover {
   line-height: 1.6;
 }
 
+/* ============================================================
+   ROMPER LA MÉTRICA — docs/LENGUAJE-VISUAL.md §1
+   Los tres paneles tenían la MISMA silueta: rail, eyebrow, título,
+   párrafo, tarjeta. Repetir. Esa uniformidad es la firma de "esto lo
+   generó una IA", y ningún cambio de íconos la arregla.
+   Ahora cada uno tiene una forma propia:
+     01 Eficore  → franja a sangre completa con captura real
+     02 Tarjetas → bloque asimétrico con el QR y la tarjeta de verdad
+     03 Contacto → banda sin tarjeta, ancha, cierra distinto
+   ============================================================ */
+
+/* ── SILUETA A · franja a sangre completa ──
+   Hija directa de .deck, así que ocupa el ancho sola. Nada de 100vw:
+   eso suma la barra de scroll y desborda siempre. */
+.sangre {
+  position: relative;
+  padding: clamp(2.2rem, 6vh, 4rem) 0 clamp(2rem, 5vh, 3.4rem);
+  border-top: 1px solid var(--ghost);
+  border-bottom: 1px solid var(--ghost);
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.035), transparent 62%);
+}
+.sangre__in { width: min(96vw, 1280px); margin: 0 auto; padding: 0 clamp(1rem, 3vw, 1.75rem); }
+.sangre img {
+  display: block; width: 100%; height: auto; border-radius: 14px;
+  border: 1px solid rgba(0, 229, 255, 0.14);
+  box-shadow: 0 38px 96px rgba(0, 0, 0, 0.72);
+}
+.sangre__cap {
+  margin-top: 14px; font-family: "Space Mono", monospace;
+  font-size: 11px; letter-spacing: 0.05em; color: rgba(240, 240, 240, 0.42);
+}
+
+/* ── SILUETA B · bloque asimétrico ── */
+.duo {
+  margin-top: 2.1rem; display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: clamp(1.4rem, 4vw, 2.8rem); align-items: center;
+}
+.duo__viz { display: flex; align-items: center; justify-content: center; gap: clamp(.7rem, 2vw, 1.2rem); }
+/* SIN padding ni background: el SVG del QR ya trae su zona silenciosa de 4
+   módulos — el blanco que exige el estándar. Padding blanco encima duplica
+   el marco y se ve enorme (lo reportó JC desde el celular). */
+.duo__qr {
+  width: clamp(98px, 12vw, 132px); height: auto; flex: none;
+  border-radius: 10px;
+}
+.duo__cel {
+  width: clamp(104px, 14vw, 142px); height: auto; flex: none;
+  border-radius: 14px; border: 1px solid #1d222e;
+  box-shadow: 0 26px 62px rgba(0, 0, 0, 0.62);
+}
+.duo__pie {
+  margin-top: 1rem; font-family: "Space Mono", monospace; font-size: 11px;
+  letter-spacing: 0.04em; color: rgba(240, 240, 240, 0.4); text-align: center;
+}
+/* Propio, y no .hero__cta: ese va centrado porque el hero lo está. Aquí el
+   texto se alinea a la izquierda y los botones tienen que seguirlo. */
+.duo__cta { margin-top: 1.8rem; display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+/* ── SILUETA C · contacto en banda, sin tarjeta ── */
+.channels--banda {
+  max-width: none;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  align-items: stretch;
+}
+/* El ícono va ARRIBA, no al lado. En fila robaba ~60px de ancho y el correo
+   no cabía: se partía en "contacto@alijer / ik.com". En columna el texto se
+   queda con la tarjeta entera. */
+.channels--banda .channel {
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.15rem 1.2rem;
+}
+.channels--banda a.channel:hover { transform: translateY(-3px); }
+.channels--banda .channel__meta { width: 100%; }
+.channels--banda .channel__value { font-size: 0.94rem; }
+
+@media (max-width: 860px) {
+  .duo { grid-template-columns: 1fr; gap: 1.6rem; }
+}
 @media (max-width: 640px) {
   .panel { padding: clamp(3rem, 9vh, 5rem) 0; gap: 0.9rem; }
   .card { flex-wrap: wrap; gap: 0.8rem; }
   .card__text { margin-right: 0; }
   .card__go { width: 100%; }
+  .sangre { padding: 2rem 0 1.8rem; }
 }

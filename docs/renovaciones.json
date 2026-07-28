@@ -1,0 +1,16 @@
+{
+  "_comentario": "Registro de servicios con cobro recurrente. Lo lee scripts/renovaciones.mjs. Fechas en ISO (AAAA-MM-DD). Si 'inicio' es null, el script lo reporta como DATO FALTANTE — a propósito, para que no se pierda en silencio.",
+  "servicios": [
+    {
+      "cliente": "Arias Design",
+      "contacto": "Pendiente de confirmar con JC",
+      "servicio": "Tarjeta digital con QR — alojamiento anual",
+      "inicio": "2026-07-17",
+      "cicloMeses": 12,
+      "monto": 60,
+      "moneda": "USD",
+      "plan": "heredado",
+      "notas": "Pagó y se le entregó el 17-jul-2026; desde ahí corre el año. El diseño se regaló (amiga del tío que fondea a JC). Solo se cobró el alojamiento: $60. NO subir el precio en la renovación sin hablarlo con JC — la relación pesa más que los $120 de diferencia."
+    }
+  ]
+}

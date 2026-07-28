@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jean Carlos Ducruet — Alijerik</title>
+  <meta name="description" content="Tarjeta de presentación digital de Jean Carlos Ducruet, Alijerik. Guarda el contacto, escribe por WhatsApp o conoce Eficore. Ciudad de Panamá." />
+  <link rel="canonical" href="https://alijerik.com/jc" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon-180.png" />
+  <meta name="theme-color" content="#05060a" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Jean Carlos Ducruet — Alijerik" />
+  <meta property="og:description" content="Tarjeta de presentación digital. Guarda el contacto en un toque." />
+  <meta property="og:url" content="https://alijerik.com/jc" />
+  <meta property="og:image" content="https://alijerik.com/alijerik-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --void:#05060a; --deep:#0a0a0f; --plasma:#00e5ff; --lava:#ff3d00;
+      --nebula:#7b2fff; --text:#f0f0f0;
+      --display:"Orbitron",system-ui,sans-serif;
+      --mono:"Space Mono",ui-monospace,monospace;
+    }
+    body{
+      background:var(--void);color:var(--text);
+      font-family:var(--mono);line-height:1.6;
+      min-height:100svh;display:flex;flex-direction:column;
+    }
+    /* El clip va en main, no en body: overflow en body se propaga al viewport. */
+    main{overflow-x:clip;flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px 24px;position:relative;isolation:isolate}
+    a:focus-visible{outline:2px solid var(--plasma);outline-offset:3px;border-radius:8px}
+
+    /* ── Fondo: disco de acreción en CSS, sin canvas ni JS ── */
+    .fondo{position:fixed;inset:0;z-index:-2;pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(255,61,0,.16) 0%, transparent 34%),
+        radial-gradient(circle at 50% 32%, rgba(0,229,255,.10) 22%, transparent 52%),
+        radial-gradient(ellipse 90% 60% at 50% 30%, rgba(123,47,255,.10) 0%, transparent 62%),
+        var(--void);
+    }
+    /* Malla de módulos: el motivo propio de esta página es el QR mismo. */
+    .malla{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.055;
+      background-image:linear-gradient(var(--plasma) 1px,transparent 1px),linear-gradient(90deg,var(--plasma) 1px,transparent 1px);
+      background-size:34px 34px;
+      -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 34%,#000 0%,transparent 72%);
+      mask-image:radial-gradient(ellipse 70% 55% at 50% 34%,#000 0%,transparent 72%);
+    }
+
+    .tarjeta{width:100%;max-width:430px}
+
+    /* ── Cabecera ── */
+    .marca{display:flex;justify-content:center;margin-bottom:26px}
+    .marca svg{width:62px;height:62px;filter:drop-shadow(0 0 26px rgba(0,229,255,.35))}
+
+    .quien{text-align:center}
+    .nombre{
+      font-family:var(--display);font-weight:900;
+      font-size:clamp(25px,7vw,34px);letter-spacing:.02em;line-height:1.1;
+      color:transparent;background:linear-gradient(100deg,#fff 0%,#b8f3ff 48%,#18e3ff 100%);
+      -webkit-background-clip:text;background-clip:text;
+    }
+    .cargo{margin-top:12px;font-size:12px;letter-spacing:.2em;color:rgba(240,240,240,.5);text-transform:uppercase}
+    .casa{
+      margin-top:16px;display:inline-flex;align-items:center;gap:8px;
+      padding:7px 15px;border-radius:999px;font-size:11.5px;letter-spacing:.16em;
+      color:var(--plasma);box-shadow:inset 0 0 0 1px rgba(0,229,255,.26);
+      background:rgba(0,229,255,.05);
+    }
+    .casa svg{width:13px;height:13px}
+
+    /* ── Acción principal: la única cosa que importa al escanear ── */
+    .guardar{
+      margin-top:32px;display:flex;align-items:center;justify-content:center;gap:11px;
+      padding:17px 22px;border-radius:14px;text-decoration:none;
+      background:var(--lava);color:#0b0603;
+      font-family:var(--display);font-weight:700;font-size:13.5px;letter-spacing:.09em;
+      box-shadow:0 12px 38px rgba(255,61,0,.34);
+      transition:transform .25s ease, box-shadow .3s ease;
+    }
+    .guardar svg{width:19px;height:19px}
+    .guardar:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(255,61,0,.46)}
+
+    /* ── Canales ── */
+    .canales{list-style:none;margin-top:12px;display:grid;gap:9px}
+    .canal{
+      display:flex;align-items:center;gap:14px;padding:14px 15px;border-radius:13px;
+      text-decoration:none;color:var(--text);background:rgba(255,255,255,.028);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.055);
+      transition:transform .22s ease, box-shadow .3s ease, background .3s ease;
+    }
+    a.canal:hover{transform:translateX(4px);background:rgba(0,229,255,.05);
+      box-shadow:inset 0 0 0 1px rgba(0,229,255,.3), 0 0 26px rgba(0,229,255,.08)}
+    .canal__ic{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:11px;
+      color:var(--plasma);background:rgba(0,229,255,.09)}
+    .canal__ic svg{width:21px;height:21px}
+    .canal__t{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .canal__k{font-family:var(--display);font-size:9.5px;letter-spacing:.24em;color:rgba(240,240,240,.42)}
+    .canal__v{font-size:14.5px;line-height:1.4;overflow-wrap:anywhere}
+    .canal--fijo{cursor:default}
+    .canal--fijo .canal__v{font-size:13px;color:rgba(240,240,240,.82)}
+
+    /* ── Eficore: el producto, no un enlace más ── */
+    .producto{
+      margin-top:22px;display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:15px;
+      text-decoration:none;color:var(--text);
+      background:linear-gradient(180deg,rgba(123,47,255,.12),rgba(255,255,255,.02));
+      box-shadow:inset 0 0 0 1px rgba(123,47,255,.28);
+      transition:transform .25s ease, box-shadow .3s ease;
+    }
+    .producto:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px rgba(123,47,255,.5), 0 0 30px rgba(123,47,255,.16)}
+    .producto__ic{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:11px;
+      color:#c9a8ff;background:rgba(123,47,255,.18)}
+    .producto__ic svg{width:22px;height:22px}
+    .producto__t{margin-right:auto;display:flex;flex-direction:column;gap:3px;min-width:0}
+    .producto__n{font-family:var(--display);font-weight:700;font-size:13.5px;letter-spacing:.09em}
+    .producto__d{font-size:11.5px;color:rgba(240,240,240,.55);line-height:1.45}
+    .producto__go{font-size:16px;color:#c9a8ff;flex:none}
+
+    /* ── El pie que convierte: quien escanea ve que esto se vende ── */
+    .venta{
+      margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);
+      text-align:center;font-size:12px;color:rgba(240,240,240,.44);line-height:1.75;
+    }
+    .venta a{color:var(--plasma);text-decoration:none;border-bottom:1px solid rgba(0,229,255,.3)}
+    .venta a:hover{border-color:var(--plasma)}
+
+    footer{padding:0 20px 30px;text-align:center;font-size:10.5px;letter-spacing:.05em;color:rgba(240,240,240,.3)}
+
+    @media (max-width:420px){
+      main{padding:28px 16px 20px}
+      .marca svg{width:54px;height:54px}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .guardar:hover,.producto:hover,a.canal:hover{transform:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="fondo" aria-hidden="true"></div>
+  <div class="malla" aria-hidden="true"></div>
+
+  <main>
+    <article class="tarjeta">
+
+      <div class="marca">
+        <svg viewBox="0 0 64 64" role="img" aria-label="Alijerik">
+          <defs>
+            <linearGradient id="ag" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#18e3ff"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#ff3d00"/>
+            </linearGradient>
+            <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.8"/></filter>
+          </defs>
+          <circle cx="32" cy="32" r="19" fill="none" stroke="url(#ag)" stroke-width="8" opacity=".5" filter="url(#glow)"/>
+          <circle cx="32" cy="32" r="19" fill="none" stroke="url(#ag)" stroke-width="5"/>
+          <circle cx="32" cy="32" r="11.5" fill="#05060a"/>
+        </svg>
+      </div>
+
+      <header class="quien">
+        <h1 class="nombre">Jean Carlos Ducruet</h1>
+        <p class="cargo">Fundador</p>
+        <p class="casa">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Z"/></svg>
+          ALIJERIK &middot; CIUDAD DE PANAMÁ
+        </p>
+      </header>
+
+      <a class="guardar" href="/jean-carlos-ducruet.vcf" download>
+        <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,72V208a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8H176Z" opacity="0.2"/><path d="M213.66,66.34l-40-40A8,8,0,0,0,168,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V72A8,8,0,0,0,213.66,66.34ZM160,216H96V184h64Zm40,0H176V184a16,16,0,0,0-16-16H96a16,16,0,0,0-16,16v32H56V40h96V72a8,8,0,0,0,8,8h40Z"/></svg>
+        GUARDAR CONTACTO
+      </a>
+
+      <ul class="canales">
+        <li>
+          <a class="canal" href="https://wa.me/50760933039">
+            <span class="canal__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,32A96,96,0,0,0,44.89,176.07L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47A96,96,0,1,0,128,32Z" opacity="0.2"/><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.62-9.74,23,11.48A24,24,0,0,1,152,176Z"/></svg></span>
+            <span class="canal__t"><span class="canal__k">WHATSAPP</span><span class="canal__v">+507 6093-3039</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="canal" href="mailto:contacto@alijerik.com">
+            <span class="canal__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56l-96,88L32,56Z" opacity="0.2"/><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span>
+            <span class="canal__t"><span class="canal__k">CORREO</span><span class="canal__v">contacto@alijerik.com</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="canal" href="https://alijerik.com/">
+            <span class="canal__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><circle cx="128" cy="128" r="96" opacity="0.2"/><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg></span>
+            <span class="canal__t"><span class="canal__k">SITIO</span><span class="canal__v">alijerik.com</span></span>
+          </a>
+        </li>
+        <!-- Sin fila de UBICACIÓN a propósito. La dirección de este negocio es
+             un apartamento, y una tarjeta de presentación termina guardada en
+             el teléfono de gente que no se conoce. El chip de arriba ya dice
+             "Ciudad de Panamá", que es lo único que un prospecto necesita
+             saber. El domicilio registrado vive en las páginas legales, que es
+             donde corresponde. -->
+      </ul>
+
+      <a class="producto" href="/eficore/">
+        <span class="producto__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232.07,186.76a80,80,0,0,0-62.5-114.17A80,80,0,1,0,23.93,138.76l-7.27,24.71a16,16,0,0,0,19.87,19.87l24.71-7.27a80.39,80.39,0,0,0,25.18,7.35,80,80,0,0,0,108.34,40.65l24.71,7.27a16,16,0,0,0,19.87-19.86Z" opacity="0.2"/><path d="M232.07,186.76a80,80,0,0,0-62.5-114.17A80,80,0,1,0,23.93,138.76l-7.27,24.71a16,16,0,0,0,19.87,19.87l24.71-7.27a80.39,80.39,0,0,0,25.18,7.35,80,80,0,0,0,108.34,40.65l24.71,7.27a16,16,0,0,0,19.87-19.86ZM62,159.5a8.28,8.28,0,0,0-2.26.32L32,168l8.17-27.76a8,8,0,0,0-.63-6,64,64,0,1,1,26.26,26.26A8,8,0,0,0,62,159.5Zm153.79,28.73L224,216l-27.76-8.17a8,8,0,0,0-6,.63,64.05,64.05,0,0,1-85.87-24.88A79.93,79.93,0,0,0,174.7,89.71a64,64,0,0,1,41.75,92.48A8,8,0,0,0,215.82,188.23Z"/></svg></span>
+        <span class="producto__t">
+          <span class="producto__n">EFICORE</span>
+          <span class="producto__d">WhatsApp para equipos, hecho en Panamá</span>
+        </span>
+        <span class="producto__go">&rarr;</span>
+      </a>
+
+      <p class="venta">
+        Esta tarjeta es el producto.<br />
+        <a href="/tarjetas/">Quiero una así &rarr;</a>
+      </p>
+
+    </article>
+  </main>
+
+  <footer>© 2026 ALIJERIK &middot; CIUDAD DE PANAMÁ, PANAMÁ</footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jean Carlos Ducruet",
+    "jobTitle": "Fundador",
+    "url": "https://alijerik.com/jc",
+    "email": "contacto@alijerik.com",
+    "telephone": "+507-6093-3039",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Alijerik",
+      "url": "https://alijerik.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ciudad de Panamá",
+        "addressCountry": "PA"
+      }
+    }
+  }
+  </script>
+</body>
+</html>

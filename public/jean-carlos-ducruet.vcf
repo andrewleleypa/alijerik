@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Ducruet;Jean Carlos;;;
+FN:Jean Carlos Ducruet
+ORG:Alijerik
+TITLE:Fundador
+TEL;TYPE=CELL,VOICE:+50760933039
+EMAIL;TYPE=INTERNET,WORK:contacto@alijerik.com
+URL:https://alijerik.com
+ADR;TYPE=WORK:;;;Ciudad de Panama;;;Panama
+NOTE:Infraestructura IT\, Microsoft 365\, desarrollo a medida y seguridad.
+END:VCARD
