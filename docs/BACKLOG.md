@@ -67,6 +67,38 @@ rehacen otra vez al final**: se toman una sola vez, al cierre, no en cada iterac
 
 ---
 
+## 0c. ⏰ Correr la medición en TODAS las páginas de los dos repos (pedido de JC, 30-jul)
+
+Hasta ahora se midió **una** página (`/formula-antislop/`) y eso ya destapó dos fallos vivos
+en producción (§0b). Falta el barrido completo, y JC lo pidió explícitamente.
+
+```bash
+# Alijerik — las 10 páginas. El script lee los hexes ESCRITOS A MANO, que son
+# los que nadie vigila (así salieron los dos de §0b).
+for p in index.html eficore/index.html eficore/alternativa-panamena/index.html \
+         eficore/ley-81/index.html formula-antislop/index.html tarjetas/index.html \
+         jc/index.html privacidad/index.html condiciones/index.html \
+         eliminacion-de-datos/index.html; do
+  node scripts/medir-contraste.mjs "$p"
+done
+```
+
+**En el repo de Eficore el equivalente tiene un hueco de instrumento que hay que cerrar
+primero:** `scripts/medir_contraste.py` mide los **tokens** de `base.html`, no los colores
+escritos a mano en cada plantilla. El censo de sus 12 plantillas ya está hecho y está
+limpio (`color:#fff` ×5 y `#ffe2b0` ×1). **Pero ese `#fff` ya dio un fallo real:** en tema
+Espresso, blanco sobre `--primary` da **3.00:1** — la tinta correcta ahí es oscura
+(`#1E1A14`, 5.77:1). Detalle en `eficore/docs/BACKLOG.md` §Accesibilidad.
+
+⚠️ **Al leer la salida:** un `BAJO` se atiende siempre. Un *"solo texto GRANDE"* hay que
+**confirmarlo contra el fondo donde ese color se usa de verdad** — el script mide el
+producto cruzado, no los emparejamientos reales, y ya produjo un falso positivo así (el
+comentario dentro de los `<pre>`, que mide 4.63:1 sobre su fondo real).
+
+**Disparador: junto al próximo cambio visual de cada repo, no como tarea suelta.**
+
+---
+
 ## 0b. 🟡 Dos colores de texto del PIE fallan contraste en las 3 páginas publicadas
 
 Encontrado el 2026-07-30 al construir `/formula-antislop/`, con la herramienta nueva
