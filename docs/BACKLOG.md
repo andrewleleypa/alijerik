@@ -67,6 +67,34 @@ rehacen otra vez al final**: se toman una sola vez, al cierre, no en cada iterac
 
 ---
 
+## 0b. 🟡 Dos colores de texto del PIE fallan contraste en las 3 páginas publicadas
+
+Encontrado el 2026-07-30 al construir `/formula-antislop/`, con la herramienta nueva
+[`scripts/medir-contraste.mjs`](../scripts/medir-contraste.mjs). **Son colores escritos a
+mano, fuera de la paleta de tokens — que es exactamente la clase de valor que nadie
+vigila.** Están en el pie que comparten `/eficore/`, `/eficore/alternativa-panamena/` y
+`/eficore/ley-81/`:
+
+| Color | Peor superficie | Dónde | Umbral |
+|---|---|---|---|
+| `#6F5F4E` | **2.59:1** | `.f-col h5` (rótulos, 11px) y `.f-legal` (línea legal, 11.5px) | 4.5:1 · **falla** |
+| `#83705A` | **3.36:1** | `.f-legal .firma` (12.5px) | 4.5:1 · falla para texto normal |
+
+**El arreglo ya está probado en `/formula-antislop/`: reemplazarlos por `var(--arena)`**
+(#A8957E, 5.51:1 en el peor caso). Se probó primero un gris intermedio `#9B8A72` que
+cumple (4.75:1), pero queda a **1.16× de `--arena`** y en el pie aparecen uno al lado del
+otro: serían el mismo color a la vista. Es la trampa de la escalera. La salida correcta es
+la misma lección que en Eficore — **si la paleta no da otro nivel que cumpla, la distinción
+la carga la FORMA**: los rótulos ya se diferencian por tamaño, mayúsculas y
+`letter-spacing:.2em`, no necesitan además ser más apagados.
+
+⚠️ **No se aplicó a las páginas publicadas en este cambio, a propósito.** Un push a `main`
+despliega, y tocar tres páginas vivas es un cambio aparte que merece su propia revisión.
+**Disparador: se hace junto al próximo cambio que ya vaya a tocar esas páginas** — muy
+probablemente el de las capturas del §0.
+
+---
+
 ## 1. Dashboard de renovaciones + avisos a WhatsApp y correo
 
 **Estado:** diferido el 2026-07-27 por JC, reconfirmado al cierre de la sesión

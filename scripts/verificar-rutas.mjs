@@ -21,7 +21,8 @@ const BASE = process.env.BASE || "http://localhost:4318";
 
 const RUTAS = [
   "/", "/tarjetas/", "/jc/", "/eficore/", "/eficore/alternativa-panamena/",
-  "/eficore/ley-81/", "/privacidad/", "/condiciones/", "/eliminacion-de-datos/",
+  "/eficore/ley-81/", "/formula-antislop/",
+  "/privacidad/", "/condiciones/", "/eliminacion-de-datos/",
 ];
 const ANCHOS = [1440, 390];
 

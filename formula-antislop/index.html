@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Por qué tu sitio se ve hecho con IA (y cómo arreglarlo) — Alijerik</title>
+  <meta name="description" content="No son los íconos: es el ritmo. Todas las secciones con la misma forma es la firma del contenido generado. Los seis movimientos, las trampas y el checklist." />
+  <link rel="canonical" href="https://alijerik.com/formula-antislop/" />
+  <link rel="icon" href="/eficore-favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/eficore-favicon.svg" />
+  <link rel="apple-touch-icon" href="/eficore-favicon-180.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Por qué tu sitio se ve hecho con IA (y cómo arreglarlo)" />
+  <meta property="og:description" content="No son los íconos: es el ritmo. Los seis movimientos, las trampas de CSS que no se ven en escritorio, y el checklist." />
+  <meta property="og:url" content="https://alijerik.com/formula-antislop/" />
+  <meta property="og:image" content="https://alijerik.com/eficore-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --espresso:#17120D; --espuma:#FBF5EA; --leche:#E8D3B0;
+      --terracota:#C2410C; --terracota-luz:#E8743C; --arena:#A8957E;
+      --miel:#D9A441; --olivo:#97A15C;
+      --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    }
+    body{background:var(--espresso);color:var(--espuma);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.6}
+    main{overflow-x:clip}
+    a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--terracota-luz);outline-offset:3px;border-radius:6px}
+
+    .top{position:sticky;top:0;z-index:20;background:rgba(23,18,13,.9);backdrop-filter:blur(10px);border-bottom:1px solid #211913}
+    .top__in{max-width:1080px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .top .wm{font-family:var(--display);letter-spacing:.18em;font-weight:700;font-size:14px;color:var(--espuma);text-decoration:none}
+    .top .wm small{display:block;letter-spacing:.06em;font-weight:400;color:var(--arena);font-size:10.5px;font-family:"Segoe UI",system-ui,sans-serif}
+    .top a.back{color:var(--leche);text-decoration:none;font-size:13px;transition:color .2s}
+    .top a.back:hover{color:var(--terracota-luz)}
+
+    .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+    /* Longhand obligatorio: `.sec` comparte elemento y especificidad con `.wrap`;
+       un shorthand anula el padding lateral y el texto queda pegado al borde. */
+    .sec{padding-top:70px;padding-bottom:70px;position:relative;isolation:isolate}
+    .sec--aire{padding-top:118px;padding-bottom:96px}
+    .sec--junto{padding-top:46px;padding-bottom:54px}
+    .angosta{max-width:760px}
+    .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--terracota-luz);margin-bottom:18px}
+    h1{font-family:var(--display);font-size:clamp(32px,5.2vw,56px);font-weight:800;line-height:1.05;letter-spacing:-.02em;max-width:840px}
+    h2{font-family:var(--display);font-size:clamp(25px,3.6vw,38px);font-weight:700;line-height:1.14;letter-spacing:-.015em;max-width:720px;margin-bottom:18px}
+    h3{font-family:var(--display);font-size:18.5px;font-weight:700;letter-spacing:-.01em;margin-bottom:7px}
+    p{font-size:16px;color:var(--leche);max-width:680px}
+    p+p{margin-top:14px}
+    .lead{margin-top:20px;font-size:clamp(16px,2vw,19px);color:var(--leche);max-width:660px}
+    strong{color:var(--espuma);font-weight:600}
+    a.enlace{color:var(--terracota-luz);text-decoration:none;border-bottom:1px solid rgba(232,116,60,.4)}
+    a.enlace:hover{border-color:var(--terracota-luz)}
+    code{font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-size:.9em;color:var(--miel);background:rgba(217,164,65,.08);padding:1px 6px;border-radius:5px}
+
+    .respuesta{
+      margin-top:36px;border-radius:22px;padding:32px 30px;max-width:760px;
+      background:linear-gradient(160deg,#231B12,#1B140E 62%);
+      box-shadow:0 18px 44px rgba(12,7,3,.45), inset 0 1px 0 rgba(251,245,234,.05);
+      border-left:3px solid var(--terracota);
+    }
+    .respuesta h2{font-size:15px;letter-spacing:.16em;color:var(--arena);font-family:"Segoe UI",system-ui,sans-serif;font-weight:600;margin-bottom:14px}
+    .respuesta p{font-size:16.5px;color:var(--espuma)}
+
+    /* ── SILUETA 1: la franja del diagnóstico. Tipografía grande, sin rejilla. ── */
+    /* Padding lateral EXPLÍCITO: esta franja no lleva `.wrap`, así que si el
+       horizontal queda en 0 su párrafo interno (max-width 560px) toca el borde
+       de la pantalla a 390px. Es la trampa del shorthand en su variante menos
+       obvia — no la del elemento compartido, sino la de la sección suelta. */
+    .golpe{
+      position:relative;text-align:center;
+      padding-top:112px;padding-bottom:104px;padding-left:28px;padding-right:28px;
+      background:linear-gradient(180deg,#1E1610,#17120D 68%);
+    }
+    .golpe::before,.golpe::after{
+      content:"";position:absolute;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(217,164,65,.32),transparent);
+    }
+    .golpe::before{top:0}
+    .golpe::after{bottom:0}
+    .golpe .frase{
+      font-family:var(--display);font-weight:800;letter-spacing:-.03em;
+      font-size:clamp(30px,6.4vw,74px);line-height:1.02;color:var(--espuma);
+      max-width:15ch;margin:0 auto;
+    }
+    .golpe .frase em{font-style:normal;color:var(--miel)}
+    .golpe p{max-width:560px;margin:28px auto 0;font-size:17px;color:var(--leche)}
+
+    /* ── SILUETA 2: el diagrama a sangre. Artefacto propio, no ilustración de stock. ── */
+    .diagrama{padding-top:8px;padding-bottom:8px}
+    .diagrama-in{max-width:1240px;margin:0 auto;padding:0 28px}
+    .diagrama svg{display:block;width:100%;height:auto}
+    .diagrama .pie{max-width:1240px;margin:20px auto 0;padding:0 28px;font-size:11.5px;color:var(--arena);letter-spacing:.05em}
+
+    /* ── SILUETA 3: los seis movimientos como lista numerada con aire. NO una
+         rejilla de cartas — una rejilla de seis cartas iguales sería exactamente
+         el problema que este texto describe. ── */
+    .movs{margin-top:44px;counter-reset:mov;max-width:840px}
+    .mov{counter-increment:mov;position:relative;padding:32px 0 32px 78px;border-bottom:1px solid #241B13}
+    .mov:last-child{border-bottom:none}
+    .mov::before{
+      content:counter(mov,decimal-leading-zero);
+      position:absolute;left:0;top:30px;
+      font-family:var(--display);font-size:26px;font-weight:800;
+      color:var(--terracota);letter-spacing:-.02em;
+    }
+    .mov p{font-size:15px}
+
+    /* ── SILUETA 4: bloque asimétrico para el triage. ── */
+    .triage{
+      margin-top:40px;display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:start;
+      max-width:960px;
+    }
+    .triage-caja{
+      border-radius:20px;padding:30px 28px;
+      background:linear-gradient(160deg,#231B12,#1B140E 62%);
+      box-shadow:inset 0 1px 0 rgba(251,245,234,.05);
+    }
+    .triage-caja--medir{box-shadow:inset 0 1px 0 rgba(251,245,234,.05), inset 3px 0 0 var(--miel)}
+    .triage-caja--ritmo{box-shadow:inset 0 1px 0 rgba(251,245,234,.05), inset 3px 0 0 var(--terracota)}
+    .triage-caja h3{font-size:14px;letter-spacing:.16em;color:var(--arena);font-family:"Segoe UI",system-ui,sans-serif;font-weight:600;margin-bottom:16px}
+    .triage-caja ul{list-style:none}
+    .triage-caja li{font-size:15px;color:var(--leche);padding:7px 0;font-style:italic}
+    .triage-caja .veredicto{margin-top:18px;padding-top:16px;border-top:1px solid rgba(232,211,176,.1);font-size:15px;font-style:normal}
+
+    /* ── La tabla medida: dato verificable, con su propio scroll lateral. ── */
+    .tabla-caja{margin-top:32px;max-width:820px;overflow-x:auto}
+    table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+    th,td{text-align:left;padding:12px 16px;border-bottom:1px solid #241B13}
+    th{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.12em;color:var(--arena);text-transform:uppercase}
+    td{color:var(--leche);font-variant-numeric:tabular-nums}
+    td strong{color:var(--espuma)}
+    .mal{color:#E5685F}
+    .bien{color:var(--olivo)}
+    .nota-tabla{margin-top:14px;font-size:12.5px;color:var(--arena);max-width:760px}
+
+    /* ── SILUETA 5: el fracaso. Sección sin rejilla, un aviso destacado. ── */
+    .franja{position:relative;padding-top:92px;padding-bottom:80px;background:linear-gradient(180deg,#1C1510,#17120D 62%)}
+    .franja::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(232,116,60,.35),transparent)}
+    .aviso{
+      margin-top:32px;display:flex;gap:16px;align-items:flex-start;max-width:780px;
+      padding:26px 28px;border-radius:18px;background:rgba(217,164,65,.07);
+      box-shadow:inset 0 0 0 1px rgba(217,164,65,.16);
+    }
+    .aviso svg{width:24px;height:24px;color:var(--miel);flex:none;margin-top:2px}
+    .aviso p{font-size:15px}
+
+    /* ── Trampas: lista con aire, cada una con su código. ── */
+    .trampas{margin-top:38px;max-width:840px;list-style:none}
+    .trampa{padding:26px 0;border-bottom:1px solid #241B13}
+    .trampa:last-child{border-bottom:none}
+    .trampa h3{margin-bottom:9px}
+    .trampa p{font-size:15px}
+    pre{margin-top:14px;overflow-x:auto;border-radius:12px;padding:18px 20px;background:#120E0A;box-shadow:inset 0 0 0 1px #241B13}
+    pre code{background:none;padding:0;color:var(--leche);font-size:13px;line-height:1.7}
+    pre .c{color:#8B7A63}
+    pre .x{color:#E5685F}
+    pre .v{color:var(--olivo)}
+
+    /* ── Checklist ── */
+    .check{
+      margin-top:38px;border-radius:24px;padding:38px 34px;max-width:820px;position:relative;overflow:hidden;
+      background:linear-gradient(165deg,#241B12,#1B140E 65%);
+      box-shadow:0 24px 60px rgba(12,7,3,.5), inset 0 1px 0 rgba(251,245,234,.06);
+    }
+    .check::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--miel),var(--olivo))}
+    .check h2{font-size:20px;margin-bottom:6px}
+    .check ul{list-style:none;margin-top:22px}
+    .check li{display:flex;gap:14px;align-items:flex-start;padding:11px 0;font-size:15px;color:var(--leche);border-bottom:1px solid rgba(232,211,176,.07)}
+    .check li:last-child{border-bottom:none}
+    .check .caja{width:17px;height:17px;flex:none;margin-top:3px;border-radius:5px;box-shadow:inset 0 0 0 1.5px rgba(217,164,65,.5)}
+
+    /* Ecos del latte art */
+    .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1}
+    .motif--swirl{top:-70px;right:-190px;width:600px;opacity:.07}
+    .motif--grano{left:-130px;bottom:-30px;width:280px;opacity:.06}
+    .motif--heart{left:50%;top:44%;transform:translate(-50%,-50%);width:400px;opacity:.05}
+
+    .faq{margin-top:34px;max-width:820px}
+    .faq details{border-radius:16px;padding:2px 24px;margin-bottom:10px;background:linear-gradient(160deg,#221A11,#1A130D 62%);box-shadow:inset 0 1px 0 rgba(251,245,234,.04)}
+    .faq summary{cursor:pointer;padding:20px 0;font-family:var(--display);font-size:16.5px;font-weight:700;letter-spacing:-.01em;color:var(--espuma);list-style:none;display:flex;gap:14px;align-items:flex-start}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::before{content:"+";color:var(--terracota-luz);font-size:20px;line-height:1.1;flex:none;font-weight:400}
+    .faq details[open] summary::before{content:"\2013"}
+    .faq details p{padding:0 0 22px 28px;font-size:15px}
+
+    .cta-fin{text-align:center;padding-top:76px;padding-bottom:96px;position:relative;isolation:isolate}
+    .cta-fin h2{margin:0 auto}
+    .cta-fin p{margin-left:auto;margin-right:auto}
+    .btns{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-p{display:inline-block;padding:16px 36px;border-radius:999px;background:var(--terracota);color:var(--espuma);text-decoration:none;font-weight:600;letter-spacing:.04em;font-size:15px;box-shadow:0 8px 32px rgba(194,65,12,.4);transition:transform .25s, background .25s}
+    .btn-p:hover{transform:translateY(-2px);background:var(--terracota-luz)}
+    .btn-g{display:inline-block;padding:16px 36px;border-radius:999px;color:var(--leche);text-decoration:none;font-weight:600;letter-spacing:.04em;font-size:15px;box-shadow:inset 0 0 0 1px #3A3327;transition:box-shadow .25s, color .25s}
+    .btn-g:hover{box-shadow:inset 0 0 0 1px var(--arena);color:var(--espuma)}
+
+    footer{padding:0 28px 46px}
+    .f-divide{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px}
+    .f-divide::before,.f-divide::after{content:"";flex:1;height:1px;background:#2A2019}
+    .f-cup{width:44px;height:44px;flex:none;overflow:visible}
+    .f-vapor{transform-origin:bottom center;transform-box:fill-box;animation:vapor 2.8s ease-in-out infinite}
+    .f-vapor--1{opacity:.7}
+    .f-vapor--2{opacity:.5;animation-delay:1.4s;animation-duration:3.2s}
+    @keyframes vapor{0%{transform:translateY(1.6px) scaleY(.85);opacity:0}35%{opacity:.75}100%{transform:translateY(-2.6px) scaleY(1.08);opacity:0}}
+    .f-grid{max-width:1080px;margin:46px auto 0;display:grid;gap:36px;grid-template-columns:1.4fr 1fr 1fr;align-items:start}
+    .f-brand .fw{letter-spacing:.18em;font-weight:700;font-size:15px;font-family:var(--display)}
+    .f-brand p{margin-top:10px;font-size:13px;color:var(--arena);line-height:1.6;max-width:260px}
+    .f-col h5{font-size:11px;letter-spacing:.2em;color:var(--arena);font-weight:600;margin-bottom:14px}
+    .f-col a{display:block;color:var(--leche);text-decoration:none;font-size:13.5px;padding:5px 0;transition:color .2s}
+    .f-col a:hover{color:var(--terracota-luz)}
+    .f-legal{max-width:1080px;margin:44px auto 0;padding-top:20px;border-top:1px solid #211913;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--arena);letter-spacing:.04em}
+    .f-legal .firma{font-family:var(--display);font-size:12.5px;letter-spacing:.015em;color:var(--arena)}
+
+    /* Reveal: contenido VISIBLE por defecto, piso de opacidad .3 */
+    @media (prefers-reduced-motion: no-preference){
+      @supports (animation-timeline: view()){
+        .reveal{animation:reveal-in linear both;animation-timeline:view();animation-range:entry 4% cover 26%}
+        @keyframes reveal-in{from{opacity:.3;transform:translateY(26px)}to{opacity:1;transform:none}}
+      }
+    }
+
+    @media (max-width:860px){
+      .triage{grid-template-columns:1fr;gap:18px}
+    }
+    @media (max-width:760px){
+      .top__in,.wrap{padding-left:20px;padding-right:20px}
+      .sec{padding-top:50px;padding-bottom:50px}
+      .sec--aire{padding-top:76px;padding-bottom:64px}
+      .respuesta,.check{padding:26px 22px}
+      .mov{padding:24px 0 24px 58px}
+      .mov::before{font-size:21px;top:23px}
+      .golpe{padding-top:78px;padding-bottom:70px;padding-left:20px;padding-right:20px}
+      .franja{padding-top:62px;padding-bottom:52px}
+      .diagrama-in,.diagrama .pie{padding-left:20px;padding-right:20px}
+      .f-grid{grid-template-columns:1fr;gap:28px}
+      .motif--swirl{width:380px;right:-140px}
+      .motif--grano{width:190px;left:-80px}
+      .motif--heart{width:280px}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .f-vapor{animation:none;opacity:.6}
+      .btn-p:hover{transform:none}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="top__in">
+      <a class="wm" href="/">ALIJERIK<small>lenguaje visual</small></a>
+      <a class="back" href="https://github.com/andrewleleypa/formula-antislop" target="_blank" rel="noopener">Ver el repositorio &rarr;</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap sec sec--aire">
+      <svg class="motif motif--swirl" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#E8743C" stroke-width="1.3" stroke-linecap="round">
+        <path d="M210 560 C 186 480, 238 430, 214 350 C 192 280, 240 220, 222 150 C 212 110, 226 80, 220 48" opacity=".55"/>
+        <path d="M310 585 C 340 500, 282 440, 316 355 C 344 285, 296 225, 322 150 C 334 112, 320 78, 328 30" opacity=".8"/>
+        <path d="M415 555 C 396 490, 442 435, 420 365 C 402 305, 446 250, 428 185 C 419 152, 432 118, 425 88" opacity=".4"/>
+      </svg>
+      <div class="eyebrow">LENGUAJE VISUAL · MÉTODO ABIERTO</div>
+      <h1>Por qué tu sitio se ve hecho con IA</h1>
+      <p class="lead">Y por qué cambiar la librería de íconos no lo va a arreglar. El problema casi nunca está donde uno lo busca.</p>
+
+      <div class="respuesta">
+        <h2>RESPUESTA CORTA</h2>
+        <p>Lo que delata al contenido generado no son los íconos ni el copy: es que <strong>todas las secciones tienen la misma forma</strong>. Etiqueta, título, párrafo, rejilla de tarjetas. Repetir. Esa uniformidad métrica es la firma, y se arregla variando la <strong>silueta</strong> de las secciones, no su decoración.</p>
+      </div>
+    </section>
+
+    <section class="golpe">
+      <p class="frase reveal">Es un problema de <em>ritmo</em>, no de componentes.</p>
+      <p>Un diseñador humano rompe el compás sin pensarlo. Una plantilla no puede: repetir es su única forma de existir.</p>
+    </section>
+
+    <section class="wrap sec">
+      <div class="eyebrow">EL DIAGNÓSTICO</div>
+      <h2>Se cuenta, no se intuye</h2>
+      <p>Antes de tocar una línea de código, contá tres cosas sobre tu página: <strong>cuántas secciones abren igual</strong>, cuántas comparten el mismo padding vertical y cuántas comparten el mismo ancho máximo. Si la respuesta es «casi todas», ya sabés dónde está el problema — y no está en los íconos.</p>
+      <p>El diagnóstico intuitivo («se ven de librería») apunta al síntoma. Los íconos son lo primero que se nota porque son lo único que se mira de cerca; la métrica uniforme actúa en la periferia, que es justo donde se forma la impresión de «esto ya lo vi».</p>
+    </section>
+
+    <section class="diagrama">
+      <div class="diagrama-in">
+        <svg viewBox="0 0 1160 400" role="img" aria-labelledby="diag-t diag-d">
+          <title id="diag-t">Comparación de siluetas de sección</title>
+          <desc id="diag-d">A la izquierda, cuatro secciones con exactamente la misma silueta: una barra corta de etiqueta, una barra ancha de título, dos líneas de párrafo y tres cuadrados de rejilla, repetidas idénticas. A la derecha, cuatro secciones de siluetas distintas: una franja a sangre completa, un bloque asimétrico de dos columnas, una sección de solo texto y una tarjeta desplazada y más angosta que el cuerpo.</desc>
+          <g font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-size="11" letter-spacing="2.4" fill="#A8957E">
+            <text x="0" y="14">LA MISMA FORMA CUATRO VECES</text>
+            <text x="620" y="14">CUATRO FORMAS DISTINTAS</text>
+          </g>
+          <g fill="#E5685F" opacity=".5">
+            <rect x="0" y="34" width="54" height="6" rx="3"/>
+            <rect x="0" y="50" width="300" height="15" rx="4"/>
+            <rect x="0" y="74" width="380" height="5" rx="2.5"/>
+            <rect x="0" y="86" width="330" height="5" rx="2.5"/>
+            <rect x="0" y="102" width="120" height="34" rx="5"/>
+            <rect x="132" y="102" width="120" height="34" rx="5"/>
+            <rect x="264" y="102" width="120" height="34" rx="5"/>
+
+            <rect x="0" y="164" width="54" height="6" rx="3"/>
+            <rect x="0" y="180" width="300" height="15" rx="4"/>
+            <rect x="0" y="204" width="380" height="5" rx="2.5"/>
+            <rect x="0" y="216" width="330" height="5" rx="2.5"/>
+            <rect x="0" y="232" width="120" height="34" rx="5"/>
+            <rect x="132" y="232" width="120" height="34" rx="5"/>
+            <rect x="264" y="232" width="120" height="34" rx="5"/>
+
+            <rect x="0" y="294" width="54" height="6" rx="3"/>
+            <rect x="0" y="310" width="300" height="15" rx="4"/>
+            <rect x="0" y="334" width="380" height="5" rx="2.5"/>
+            <rect x="0" y="346" width="330" height="5" rx="2.5"/>
+            <rect x="0" y="362" width="120" height="34" rx="5"/>
+            <rect x="132" y="362" width="120" height="34" rx="5"/>
+            <rect x="264" y="362" width="120" height="34" rx="5"/>
+          </g>
+          <line x1="500" y1="24" x2="500" y2="396" stroke="#2A2019" stroke-width="1"/>
+          <g fill="#97A15C" opacity=".62">
+            <rect x="620" y="34" width="540" height="52" rx="6"/>
+            <rect x="620" y="112" width="300" height="14" rx="4"/>
+            <rect x="620" y="136" width="248" height="5" rx="2.5"/>
+            <rect x="620" y="148" width="272" height="5" rx="2.5"/>
+            <rect x="620" y="160" width="210" height="5" rx="2.5"/>
+            <rect x="954" y="112" width="206" height="98" rx="6"/>
+            <rect x="620" y="238" width="430" height="15" rx="4"/>
+            <rect x="620" y="262" width="510" height="5" rx="2.5"/>
+            <rect x="620" y="274" width="470" height="5" rx="2.5"/>
+            <rect x="620" y="286" width="496" height="5" rx="2.5"/>
+            <rect x="716" y="326" width="330" height="70" rx="8"/>
+          </g>
+        </svg>
+      </div>
+      <p class="pie">Diagrama propio. La columna de la izquierda no es una caricatura: es la estructura literal que produce el contenido generado cuando nadie interviene el ritmo.</p>
+    </section>
+
+    <section class="wrap sec">
+      <div class="eyebrow">LA RECETA</div>
+      <h2>Los seis movimientos</h2>
+      <p>Están escritos como movimientos y no como reglas porque hay que <em>hacerlos</em>, no cumplirlos. Y van en lista con aire, no en una rejilla de seis tarjetas iguales — una rejilla acá sería exactamente el problema que este texto describe.</p>
+
+      <div class="movs">
+        <div class="mov reveal">
+          <h3>Romper la métrica</h3>
+          <p>En una página de unas nueve secciones, al menos <strong>tres</strong> deben tener una silueta distinta de las demás: una a sangre completa entre secciones contenidas, un bloque asimétrico de dos columnas, una sección sin rejilla, una tarjeta más angosta que el cuerpo. Y variar también el padding vertical y el ancho máximo. Si todas respiran igual, siguen siendo la misma sección con distinto texto.</p>
+        </div>
+        <div class="mov reveal">
+          <h3>Prueba real por encima de ilustración</h3>
+          <p>Capturas reales del producto, con datos sintéticos. Es el mayor golpe anti-IA que existe y es gratis: <strong>ninguna IA puede fabricar tu interfaz real.</strong> Con pie de foto que declare que los datos son de demostración — la transparencia suma. Si el producto todavía no tiene interfaz, el sustituto es otro artefacto propio: un diagrama, una tabla de datos verdaderos. Nunca una ilustración de stock.</p>
+        </div>
+        <div class="mov reveal">
+          <h3>Un lenguaje propietario, no una librería</h3>
+          <p>Las librerías de ilustración te catalogan, no te diferencian: quien vio cien landings las reconoce al instante. Lo que funciona es <strong>derivar todo de una sola idea</strong>. Acá es el latte art — vapor, corazón, grano, vertido — a opacidad .05–.07, detrás del contenido, sangrando fuera del contenedor. Todo rima porque todo sale de la taza.</p>
+        </div>
+        <div class="mov reveal">
+          <h3>Honestidad específica en el copy</h3>
+          <p>El texto generado es vago y <strong>uniformemente positivo</strong>. El antídoto es el mismo que el visual: romper el patrón. Declarar hasta dónde llega el producto. Dar números concretos y verificables, porque lo específico no se puede inventar y lo vago sí. Pero nunca apuñalarse: decir lo que no hacés es credibilidad, mandar al comprador con la competencia es un autogol.</p>
+        </div>
+        <div class="mov reveal">
+          <h3>Movimiento que nunca esconde</h3>
+          <p>Reveals al scroll en CSS puro con <code>animation-timeline: view()</code>. Cero JavaScript, cero librerías de animación. Y el piso de opacidad en <code>.3</code>, <strong>nunca en 0</strong>: un navegador headless que renderice sin scrollear ve la página vacía, y cualquier herramienta que capture saca imágenes en blanco.</p>
+        </div>
+        <div class="mov reveal">
+          <h3>Restricciones que protegen el propósito</h3>
+          <p>Toda página existe para algo, y el diseño no puede costar eso. Definí qué defiende la página y convertilo en restricción dura <em>antes</em> de construir. Esta página, por ejemplo, existe para ser leída y citada: cero JavaScript, todo el contenido en el DOM sin scripts, ningún recurso externo salvo la tipografía, y cada tabla con su propio scroll lateral para que el cuerpo nunca se mueva de lado.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="franja">
+      <div class="wrap">
+        <div class="eyebrow">EL LÍMITE, Y ES EL MÁS IMPORTANTE</div>
+        <h2>Cuatro días después, esta fórmula falló</h2>
+        <p>Se formuló el 26 de julio de 2026. El 30, alguien reportó que una interfaz nuestra «se veía fea». La fórmula habría mandado a buscar un problema de ritmo — y habría hecho perder el día.</p>
+        <p>El defecto real era <strong>contraste de texto</strong>. La escalera de tres niveles estaba colapsada: el nivel más débil no llegaba ni al piso de WCAG, y el valor que lo hacía pasar lo dejaba <em>por encima</em> del nivel de arriba, así que arreglarlo ingenuamente borraba un nivel entero de jerarquía y la pantalla se veía más plana todavía.</p>
+
+        <div class="tabla-caja">
+          <table>
+            <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Contraste de la escalera de texto, antes y después</caption>
+            <thead>
+              <tr><th>Nivel</th><th>Antes</th><th>Después</th><th>Usos en el código</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Texto principal</strong></td><td class="bien">16.94:1</td><td class="bien">16.94:1</td><td>sin cambio</td></tr>
+              <tr><td><strong>Secundario</strong></td><td>5.69:1</td><td class="bien">7.22:1</td><td>62</td></tr>
+              <tr><td><strong>Terciario</strong></td><td class="mal">2.99:1</td><td class="bien">5.46:1</td><td>11</td></tr>
+              <tr><td><strong>Separadores</strong></td><td class="mal">1.30:1</td><td>sin cambio, a propósito</td><td>24</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="nota-tabla">Medido con un script que lee los tokens del CSS y compone la transparencia contra cada fondo — no con colores transcritos a mano. Los separadores se dejaron como estaban: WCAG 1.4.11 no cubre un divisor decorativo entre filas que ya se distinguen por contenido y espaciado, así que subirlos sería una decisión estética, y vestirla de cumplimiento sería colar un cambio de cara del producto por la puerta de atrás.</p>
+
+        <div class="aviso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg>
+          <p><strong>Se arregló con tres valores de color.</strong> Correr la fórmula no lo habría encontrado nunca — y por eso el método ahora empieza por un triage que puede mandarte a otra herramienta. Saber cuándo algo no aplica es parte de la herramienta.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap sec">
+      <div class="eyebrow">EL TRIAGE</div>
+      <h2>«Feo» y «slop» son diagnósticos distintos</h2>
+      <p>Los dos suenan igual cuando alguien los reporta, y piden herramientas opuestas. La pregunta que los separa: <strong>¿la queja es sobre la forma, o sobre el esfuerzo?</strong></p>
+
+      <div class="triage">
+        <div class="triage-caja triage-caja--ritmo">
+          <h3>SUENA A RITMO</h3>
+          <ul>
+            <li>«se ve genérico»</li>
+            <li>«se ve plantilla»</li>
+            <li>«se ve hecho con IA»</li>
+            <li>«esto ya lo vi mil veces»</li>
+          </ul>
+          <p class="veredicto">Es uniformidad métrica. <strong>Se compone</strong> — los seis movimientos.</p>
+        </div>
+        <div class="triage-caja triage-caja--medir">
+          <h3>SUENA A ESFUERZO</h3>
+          <ul>
+            <li>«me cansa la vista»</li>
+            <li>«se ve plana», «apagada»</li>
+            <li>«no encuentro lo que busco»</li>
+            <li>«está fea», a secas</li>
+          </ul>
+          <p class="veredicto">Es legibilidad o jerarquía. <strong>Se mide</strong> — y la fórmula no sirve.</p>
+        </div>
+      </div>
+      <p style="margin-top:28px">La tercera fila de la segunda caja es la peor. «Está fea» a secas <strong>no es un diagnóstico</strong>: es una invitación a adivinar, y adivinar en diseño se ve exactamente igual que trabajar. Antes de tocar un pixel hay que convertir el adjetivo en un síntoma, y las preguntas que funcionan no son «¿te gusta?» sino <em>¿qué te cansa la vista?</em>, <em>¿qué dato buscás y no encontrás rápido?</em>, <em>¿qué acción hacés más veces al día y cuántos clics te lleva?</em></p>
+    </section>
+
+    <section class="wrap sec sec--junto">
+      <svg class="motif motif--grano" viewBox="0 0 280 280" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width="1.1" stroke-linecap="round">
+        <ellipse cx="140" cy="140" rx="74" ry="112" transform="rotate(-24 140 140)"/>
+        <path d="M140 34 C 112 84, 168 196, 140 246" transform="rotate(-24 140 140)"/>
+      </svg>
+      <div class="eyebrow">LAS TRAMPAS</div>
+      <h2>Ninguna se ve en escritorio</h2>
+      <p>Las cuatro estuvieron en producción. Las cuatro pasaron desapercibidas porque en una pantalla ancha no rompen nada.</p>
+
+      <div class="trampas">
+        <div class="trampa reveal">
+          <h3>El shorthand <code>padding</code> que borra el margen lateral</h3>
+          <p>La peor, porque es silenciosa. Si las secciones llevan dos clases en el mismo elemento —una que da el ancho y otra que da el aire vertical— tienen la misma especificidad, y gana la última declarada. Un <code>padding: 64px 0</code> reescribe los cuatro lados: el lateral pasa a cero. En escritorio no se nota porque el ancho máximo deja aire de sobra. <strong>En móvil el texto queda pegado al borde.</strong></p>
+          <pre><code><span class="c">/* la que da el ancho */</span>
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+<span class="x">.sec{padding:64px 0}</span>                        <span class="c">← anula el 28px lateral</span>
+<span class="v">.sec{padding-top:64px;padding-bottom:64px}</span>  <span class="c">← longhand, correcto</span></code></pre>
+        </div>
+        <div class="trampa reveal">
+          <h3><code>overflow-x</code> en <code>body</code> no recorta nada</h3>
+          <p>Se propaga al viewport. Los motivos que sangran fuera del contenedor ensanchan la página entera. Va en el contenedor raíz, y con <code>clip</code>, no con <code>hidden</code>: <code>hidden</code> fuerza un <code>overflow-y</code> automático que mete una barra de scroll interna, y además rompe el <code>position:sticky</code> del encabezado.</p>
+        </div>
+        <div class="trampa reveal">
+          <h3>Sangrado completo con <code>100vw</code></h3>
+          <p><code>100vw</code> incluye el ancho de la barra de scroll, así que desborda siempre. Si la sección es hija directa del contenedor raíz ya ocupa el ancho completo sola. No hace falta ningún truco.</p>
+        </div>
+        <div class="trampa reveal">
+          <h3>Medir la caja en vez del texto</h3>
+          <p><code>getBoundingClientRect()</code> devuelve la caja del elemento, que <strong>incluye su propio padding</strong>. Un pie de foto con <code>padding-left:20px</code> reporta que empieza en 0 aunque su texto empiece en 20 — y se persiguen bugs que no existen. Para el borde real del texto hay que medir un <code>Range</code> sobre el contenido. La versión gemela de esta trampa: <code>getComputedStyle(el).opacity</code> devuelve 1 aunque un ancestro esté en 0, porque la opacidad no se hereda como valor, se compone al pintar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap sec">
+      <svg class="motif motif--heart" viewBox="0 0 400 400" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width="1.2" stroke-linecap="round">
+        <path d="M200 320 C 132 258, 74 210, 78 158 C 82 112, 128 94, 158 118 C 178 134, 194 158, 200 176 C 208 156, 224 130, 244 116 C 274 94, 320 114, 322 160 C 324 212, 266 260, 200 320"/>
+      </svg>
+      <div class="check">
+        <h2>Antes de dar una página por terminada</h2>
+        <p style="font-size:14.5px">Verificar mirando, no asumiendo. Cada punto salió de algo que se rompió.</p>
+        <ul>
+          <li><span class="caja"></span>¿Al menos tres secciones con silueta distinta de las demás?</li>
+          <li><span class="caja"></span>¿Varía el padding vertical y el ancho máximo entre secciones?</li>
+          <li><span class="caja"></span>¿Al menos una prueba real —captura con datos sintéticos, o un artefacto propio— verificada abriéndola?</li>
+          <li><span class="caja"></span>¿Esa prueba sostiene un argumento del texto, o solo decora?</li>
+          <li><span class="caja"></span>¿Cero librerías de ilustración?</li>
+          <li><span class="caja"></span>¿Los motivos salen de una sola idea, a opacidad .05–.07, detrás del contenido?</li>
+          <li><span class="caja"></span>¿<code>overflow-x:clip</code> en el contenedor raíz, no en <code>body</code>?</li>
+          <li><span class="caja"></span>¿Ningún shorthand <code>padding</code> en clases que compartan elemento con la de ancho?</li>
+          <li><span class="caja"></span>¿Medido el borde izquierdo real del texto a 390px, con <code>Range</code> y no con la caja?</li>
+          <li><span class="caja"></span>¿Todo reveal arranca en <code>.3</code> y no en <code>0</code>?</li>
+          <li><span class="caja"></span>¿La sección de límites está redactada como alcance, y sin recomendar a la competencia?</li>
+          <li><span class="caja"></span>¿Al menos un dato numérico verificable por sección argumentativa?</li>
+          <li><span class="caja"></span>¿Ningún copy que describa por posición en pantalla? El responsive reordena; el copy no.</li>
+          <li><span class="caja"></span>¿Verificado a 1440px <em>y</em> a 390px sin desbordamiento horizontal?</li>
+          <li><span class="caja"></span>¿<code>prefers-reduced-motion</code> renderiza la página completa?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap sec">
+      <div class="eyebrow">PREGUNTAS</div>
+      <h2>Lo que suelen preguntar</h2>
+      <div class="faq">
+        <details>
+          <summary>¿Por qué mi sitio se ve hecho con IA si el diseño es bueno?</summary>
+          <p>Porque «bueno» y «distinto» son cosas separadas. Lo que delata al contenido generado es la uniformidad métrica: todas las secciones con la misma silueta, el mismo padding vertical y el mismo ancho. Un diseño puede estar bien ejecutado en cada sección y aun así leerse como plantilla, porque la impresión de «esto ya lo vi» se forma en la periferia, no en el detalle.</p>
+        </details>
+        <details>
+          <summary>¿Cambiar la librería de íconos ayuda?</summary>
+          <p>No. Es el diagnóstico intuitivo más común y apunta al síntoma. Los íconos se notan porque son lo único que se mira de cerca, pero cambiar un pack por otro deja intacta la causa. Los íconos de librería son perfectamente válidos para listas funcionales, que es una convención de producto; el problema es usarlos como decoración en secciones que ya eran todas iguales.</p>
+        </details>
+        <details>
+          <summary>¿Sirve para una aplicación, o solo para páginas de contenido?</summary>
+          <p>Está escrita para páginas de contenido. En una aplicación con sesión —una bandeja, un panel— cuatro de los seis movimientos no traducen directo: no hay nueve secciones cuyas siluetas variar, ni reveals al scroll que convengan. Lo que sí traduce es el diagnóstico: en una aplicación la uniformidad se ve como todo con el mismo padding y el mismo peso tipográfico, y la jerarquía tiene que venir de densidad variada.</p>
+        </details>
+        <details>
+          <summary>¿Qué hago si me dicen que mi interfaz «está fea»?</summary>
+          <p>No aplicar esta fórmula todavía. «Está fea» a secas no es un diagnóstico: hay que convertirlo en un síntoma preguntando qué cuesta, no si gusta. Si la respuesta apunta a cansancio visual, a no encontrar un dato o a que la pantalla «se ve plana», el problema es legibilidad o jerarquía y se mide: contraste, escalera de niveles de texto, densidad. Si apunta a que se ve genérico o repetido, entonces sí es ritmo.</p>
+        </details>
+        <details>
+          <summary>¿Se pueden usar ilustraciones de unDraw, Storyset o Humaaans?</summary>
+          <p>Se puede, pero te catalogan. Son la firma visual de «plantilla de startup» y cualquiera que haya visto varias decenas de landings las reconoce al instante, lo cual trabaja en contra de lo que la ilustración venía a hacer. La alternativa que funciona es derivar un set cerrado de tres a cinco motivos propios de una única idea del proyecto, en line art, a opacidad muy baja y detrás del contenido.</p>
+        </details>
+        <details>
+          <summary>¿Hay que medir el contraste aunque el diseño se vea bien?</summary>
+          <p>Sí, y con dos cuidados que la práctica común omite. Primero: un color con transparencia no tiene un contraste, tiene uno por cada fondo sobre el que se compone, así que hay que componerlo antes de medir y verificar contra todos los fondos reales — el peor caso casi nunca es el fondo principal. Segundo: pasar el umbral no alcanza. Hay que medir la escalera completa, porque un valor puede cumplir y aun así arruinar la jerarquía si se acerca demasiado al nivel de arriba.</p>
+        </details>
+        <details>
+          <summary>¿Esto se puede usar en un proyecto propio?</summary>
+          <p>Sí. El método está publicado como skill de Claude Code bajo licencia CC BY 4.0, o sea que se puede copiar, adaptar y usar comercialmente; lo único que pide es atribución. Incluye la receta, el triage, las trampas de CSS y las cinco variables que conviene resolver antes de escribir la primera línea de HTML — la primera de ellas, la única idea de la que se deriva todo lo visual, es la que hace la diferencia.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap cta-fin">
+      <h2>El método está abierto</h2>
+      <p>Cinco archivos de Markdown, sin dependencias. Se instala como skill de Claude Code o se lee y se aplica a mano.</p>
+      <div class="btns">
+        <a class="btn-p" href="https://github.com/andrewleleypa/formula-antislop" target="_blank" rel="noopener">Ver el repositorio</a>
+        <a class="btn-g" href="/eficore/">Ver el producto donde nació</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="f-divide">
+        <svg class="f-cup" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <path class="f-vapor f-vapor--1" d="M18 13 C 15.4 10.4, 20.6 8.2, 18 5.4" stroke="#E8743C" stroke-width="1.3" stroke-linecap="round"/>
+          <path class="f-vapor f-vapor--2" d="M25 13 C 22.4 10.6, 27.6 8.4, 25 5.6" stroke="#E8743C" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M9 18h20v7a10 10 0 0 1-20 0z" stroke="#E8D3B0" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M29 20h3.5a3.5 3.5 0 0 1 0 7H29" stroke="#E8D3B0" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M19 24.5c-2.6-2 .6-4.4 0-1.2.6-3.2 3.8-.8 1.2 1.2z" fill="#FBF5EA" opacity=".75"/>
+        </svg>
+      </div>
+      <div class="f-grid">
+        <div class="f-brand">
+          <div class="fw">ALIJERIK</div>
+          <p>Software hecho con calma en Ciudad de Panamá. El lenguaje visual de este sitio es el mismo que este método describe.</p>
+        </div>
+        <div class="f-col">
+          <h5>LEER</h5>
+          <a href="/eficore/">Ver la plataforma</a>
+          <a href="/eficore/alternativa-panamena/">Alternativa panameña a Whaticket y Wati</a>
+          <a href="/eficore/ley-81/">Ley 81 y WhatsApp en clínicas</a>
+          <a href="/">Conocer Alijerik</a>
+        </div>
+        <div class="f-col">
+          <h5>LEGAL</h5>
+          <a href="/privacidad/">Privacidad</a>
+          <a href="/condiciones/">Condiciones del servicio</a>
+          <a href="/eliminacion-de-datos/">Eliminación de datos</a>
+        </div>
+      </div>
+      <div class="f-legal">
+        <span>&copy; 2026 Alijerik &middot; Ciudad de Panamá, Panamá &middot; Método bajo CC BY 4.0</span>
+        <span class="firma">Un producto servido con calma.</span>
+      </div>
+    </footer>
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Por qué tu sitio se ve hecho con IA (y cómo arreglarlo)",
+        "description": "El método del lenguaje visual de Alijerik: \"se ve hecho con IA\" es un problema de ritmo y no de componentes. Los seis movimientos, el triage entre feo y slop, las trampas de CSS y el checklist.",
+        "inLanguage": "es",
+        "url": "https://alijerik.com/formula-antislop/",
+        "datePublished": "2026-07-30",
+        "author": { "@type": "Person", "name": "Jean Carlos Ducruet", "url": "https://alijerik.com/" },
+        "publisher": { "@type": "Organization", "name": "Alijerik", "url": "https://alijerik.com/" },
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "about": { "@type": "Thing", "name": "Diseño web y contenido generado por inteligencia artificial" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "¿Por qué mi sitio se ve hecho con IA si el diseño es bueno?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Porque \"bueno\" y \"distinto\" son cosas separadas. Lo que delata al contenido generado es la uniformidad métrica: todas las secciones con la misma silueta, el mismo padding vertical y el mismo ancho. Un diseño puede estar bien ejecutado en cada sección y aun así leerse como plantilla, porque la impresión de que ya se vio antes se forma en la periferia, no en el detalle." } },
+          { "@type": "Question", "name": "¿Cambiar la librería de íconos ayuda a que no se vea hecho con IA?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Es el diagnóstico intuitivo más común y apunta al síntoma. Los íconos se notan porque son lo único que se mira de cerca, pero cambiar un pack por otro deja intacta la causa, que es la métrica uniforme. Los íconos de librería son válidos para listas funcionales; el problema es usarlos como decoración en secciones que ya eran todas iguales." } },
+          { "@type": "Question", "name": "¿La fórmula anti-slop sirve para una aplicación o solo para páginas de contenido?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Está escrita para páginas de contenido. En una aplicación con sesión cuatro de los seis movimientos no traducen directo: no hay nueve secciones cuyas siluetas variar ni reveals al scroll que convengan. Lo que sí traduce es el diagnóstico: en una aplicación la uniformidad se ve como todo con el mismo padding y el mismo peso tipográfico, y la jerarquía tiene que venir de densidad variada." } },
+          { "@type": "Question", "name": "¿Qué hago si me dicen que mi interfaz está fea?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No aplicar la fórmula todavía. \"Está fea\" a secas no es un diagnóstico: hay que convertirlo en un síntoma preguntando qué cuesta, no si gusta. Si la respuesta apunta a cansancio visual, a no encontrar un dato o a que la pantalla se ve plana, el problema es legibilidad o jerarquía y se mide: contraste, escalera de niveles de texto, densidad. Si apunta a que se ve genérico o repetido, entonces sí es un problema de ritmo." } },
+          { "@type": "Question", "name": "¿Se pueden usar ilustraciones de unDraw, Storyset o Humaaans?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Se puede, pero catalogan al sitio como plantilla de startup, y cualquiera que haya visto varias decenas de landings las reconoce al instante. La alternativa que funciona es derivar un set cerrado de tres a cinco motivos propios de una única idea del proyecto, en line art, a opacidad muy baja y detrás del contenido." } },
+          { "@type": "Question", "name": "¿Hay que medir el contraste aunque el diseño se vea bien?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí, con dos cuidados que la práctica común omite. Primero: un color con transparencia no tiene un contraste, tiene uno por cada fondo sobre el que se compone, así que hay que componerlo antes de medir y verificar contra todos los fondos reales, porque el peor caso casi nunca es el fondo principal. Segundo: pasar el umbral no alcanza. Hay que medir la escalera completa, porque un valor puede cumplir y aun así arruinar la jerarquía si se acerca demasiado al nivel de arriba." } },
+          { "@type": "Question", "name": "¿Se puede usar este método en un proyecto propio?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. Está publicado como skill de Claude Code bajo licencia CC BY 4.0, así que se puede copiar, adaptar y usar comercialmente; lo único que pide es atribución. Incluye la receta, el triage, las trampas de CSS y las cinco variables que conviene resolver antes de escribir la primera línea de HTML." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Alijerik", "item": "https://alijerik.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Fórmula anti-slop", "item": "https://alijerik.com/formula-antislop/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
