@@ -67,7 +67,7 @@ rehacen otra vez al final**: se toman una sola vez, al cierre, no en cada iterac
 
 ---
 
-## 0c. ⏰ Correr la medición en TODAS las páginas de los dos repos (pedido de JC, 30-jul)
+## 0c. ✅ CERRADO por §0a — Correr la medición en TODAS las páginas (pedido de JC, 30-jul)
 
 Hasta ahora se midió **una** página (`/formula-antislop/`) y eso ya destapó dos fallos vivos
 en producción (§0b). Falta el barrido completo, y JC lo pidió explícitamente.
@@ -99,7 +99,69 @@ comentario dentro de los `<pre>`, que mide 4.63:1 sobre su fondo real).
 
 ---
 
-## 0b. 🟡 Dos colores de texto del PIE fallan contraste en las 3 páginas publicadas
+## 0a. ✅ HECHO 2026-07-30 — barrido de contraste completo: 38 → 8, y lo que queda NO es un color
+
+**Desplegado a producción** (`96cd303`). Cierra §0b y §0c, que quedan abajo como historia.
+
+**Medido con la herramienta nueva:** `jean-config/skills/formula-antislop/scripts/medir-contraste-real.mjs`.
+Mide **píxeles renderizados** en Chrome en vez de parsear CSS. El medidor anterior
+(`scripts/medir-contraste.mjs`) **no podía ver este problema**: imprimía `OK` contra **cero
+fondos** en 6 de las 10 páginas, incluida la portada, cuyo CSS vive en `src/` y nunca se
+había leído. **Un `OK` de aquel script no era un aprobado.**
+
+| página | antes | ahora |
+|---|---|---|
+| `/tarjetas/` | 13 | **0** |
+| `/eficore/ley-81/` | 3 | **0** |
+| `/eficore/alternativa-panamena/` | 3 | **0** |
+| `/` portada | 6 | 1 |
+| `/jc/` | 4 | 1 |
+| `/eficore/` | 8 | 5 |
+| `/formula-antislop/` | 1 | 1 |
+| las 3 legales | 0 | 0 |
+
+**LA CAUSA RAÍZ, que vale más que el arreglo: el sistema neón expresaba jerarquía con ALFA,
+no con colores distintos.** Había **diez** niveles de blanco desvanecido elegidos a ojo
+—`.82 .72 .55 .50 .46 .44 .42 .40 .32 .30`— y **seis estaban bajo el umbral**. Eso no es una
+jerarquía, es un degradé de suposiciones. Nadie midió el compuesto contra el fondo.
+
+**El criterio del arreglo fue el más conservador que funciona:** subir a `.55` (5.54:1 en el
+peor de los siete fondos) **sólo lo que fallaba**, sin tocar `.55`, `.72` ni `.82`.
+- Subir a `.62` habría dejado un `.42` **más brillante que un `.55` que hoy es más
+  importante** → habría invertido una jerarquía que estaba bien.
+- **`jc .cargo` se dejó en `.5` a propósito:** da 4.76 y **pasa**. Sólo se tocó lo que falla.
+- Páginas de Eficore: `#6F5F4E` (2.59) y `#83705A` (3.36) → `var(--arena)` (5.51), el valor
+  que §0b ya tenía calculado. ⚠️ **Los `#6F5F4E` que son `stroke` de SVG no se tocaron:** son
+  el trazo decorativo de la taza, no texto.
+
+🟡 **LOS 8 QUE QUEDAN SON TODOS SOBRE GRADIENTE — y no se arreglan con un color.** Son texto
+sobre el hero animado y sobre ilustraciones. El arreglo es un velo, un overlay más oscuro o
+mover el texto: **eso es diseño, no un token.** Detalle: `div.sub` 1.74 · `text «LA MISMA
+FORMA CUATRO VECES»` 2.66 · `small «· un producto de Alijerik»` 2.95 · `p «Mensajes que
+llegan…»` 3.04 · `p.duo__pie` 3.41 · `a.cta--precios` 4.01 · `p.cargo` 4.38 · `time «10:31»`
+4.43.
+
+> ⚠️ **Cómo leer esos números sin exagerarlos:** el medidor reporta **el peor punto
+> muestreado**. Un 4.43 sobre gradiente significa que casi todo el texto se lee bien y falla
+> un borde — **no es comparable al 2.37 plano** que tenía el pie de `/jc/`. Los dos primeros
+> (1.74 y 2.66) sí son severos y son los que hay que atender primero.
+
+🔵 **PENDIENTE SISTÉMICO — consolidar los diez niveles de alfa en tres medidos.** Hoy quedan
+`.82 .72 .55 .50` (todos pasan) más los que se subieron a `.55`. Que `.5` y `.55` convivan es
+1.16× — **a la vista son el mismo color**, que es la trampa de la escalera. No se hizo ahora
+porque tocar valores que PASAN es un cambio de apariencia y lo aprueba JC.
+
+### 🪤 Trampa del entorno que costó un commit
+
+**`sed -i` come los CRLF.** Dos de las páginas de Eficore están guardadas con CRLF; `sed -i`
+las dejó en LF y convirtió un cambio de 20 líneas en **un diff de 1123**, irrevisable. Se
+rehizo restaurando desde `origin/main` y aplicando **en binario** con Python. Y `grep -c
+$'\r'` **no** sirve para detectarlo a través de `git show` (git normaliza la salida): usar
+`xxd`.
+
+---
+
+## 0b. ✅ CERRADO por §0a — Dos colores de texto del PIE fallan contraste en las 3 páginas publicadas
 
 Encontrado el 2026-07-30 al construir `/formula-antislop/`, con la herramienta nueva
 [`scripts/medir-contraste.mjs`](../scripts/medir-contraste.mjs). **Son colores escritos a
