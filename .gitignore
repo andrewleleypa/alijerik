@@ -1,6 +1,17 @@
 node_modules
 dist
 
+# ── Wallet: llaves y certificados. NADA de esto entra al repo. ──────────────
+# La cuenta de servicio de Google firma pases a nombre de Alijerik; el .p12 de Apple
+# es la identidad del emisor. Filtrados, cualquiera emite tarjetas con nuestra marca.
+scripts/wallet/secretos/
+*.p12
+*.pem
+*.key
+google-wallet-*.json
+# Artefactos generados: se reconstruyen con los scripts, no se versionan.
+scripts/wallet/salida/
+
 # Scratch de verificación visual (capturas headless)
 hero-*.png
 closeup.png

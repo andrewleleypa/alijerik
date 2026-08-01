@@ -1,0 +1,64 @@
+{
+  "_nota": [
+    "Fuente ÚNICA de los datos de cada pase de wallet. Los generadores y el medidor",
+    "leen de aquí — nadie transcribe colores a mano a un pass.json. Esa transcripción",
+    "es exactamente lo que produjo números de contraste inventados antes (ver la",
+    "trampa 1 de references/feo-no-es-slop.md del skill formula-antislop).",
+    "",
+    "Para agregar un cliente: copiar el bloque de 'jc', cambiar los datos y la paleta,",
+    "y correr `node scripts/wallet/medir-escalera-pase.mjs` ANTES de generar nada."
+  ],
+
+  "jc": {
+    "slug": "jc",
+    "nombre": "Jean Carlos Ducruet",
+    "cargo": "Fundador",
+    "organizacion": "Alijerik",
+    "ciudad": "Ciudad de Panamá",
+    "telefono": "+507 6093-3039",
+    "telefonoE164": "+50760933039",
+    "correo": "contacto@alijerik.com",
+    "sitio": "alijerik.com",
+
+    "qr": "https://alijerik.com/jc",
+    "_qr_por_que": [
+      "MISMA URL que el QR impreso en el plástico. No un vCard embebido:",
+      "un vCard completo sube mucho la cuenta de módulos y el umbral medido para el",
+      "hueco del logo (r=6.33 módulos decodifica, 6.66 muere) deja de valer.",
+      "Además un vCard impreso no se actualiza nunca; la URL sí.",
+      "RUTA INTOCABLE: /jc es el destino del QR ya impreso."
+    ],
+
+    "descripcion": "Tarjeta de presentación — Jean Carlos Ducruet, Alijerik",
+    "atras": [
+      { "clave": "correo", "etiqueta": "CORREO", "valor": "contacto@alijerik.com" },
+      { "clave": "sitio", "etiqueta": "SITIO", "valor": "https://alijerik.com" },
+      { "clave": "eficore", "etiqueta": "PRODUCTO", "valor": "Eficore — WhatsApp para equipos, hecho en Panamá\nhttps://alijerik.com/eficore/" },
+      { "clave": "venta", "etiqueta": "ESTA TARJETA ES EL PRODUCTO", "valor": "¿Quieres una así? https://alijerik.com/tarjetas/" }
+    ],
+
+    "paleta": {
+      "fondo": "#05060a",
+      "tinta": "#f0f0f0",
+      "etiqueta": "#00e5ff"
+    },
+    "_paleta_por_que": [
+      "Identidad de /jc/ (void / plasma / lava), NO la cappuccino de Alijerik.",
+      "La tarjeta personal de JC ya tiene su propio lenguaje visual y el pase lo hereda.",
+      "",
+      "MEDIDO (node medir-escalera-pase.mjs): tinta 17.77:1 · etiqueta 13.17:1 ·",
+      "escalera 1.35x. Los dos niveles pasan AA y la jerarquia se sostiene.",
+      "",
+      "Por que la etiqueta NO es lava #ff3d00: es DECISION ESTETICA, no de cumplimiento.",
+      "Lava tambien pasa — medido con --probar: 5.71:1 y escalera 3.11x, mejor separacion",
+      "incluso. Queda fuera porque en /jc/ el lava es el color de la UNICA accion de la",
+      "pagina (el boton GUARDAR CONTACTO). Un pase de wallet no tiene accion que pulsar,",
+      "asi que gastar el color de accion en decorar etiquetas rompe el codigo de la marca.",
+      "El plasma ya es el color de los canales en /jc/, que es exactamente lo que las",
+      "etiquetas del pase enumeran.",
+      "",
+      "LIMITE del medidor: mide luminancia, no saturacion. Un cian saturado atrae la vista",
+      "mas de lo que su ratio sugiere. Se comprueba MIRANDO el pase en el telefono."
+    ]
+  }
+}

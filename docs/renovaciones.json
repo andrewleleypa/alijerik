@@ -11,6 +11,28 @@
       "moneda": "USD",
       "plan": "heredado",
       "notas": "Pagó y se le entregó el 17-jul-2026; desde ahí corre el año. El diseño se regaló (amiga del tío que fondea a JC). Solo se cobró el alojamiento: $60. NO subir el precio en la renovación sin hablarlo con JC — la relación pesa más que la diferencia. Desde el 28-jul-2026 (ADR 0002) la renovación es $60 en TODOS los planes, así que este monto ya no es una excepción: es la lista. Lo que Arias no recibió es el plástico PVC impreso, que ahora va incluido en el pago único; si se le da uno, es cortesía."
+    },
+    {
+      "cliente": "Alijerik (interno)",
+      "contacto": "JC",
+      "servicio": "Apple Developer Program — habilita los pases de Apple Wallet",
+      "inicio": null,
+      "cicloMeses": 12,
+      "monto": 99,
+      "moneda": "USD",
+      "plan": "infraestructura",
+      "notas": "Este es un COSTO, no un cobro: sale, no entra. Sin esta membresía no se puede firmar ningún .pkpass y el botón 'Añadir a Apple Wallet' deja de emitir tarjetas nuevas. 'inicio' queda null a propósito hasta que JC se inscriba — el script lo va a reportar como DATO FALTANTE cada vez que corra, que es exactamente lo que queremos. Al inscribirse: poner la fecha real de inscripción aquí."
+    },
+    {
+      "cliente": "Alijerik (interno)",
+      "contacto": "JC",
+      "servicio": "Certificado Pass Type ID — firma los .pkpass",
+      "inicio": null,
+      "cicloMeses": 12,
+      "monto": 0,
+      "moneda": "USD",
+      "plan": "infraestructura",
+      "notas": "Sin costo propio (viene con la membresía) pero VENCE APARTE, y ese es el riesgo real: cuando vence, las tarjetas ya guardadas siguen funcionando y solo dejan de poder emitirse NUEVAS. O sea que falla en silencio, del lado del cliente que aún no la tiene. Entrada separada de la membresía a propósito, porque son dos fechas distintas. El ciclo de 12 meses es una ESTIMACIÓN: al crear el certificado, leer la fecha real con `openssl x509 -enddate -noout -in pase-cert.pem` y corregir esto con el dato, no con la suposición."
     }
   ]
 }

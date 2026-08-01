@@ -1,0 +1,15 @@
+# Cabeceras de Cloudflare Pages.
+# Vite copia todo lo de public/ a dist/, y Pages lee este archivo desde la raíz de dist/.
+
+# Un .pkpass servido con el Content-Type genérico se descarga como archivo suelto y
+# el usuario se queda mirando un ZIP que no sabe abrir. Con este tipo MIME, Safari en
+# iOS abre directamente la hoja "Añadir a Apple Wallet". Es la diferencia entre que la
+# tarjeta funcione y que no, y no se ve en escritorio.
+/wallet/*.pkpass
+  Content-Type: application/vnd.apple.pkpass
+  Cache-Control: public, max-age=300
+
+# Las imágenes del pase las DESCARGA Google desde su infraestructura para componer la
+# tarjeta. Cache larga: cambian solo si cambia la marca.
+/wallet/*.png
+  Cache-Control: public, max-age=86400
