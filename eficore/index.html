@@ -65,10 +65,35 @@
     .stage-text p{margin-top:14px;font-size:clamp(15px,2vw,19px);color:var(--leche)}
     #t1,#t2{top:44%}
     #t3{top:42%}
+    /* ── EL VELO DEL BLOQUE FINAL ──
+       MEDIDO con scripts/medir-hero.mjs (captura de VIEWPORT parando la timeline de
+       GSAP; el medidor general no puede ver esto, ver docs/BACKLOG.md).
+       Antes de este arreglo fallaban TRES de cuatro sobre la espuma clara, incluido
+       el propio wordmark de 96px: EFICORE 2.35:1, .sub 1.8:1, cta--precios 3.32:1.
+       Ahora: 4.08 / 8.29 / 4.77 / 6.04 — los cuatro pasan.
+
+       DOS TRAMPAS DEL RADIAL-GRADIENT que costaron tres iteraciones:
+       1. `closest-side` en una caja ANCHA Y BAJA calcula el radio contra el lado
+          CORTO: el velo era un circulo vertical diminuto que moria antes del .sub.
+       2. Si la elipse se pasa del borde de la caja, el `border-radius` la RECORTA
+          con alfa todavia alta y aparece un rectangulo visible flotando sobre la
+          foto. Por eso los radios son 50%/52% centrados en 50% 50%: asi el degradado
+          llega a transparente JUSTO dentro de la caja por los cuatro lados y no hay
+          ningun borde.
+
+       LA TENSION QUE NO SE PUDO RESOLVER, y por que quedo asi:
+       el wordmark va ALTO en la caja, asi que el velo tiene que estirarse hacia
+       arriba para taparlo — y estirarlo es lo que lo hace tocar el borde superior.
+       Se probo la version simetrica (50%/52% centrada en 50% 50%), que no toca
+       ningun borde: EFICORE cae a 2.55:1 y FALLA. Con 50%/64% centrada en 50% 44%
+       pasan las cuatro y queda una LINEA HORIZONTAL TENUE arriba, donde el
+       degradado se corta con alfa ~.45 contra el borde de la caja.
+       Se eligio la legibilidad. Si algun dia molesta la linea, la salida NO es
+       bajar el velo: es mover el wordmark mas al centro del bloque. */
     #t4{top:38%;pointer-events:auto;padding:48px 20px 56px;border-radius:32px;
-        background:radial-gradient(closest-side, rgba(23,18,13,.5), rgba(23,18,13,.28) 60%, transparent)}
+        background:radial-gradient(ellipse 50% 64% at 50% 44%, rgba(23,18,13,.93), rgba(23,18,13,.78) 46%, rgba(23,18,13,.34) 74%, transparent 97%)}
     #t4 .wordmark{font-family:var(--display);font-size:clamp(44px,8vw,96px);font-weight:800;letter-spacing:.12em}
-    #t4 .sub{margin-top:6px;color:var(--arena);letter-spacing:.1em;font-size:clamp(12px,1.6vw,15px)}
+    #t4 .sub{margin-top:6px;color:var(--leche);letter-spacing:.1em;font-size:clamp(12px,1.6vw,15px)}
     #t4 .cta{
       display:inline-block;margin-top:30px;padding:15px 34px;border-radius:999px;
       background:var(--terracota);color:var(--espuma);text-decoration:none;

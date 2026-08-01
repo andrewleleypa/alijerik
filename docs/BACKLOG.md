@@ -141,6 +141,83 @@ FORMA CUATRO VECES»` 2.66 · `small «· un producto de Alijerik»` 2.95 · `p 
 llegan…»` 3.04 · `p.duo__pie` 3.41 · `a.cta--precios` 4.01 · `p.cargo` 4.38 · `time «10:31»`
 4.43.
 
+> ### ⚠️ CORRECCIÓN 2026-08-01 — de esos 8, uno era MENTIRA DEL MEDIDOR
+>
+> **`text «LA MISMA FORMA CUATRO VECES»` 2.66 nunca fue un defecto.** Da **6.44:1** contra el
+> fondo real y pasa AA holgado. `/formula-antislop/` tiene **cero** fallos: 49 tratamientos
+> medidos, 0 fallan.
+>
+> **La causa:** un `<text>` de SVG no se pinta con `color`, se pinta con `fill`. El medidor
+> le leía `color` (que devolvía `--espuma`, el color heredado de la página) y al esconder la
+> tinta tampoco tocaba `fill`, así que **el texto seguía visible y se muestreaba a sí mismo
+> como fondo**. El 2.66 que reportó es exactamente la razón entre `--espuma` y `--arena`:
+> **midió dos colores de TEXTO entre sí.** Que el número coincidiera con la escalera real
+> entre los dos niveles es lo que lo hacía tan creíble.
+>
+> **Arreglado** en `jean-config/skills/formula-antislop/scripts/medir-contraste-real.mjs`
+> (fuente única; copiado a `~/.claude/skills/`). 🔴 **El espejo público sigue sin actualizar.**
+>
+> ### ✅ SEGUNDO PUNTO CIEGO — CERRADO el 2026-08-01 con `scripts/medir-hero.mjs`
+>
+> Se escribió un medidor aparte para el hero. Hace tres cosas que el general no puede:
+> **scrollea** hasta el punto donde la timeline de GSAP pone visible el bloque (forzar la
+> opacidad a mano no sirve, la timeline lo pisa al frame siguiente), captura de
+> **viewport** en vez de `fullPage`, y recién ahí esconde la tinta para leer el píxel real
+> **con el velo puesto**. Trae autoprueba.
+>
+> **Lo que reveló: el problema era PEOR de lo documentado.** En producción fallan **tres de
+> cuatro**, incluido el propio wordmark de 96 px:
+>
+> | texto | producción | con el arreglo |
+> |---|---|---|
+> | `EFICORE` 96px/800 | **2.35:1** ✗ (min 3) | **4.08:1** ✓ |
+> | `div.sub` | **1.80:1** ✗ | **8.29:1** ✓ |
+> | `a.cta` | 4.77:1 ✓ | 4.77:1 ✓ |
+> | `a.cta--precios` | **3.32:1** ✗ | **6.04:1** ✓ |
+>
+> Los otros tres números que este archivo listaba para `/eficore/` (`small`, `p`, `time`)
+> vienen de bloques distintos del hero: **medirlos pide correr `medir-hero.mjs` con su id**
+> (`node scripts/medir-hero.mjs t1`, etc.). Siguen sin verificar.
+>
+> **Dos trampas del `radial-gradient` que costaron tres iteraciones, y valen para cualquier
+> velo sobre foto:**
+> 1. `closest-side` en una caja **ancha y baja** calcula el radio contra el lado **corto**.
+> 2. Si la elipse se pasa del borde, el `border-radius` la **recorta con alfa alta** y
+>    aparece un rectángulo visible flotando sobre la foto.
+>
+> **Tensión que quedó sin resolver, documentada a propósito:** el wordmark va alto en la
+> caja, así que el velo tiene que estirarse hacia arriba para taparlo — y eso es lo que lo
+> hace tocar el borde. La versión simétrica que no toca ningún borde deja `EFICORE` en
+> 2.55:1. Se eligió la legibilidad; queda una línea horizontal tenue arriba. **Si molesta,
+> la salida no es bajar el velo: es mover el wordmark al centro del bloque.**
+>
+> ### 🔴 El punto ciego del medidor GENERAL sigue existiendo — `position:fixed` + `fullPage`
+>
+> **Los 5 que quedan en `/eficore/` NO están verificados, y sus números no son confiables.**
+> Todo el texto del hero vive en `.stage-text{position:fixed}` sobre un canvas que anima GSAP
+> por scroll. En una captura `fullPage`, Chrome pinta los `fixed` una sola vez y no
+> necesariamente en la coordenada de documento donde el medidor cree que está el texto.
+>
+> **La prueba de que el instrumento está ciego ahí:** se reforzó el velo de `#t4` dos veces y
+> **el fondo muestreado no se movió ni un dígito** (`#856b54` las tres corridas), mientras que
+> el cambio de tinta sí se reflejó al instante (1.72 → 3.40). El medidor está leyendo el
+> canvas, no el velo. **Afinar CSS contra ese número es afinar contra ruido.**
+>
+> Lo que SÍ se cambió en esta pasada (y **está sin verificar**, necesita ojo de JC):
+> - `#t4` usaba `radial-gradient(closest-side, …)`. En una caja ancha y baja, `closest-side`
+>   calcula el radio contra el lado **corto**: el velo era un círculo vertical diminuto que se
+>   apagaba antes de llegar al subtítulo. **Eso sí era un defecto real, visible leyendo el
+>   CSS.** Ahora es una elipse `78% 88%`.
+> - `#t4 .sub` pasó de `--arena` a `--leche`.
+>
+> **Cómo cerrarlo de verdad:** medir el hero con captura de **viewport** (no `fullPage`) y
+> parando la línea de tiempo de GSAP en el frame de cada `stage-text`. Es una modalidad nueva
+> del medidor, no un ajuste de CSS.
+>
+> **La lección, otra vez:** cada criterio necesita un medidor y **el medidor necesita su
+> propia prueba**. Van dos instrumentos cazados en este mismo archivo, y el segundo se cazó
+> porque un cambio de CSS **no movió** un número que tenía que moverse.
+
 > ⚠️ **Cómo leer esos números sin exagerarlos:** el medidor reporta **el peor punto
 > muestreado**. Un 4.43 sobre gradiente significa que casi todo el texto se lee bien y falla
 > un borde — **no es comparable al 2.37 plano** que tenía el pie de `/jc/`. Los dos primeros

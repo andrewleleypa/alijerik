@@ -10,3 +10,8 @@ video-cards/*.png
 video-cards/*.mp4
 video-cards/*.jpg
 video-cards/lista.txt
+
+# Artefactos generados de los pases de wallet. Va en TODAS las ramas a proposito:
+# la regla vivia solo en feat/tarjetas-wallet y `git add -A` se los llevo DOS veces
+# desde otras ramas. Un .gitignore es por rama, no por repo.
+scripts/wallet/salida/
