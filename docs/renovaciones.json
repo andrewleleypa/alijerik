@@ -10,7 +10,9 @@
       "monto": 60,
       "moneda": "USD",
       "plan": "heredado",
-      "notas": "Pagó y se le entregó el 17-jul-2026; desde ahí corre el año. El diseño se regaló (amiga del tío que fondea a JC). Solo se cobró el alojamiento: $60. NO subir el precio en la renovación sin hablarlo con JC — la relación pesa más que la diferencia. Desde el 28-jul-2026 (ADR 0002) la renovación es $60 en TODOS los planes, así que este monto ya no es una excepción: es la lista. Lo que Arias no recibió es el plástico PVC impreso, que ahora va incluido en el pago único; si se le da uno, es cortesía."
+      "urlTarjeta": "FALTA — nadie sabe dónde vive",
+      "archivosFuente": "FALTA — no están en esta máquina",
+      "notas": "Pagó y se le entregó el 17-jul-2026; desde ahí corre el año. El diseño se regaló (amiga del tío que fondea a JC). Solo se cobró el alojamiento: $60. NO subir el precio en la renovación sin hablarlo con JC — la relación pesa más que la diferencia. Desde el 28-jul-2026 (ADR 0002) la renovación es $60 en TODOS los planes, así que este monto ya no es una excepción: es la lista. Lo que Arias no recibió es el plástico PVC impreso, que ahora va incluido en el pago único; si se le da uno, es cortesía. || 🔴 HUECO ABIERTO (1-ago-2026): la tarjeta se entregó y funciona, pero NI LA URL NI LOS ARCHIVOS FUENTE están en esta máquina — se buscó en ~/alijerik, ~/tarjetas-clientes, el historial de git y OneDrive\\Asesorias\\Arias Design (ahí solo hay exports de Intercom). En julio 2027 hay que cobrarle la renovación de algo que nadie sabe dónde vive ni cómo tocar. QUÉ HACER, y cuanto antes mejor porque depende de la memoria de JC: (1) pedirle a Trini el enlace de su tarjeta o buscarlo en el WhatsApp de la entrega; (2) anotarlo en 'urlTarjeta'; (3) si los fuentes aparecen, migrarlos a ~/tarjetas-clientes/clientes/arias/ como dice el CLAUDE.md §2 de ese repo; (4) si NO aparecen, decirlo aquí explícitamente para que quien renueve sepa que hay que rehacerla desde cero y cotizarlo."
     }
   ]
 }
