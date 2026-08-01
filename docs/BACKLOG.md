@@ -155,7 +155,10 @@ llegan…»` 3.04 · `p.duo__pie` 3.41 · `a.cta--precios` 4.01 · `p.cargo` 4.3
 > entre los dos niveles es lo que lo hacía tan creíble.
 >
 > **Arreglado** en `jean-config/skills/formula-antislop/scripts/medir-contraste-real.mjs`
-> (fuente única; copiado a `~/.claude/skills/`). 🔴 **El espejo público sigue sin actualizar.**
+> (fuente única; copiado a `~/.claude/skills/`). ✅ **El espejo público quedó al día el
+> 1-ago** — `github.com/andrewleleypa/formula-antislop`, verificado por contenido desde el
+> raw de GitHub. Antes de pushear ahí hay que revisar que no se filtren nombres de clientes:
+> es público y los references se escriben con casos reales.
 >
 > ### ✅ SEGUNDO PUNTO CIEGO — CERRADO el 2026-08-01 con `scripts/medir-hero.mjs`
 >
