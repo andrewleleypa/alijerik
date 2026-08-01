@@ -65,10 +65,13 @@
     .stage-text p{margin-top:14px;font-size:clamp(15px,2vw,19px);color:var(--leche)}
     #t1,#t2{top:44%}
     #t3{top:42%}
+    /* El velo llegaba a .28 al 60% y se apagaba justo donde cae el .sub: medido, el
+       subtitulo daba 1.72:1 sobre el punto mas claro de la animacion. No se arregla
+       con un color — el fondo se MUEVE. Se alarga el velo y se sube la tinta un nivel. */
     #t4{top:38%;pointer-events:auto;padding:48px 20px 56px;border-radius:32px;
-        background:radial-gradient(closest-side, rgba(23,18,13,.5), rgba(23,18,13,.28) 60%, transparent)}
+        background:radial-gradient(ellipse 78% 88% at 50% 48%, rgba(23,18,13,.82), rgba(23,18,13,.66) 58%, rgba(23,18,13,.3) 82%, transparent)}
     #t4 .wordmark{font-family:var(--display);font-size:clamp(44px,8vw,96px);font-weight:800;letter-spacing:.12em}
-    #t4 .sub{margin-top:6px;color:var(--arena);letter-spacing:.1em;font-size:clamp(12px,1.6vw,15px)}
+    #t4 .sub{margin-top:6px;color:var(--leche);letter-spacing:.1em;font-size:clamp(12px,1.6vw,15px)}
     #t4 .cta{
       display:inline-block;margin-top:30px;padding:15px 34px;border-radius:999px;
       background:var(--terracota);color:var(--espuma);text-decoration:none;
