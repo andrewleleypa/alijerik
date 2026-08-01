@@ -157,7 +157,41 @@ llegan…»` 3.04 · `p.duo__pie` 3.41 · `a.cta--precios` 4.01 · `p.cargo` 4.3
 > **Arreglado** en `jean-config/skills/formula-antislop/scripts/medir-contraste-real.mjs`
 > (fuente única; copiado a `~/.claude/skills/`). 🔴 **El espejo público sigue sin actualizar.**
 >
-> ### 🔴 SEGUNDO PUNTO CIEGO, ESTE SIGUE ABIERTO — `position:fixed` + captura `fullPage`
+> ### ✅ SEGUNDO PUNTO CIEGO — CERRADO el 2026-08-01 con `scripts/medir-hero.mjs`
+>
+> Se escribió un medidor aparte para el hero. Hace tres cosas que el general no puede:
+> **scrollea** hasta el punto donde la timeline de GSAP pone visible el bloque (forzar la
+> opacidad a mano no sirve, la timeline lo pisa al frame siguiente), captura de
+> **viewport** en vez de `fullPage`, y recién ahí esconde la tinta para leer el píxel real
+> **con el velo puesto**. Trae autoprueba.
+>
+> **Lo que reveló: el problema era PEOR de lo documentado.** En producción fallan **tres de
+> cuatro**, incluido el propio wordmark de 96 px:
+>
+> | texto | producción | con el arreglo |
+> |---|---|---|
+> | `EFICORE` 96px/800 | **2.35:1** ✗ (min 3) | **4.08:1** ✓ |
+> | `div.sub` | **1.80:1** ✗ | **8.29:1** ✓ |
+> | `a.cta` | 4.77:1 ✓ | 4.77:1 ✓ |
+> | `a.cta--precios` | **3.32:1** ✗ | **6.04:1** ✓ |
+>
+> Los otros tres números que este archivo listaba para `/eficore/` (`small`, `p`, `time`)
+> vienen de bloques distintos del hero: **medirlos pide correr `medir-hero.mjs` con su id**
+> (`node scripts/medir-hero.mjs t1`, etc.). Siguen sin verificar.
+>
+> **Dos trampas del `radial-gradient` que costaron tres iteraciones, y valen para cualquier
+> velo sobre foto:**
+> 1. `closest-side` en una caja **ancha y baja** calcula el radio contra el lado **corto**.
+> 2. Si la elipse se pasa del borde, el `border-radius` la **recorta con alfa alta** y
+>    aparece un rectángulo visible flotando sobre la foto.
+>
+> **Tensión que quedó sin resolver, documentada a propósito:** el wordmark va alto en la
+> caja, así que el velo tiene que estirarse hacia arriba para taparlo — y eso es lo que lo
+> hace tocar el borde. La versión simétrica que no toca ningún borde deja `EFICORE` en
+> 2.55:1. Se eligió la legibilidad; queda una línea horizontal tenue arriba. **Si molesta,
+> la salida no es bajar el velo: es mover el wordmark al centro del bloque.**
+>
+> ### 🔴 El punto ciego del medidor GENERAL sigue existiendo — `position:fixed` + `fullPage`
 >
 > **Los 5 que quedan en `/eficore/` NO están verificados, y sus números no son confiables.**
 > Todo el texto del hero vive en `.stage-text{position:fixed}` sobre un canvas que anima GSAP
