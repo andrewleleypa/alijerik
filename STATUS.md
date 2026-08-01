@@ -399,24 +399,51 @@ creíble. Por eso llegó al BACKLOG documentado como defecto a corregir, con dos
 Arreglado en la **fuente única** `jean-config/skills/formula-antislop/scripts/` y copiado a
 `~/.claude/skills/`. 🔴 **El espejo público de GitHub sigue desactualizado**, como ya estaba.
 
-### 🔴 Segundo punto ciego del medidor — ESTE SIGUE ABIERTO
+### ✅ Segundo punto ciego — CERRADO con un medidor nuevo, y reveló algo peor
 
-**No puede muestrear el fondo de un `position:fixed` en captura `fullPage`.** Todo el texto
-del hero de `/eficore/` vive en `.stage-text{position:fixed}` sobre un canvas que anima GSAP
-por scroll. Chrome pinta los `fixed` una sola vez y no necesariamente en la coordenada de
-documento donde el medidor cree que está el texto.
+**El medidor general no puede muestrear el fondo de un `position:fixed` en captura
+`fullPage`.** Todo el texto del hero de `/eficore/` vive en `.stage-text{position:fixed}`
+sobre un canvas que anima GSAP por scroll.
 
-**Cómo se cazó, que es lo interesante:** se reforzó el velo de `#t4` dos veces y **el fondo
-muestreado no se movió ni un dígito** (`#856b54` en las tres corridas), mientras que el
-cambio de tinta sí se reflejó al instante (1.72 → 3.40). Está leyendo el canvas, no el velo.
+**Cómo se cazó, que es la parte reutilizable:** se reforzó el velo de `#t4` dos veces y **el
+fondo muestreado no se movió ni un dígito** (`#856b54` en las tres corridas), mientras que el
+cambio de tinta sí se reflejó al instante. Estaba leyendo el canvas, no el velo.
 
-> **Se cazó porque un cambio NO movió un número que tenía que moverse.** Es una técnica
+> **Se cazó porque un cambio NO movió un número que tenía que moverse.** Técnica
 > reutilizable: para saber si un instrumento ve algo, cambiá ese algo y mirá si reacciona.
 
-**Los 5 fallos que quedan en `/eficore/` NO están verificados.** Afinar CSS contra esos
-números es afinar contra ruido. Cerrarlo de verdad pide una modalidad nueva del medidor
-(captura de **viewport**, no `fullPage`, parando la línea de tiempo de GSAP en cada
-`stage-text`) — es trabajo de instrumento, no de CSS.
+**Solución: `scripts/medir-hero.mjs`.** Scrollea hasta el frame donde la timeline de GSAP
+pone visible el bloque (forzar la opacidad a mano no sirve, la timeline lo pisa al frame
+siguiente), captura de **viewport** en vez de `fullPage`, y recién ahí esconde la tinta para
+leer el píxel real **con el velo puesto**. Trae autoprueba.
+
+**Lo que reveló: el problema era PEOR de lo documentado.** Fallaban **tres de cuatro**,
+incluido el wordmark de 96 px que nadie había mirado nunca:
+
+| texto | antes | ahora |
+|---|---|---|
+| `EFICORE` 96px/800 | **2.35:1** ✗ (min 3) | **4.08:1** ✓ |
+| `div.sub` | **1.80:1** ✗ | **8.29:1** ✓ |
+| `a.cta` | 4.77:1 ✓ | 4.77:1 ✓ |
+| `a.cta--precios` | **3.32:1** ✗ | **6.04:1** ✓ |
+
+**Los otros tres números que el BACKLOG listaba para `/eficore/`** (`small`, `p`, `time`)
+son de **otros bloques** del hero: se miden con `node scripts/medir-hero.mjs t1` (y `t2`,
+`t3`). **Siguen sin verificar** — es el pendiente que queda de este tema.
+
+**Dos trampas del `radial-gradient` que costaron tres iteraciones**, y valen para cualquier
+velo sobre foto:
+1. `closest-side` en una caja **ancha y baja** calcula el radio contra el lado **corto**: el
+   velo era un círculo vertical diminuto que moría antes del subtítulo.
+2. Si la elipse se pasa del borde, el `border-radius` la **recorta con alfa alta** y aparece
+   un rectángulo visible flotando sobre la foto. **Eso se vio en la captura, no en los
+   números** — los números ya pasaban.
+
+**Tensión que quedó sin resolver, a propósito:** el wordmark va alto en la caja, así que el
+velo tiene que estirarse hacia arriba para taparlo, y eso es lo que lo hace tocar el borde
+superior. La versión simétrica que no toca ningún borde deja `EFICORE` en 2.55:1. **Se
+eligió la legibilidad**; queda una línea horizontal tenue arriba. Si algún día molesta, la
+salida **no** es bajar el velo: es mover el wordmark al centro del bloque.
 
 ### Caminos falsos de esta sesión
 
@@ -430,14 +457,17 @@ números es afinar contra ruido. Cerrarlo de verdad pide una modalidad nueva del
    el `.gitignore` con esa regla vive en la rama `feat/tarjetas-wallet`. Se corrigió con
    `git rm --cached` + amend. **Un `.gitignore` es por rama, no por repo.**
 
-### Lo que SÍ se cambió del hero, y está SIN VERIFICAR
+### ✅ DESPLEGADO A PRODUCCIÓN — `cd40e4e`
 
-Necesitan el ojo de JC antes de mergear — son cambios de apariencia en producción:
-- `#t4` usaba `radial-gradient(closest-side, …)`. **En una caja ancha y baja, `closest-side`
-  calcula el radio contra el lado CORTO**: el velo era un círculo vertical diminuto que se
-  apagaba antes de llegar al subtítulo. Eso sí era un defecto real, visible leyendo el CSS.
-  Ahora es una elipse `78% 88%`.
-- `#t4 .sub` pasó de `--arena` a `--leche`.
+JC vio el hero corriendo, lo comparó contra producción y aprobó. Mergeado a `main` y
+**verificado POR CONTENIDO** en `alijerik.com` (no por código 200 — Pages tiene soft-404):
+el velo nuevo y `--leche` vivos, `/formula-antislop/` sirviendo contenido real, y las tres
+URLs legales de Meta respondiendo.
+
+Verificado **antes** del merge, como pide el `CLAUDE.md`: `npm run build` OK, las 10 rutas
+sin desborde ni contenido oculto y con un solo `<h1>`, contraste medido en 6 páginas. Los 2
+fallos que quedan (`/` 3.41 y `/jc/` 4.38) son **preexistentes**, sobre gradiente, y ya
+estaban documentados — no son regresiones.
 
 ### Rama `feat/tarjetas-wallet` — la tarjeta de JC en Apple Wallet y Google Wallet
 
