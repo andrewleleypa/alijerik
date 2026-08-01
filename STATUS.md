@@ -376,6 +376,89 @@ mismas 9 que hay en `<summary>` del DOM.
   ancla de precio verificada en `docs/KEYWORDS-TARJETAS.md`. Lo que cambió es la frase que
   va después de citarlo — el contraste ahora es **una tarjeta contra una tanda**.
 
+## ⭐ 2026-08-01 — El medidor de contraste mintió, y de los 8 fallos uno no existía
+
+**Sesión de tres frentes: pases de wallet, contraste, y la tarjeta del Dr. Inostroza (esa
+vive en el repo `tarjetas-clientes`, ver su `docs/BITACORA.md`).** Acá va lo de Alijerik.
+
+### El hallazgo que vale la sesión
+
+**De los 8 fallos de contraste que `docs/BACKLOG.md §0a` daba por pendientes, uno NUNCA
+EXISTIÓ.** `/formula-antislop/` no tiene ningún fallo: 49 tratamientos medidos, 0 fallan.
+El `text «LA MISMA FORMA CUATRO VECES»` da **6.44:1**, no 2.66:1.
+
+**La causa:** un `<text>` de SVG no se pinta con `color`, se pinta con `fill`. El medidor
+le leía `color` —que devolvía `--espuma`, el color heredado de la página— y al esconder la
+tinta tampoco tocaba `fill`, así que **el texto seguía visible y se muestreaba a sí mismo
+como fondo**. El 2.66 que reportó es exactamente la razón entre `--espuma` y `--arena`:
+midió **dos colores de texto entre sí**.
+
+Que el número coincidiera con la escalera real entre esos dos niveles es lo que lo hacía
+creíble. Por eso llegó al BACKLOG documentado como defecto a corregir, con dos decimales.
+
+Arreglado en la **fuente única** `jean-config/skills/formula-antislop/scripts/` y copiado a
+`~/.claude/skills/`. 🔴 **El espejo público de GitHub sigue desactualizado**, como ya estaba.
+
+### 🔴 Segundo punto ciego del medidor — ESTE SIGUE ABIERTO
+
+**No puede muestrear el fondo de un `position:fixed` en captura `fullPage`.** Todo el texto
+del hero de `/eficore/` vive en `.stage-text{position:fixed}` sobre un canvas que anima GSAP
+por scroll. Chrome pinta los `fixed` una sola vez y no necesariamente en la coordenada de
+documento donde el medidor cree que está el texto.
+
+**Cómo se cazó, que es lo interesante:** se reforzó el velo de `#t4` dos veces y **el fondo
+muestreado no se movió ni un dígito** (`#856b54` en las tres corridas), mientras que el
+cambio de tinta sí se reflejó al instante (1.72 → 3.40). Está leyendo el canvas, no el velo.
+
+> **Se cazó porque un cambio NO movió un número que tenía que moverse.** Es una técnica
+> reutilizable: para saber si un instrumento ve algo, cambiá ese algo y mirá si reacciona.
+
+**Los 5 fallos que quedan en `/eficore/` NO están verificados.** Afinar CSS contra esos
+números es afinar contra ruido. Cerrarlo de verdad pide una modalidad nueva del medidor
+(captura de **viewport**, no `fullPage`, parando la línea de tiempo de GSAP en cada
+`stage-text`) — es trabajo de instrumento, no de CSS.
+
+### Caminos falsos de esta sesión
+
+1. **Dije que había 4 commits sin promover y que `/formula-antislop/` vivía solo en el
+   disco. FALSO.** `main` local estaba 4 commits desactualizado y leí eso como "sin
+   promover"; `origin/main` ya tenía todo en producción. **Antes de avisar que falta
+   promover algo: `git fetch`, y comparar contra `origin/main`, no contra `main`.**
+2. **Se intentó arreglar el `.sub` del hero afinando el velo.** Dos iteraciones, cero
+   efecto medible — porque el instrumento estaba ciego (arriba). Se paró a tiempo.
+3. **`git add -A` en esta rama se llevó `scripts/wallet/salida/`** (artefactos generados):
+   el `.gitignore` con esa regla vive en la rama `feat/tarjetas-wallet`. Se corrigió con
+   `git rm --cached` + amend. **Un `.gitignore` es por rama, no por repo.**
+
+### Lo que SÍ se cambió del hero, y está SIN VERIFICAR
+
+Necesitan el ojo de JC antes de mergear — son cambios de apariencia en producción:
+- `#t4` usaba `radial-gradient(closest-side, …)`. **En una caja ancha y baja, `closest-side`
+  calcula el radio contra el lado CORTO**: el velo era un círculo vertical diminuto que se
+  apagaba antes de llegar al subtítulo. Eso sí era un defecto real, visible leyendo el CSS.
+  Ahora es una elipse `78% 88%`.
+- `#t4 .sub` pasó de `--arena` a `--leche`.
+
+### Rama `feat/tarjetas-wallet` — la tarjeta de JC en Apple Wallet y Google Wallet
+
+Generadores parametrizados por persona (`scripts/wallet/tarjetas.json` es la fuente única).
+Todo corre y está verificado **sin cuentas de nada**; los dos generadores construyen el pase
+completo y salen con código 1 diciendo **SIN FIRMAR** en vez de reportar un éxito falso.
+
+- **Apple cuesta 99 USD/año y no hay alternativa gratis.** Eso suma **dos** renovaciones
+  (membresía y certificado, que vencen aparte) y ya están en `docs/renovaciones.json` con
+  `inicio: null` a propósito, para que la alarma las grite en cada corrida.
+- Firma de Google **probada con llave desechable y verificada** con la pública; firma de
+  Apple **PKCS#7 generada y `Verification successful`** contra el manifest.
+- **Una autoprueba cazó un error real que NO era el que parecía:** la del escritor ZIP
+  comparaba texto contra la salida de PowerShell, que entrega el codepage ANSI mientras node
+  lo lee como UTF-8. Los acentos volvían rotos y la prueba **acusaba al escritor de ZIP, que
+  estaba perfecto**. Ahora compara SHA256, que es ASCII y no depende de la consola.
+- `/jc/index.html` **no se tocó**: es producción y el destino del QR ya impreso. Los botones
+  entran cuando existan enlaces reales.
+
+Pasos de cuentas: `scripts/wallet/README.md`.
+
 ## ✅ EN VIVO — Página de producto Eficore (`alijerik.com/eficore/`)
 - Hero: scroll-scrub de metraje real de latte art (176 cuadros, public/eficore-seq/,
   licencia libre ver FUENTE.md) + autoplay en reposo. Hero 01 3D descartado (historial git).
