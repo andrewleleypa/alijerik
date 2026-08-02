@@ -87,11 +87,16 @@ el gesto).
 
 ### 🔴 Prerequisito duro antes de publicar
 
-**Sacar el issuer de Google Wallet del modo demo** ("Solicitar acceso de publicación",
-lo pide JC en la consola cuando apruebe el diseño del pase). En demo, un cliente real
-NO puede guardar el pase — publicar la promesa antes de eso sería repetir el error del
-PVC con otro disfraz. La regla de los ambientes aplica: se avisa qué falta promover,
-decide JC.
+**Sacar el issuer de Google Wallet del modo demo.** En demo, un cliente real NO puede
+guardar el pase — publicar la promesa antes de eso sería repetir el error del PVC con
+otro disfraz.
+
+- **Estado: solicitud ENVIADA el 2026-08-02** (checklist 3/3 en la consola). Correo de
+  Google en 2–3 días; si al día 3 no llegó, JC contacta asistencia desde esa pantalla.
+- **Segundo prerequisito, decidido sin fecha de pago: Apple Wallet** ($99/año del
+  Developer Program, inscripción individual ~48 h). La página no debería prometer
+  "tu tarjeta en el wallet" con los iPhone afuera; **se paga al arrancar esta
+  reescritura**, no antes — acordado con JC el 2-ago.
 
 ### Mientras tanto
 
