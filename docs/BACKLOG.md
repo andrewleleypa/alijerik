@@ -397,6 +397,18 @@ cobra (+$60).
 
 ---
 
+## 5. Mención de Tech Provider en la raíz `alijerik.com` — diferida por JC (2-ago)
+
+JC lo pidió el 2-ago mientras se construía la banda de `/eficore/` y **él mismo lo difirió
+esa madrugada** ("queda para después"). Al hacerlo:
+
+- **Claim en TEXTO, sin logo** — la regla del §0e aplica igual en la raíz (no hay badge
+  que poner; el logo de Meta requiere aprobación).
+- La raíz tiene hero cósmico propio → la mención va en las **secciones de contenido bajo
+  el hero**, con la fórmula (misma regla de alcance que `/eficore/`).
+- El registro visual de la raíz es otro (cósmico/terminal, no cappuccino): no copiar la
+  banda de Eficore — reescribirla en el lenguaje de la raíz.
+
 ## 4. Menor — enlazar `/tarjetas/` desde el pie de `/eficore/`
 
 Hoy `/tarjetas/` se enlaza desde la portada y desde `/jc/`. Un enlace más desde el pie

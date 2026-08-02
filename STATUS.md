@@ -530,6 +530,53 @@ y la inscripción de Apple (**ESTA SEMANA**, la página ya lo promete).
 Pendiente de captura: cuando Google apruebe y muera el "[TEST ONLY]", foto del pase real en
 el teléfono para la franja de prueba real de la página (movimiento 2 de la fórmula).
 
+## ⭐ 2026-08-02 — `/eficore/` cobra el arranque y anuncia Tech Provider (sesión de la madrugada)
+
+**De dónde salió:** JC notó que la página no cobraba el onboarding manual ("otros cobran
+entre $200 y $300, dijimos $150 — mejor $159") y quería anunciar el estatus de Tech
+Provider como argumento de venta. En el camino se sumaron Instagram/Messenger y un badge
+que terminó no existiendo. Decisiones y alternativas en el
+[ADR 0004](docs/adr/0004-arranque-dos-puertas-y-tech-provider-en-texto.md); aquí la narrativa.
+
+**Lo publicado** (merge fast-forward `1492ab0` → `7d4d43a`):
+- Bloque "El arranque, una sola vez" en `#precios`: $159 llave en mano / $0 si el cliente
+  tramita / $99 por número posterior. Contenedor delineado partido en dos puertas —
+  a propósito no es una tercera tarjeta.
+- Banda `#techprovider` a sangre completa (única sección con fondo propio; motivo del
+  grano de café, primera vez en esta página): claim en texto, tres hechos, píldoras
+  WhatsApp/Messenger/Instagram con Phosphor (paths tomados de `_canal.html` de Eficore,
+  que ya había decidido no usar los logos oficiales). Mención de IG/Messenger también en
+  la tarjeta "Una sola bandeja". Meta description ahora nombra Tech Provider (146 chars).
+
+**Los caminos falsos, que son la mitad del valor de esta bitácora:**
+1. **El PNG "Meta Tech Provider" de Downloads.** JC lo trajo como logo a publicar; era
+   bajado de internet. La investigación en fuentes oficiales (misma madrugada, páginas
+   re-verificadas en vivo) mostró que **Meta no emite badge alguno para Tech Providers**
+   — el PNG era apócrifo por definición. El único badge real es Meta Business Partner
+   nivel Badged, con umbrales a años luz (≥10 clientes activos, ≥2,500 msgs/día). Todo
+   en `BACKLOG.md §0e`, que pasó de "conseguir el asset" a "disparador de crecimiento".
+2. **La vía gratis que no existía.** El self-onboarding no tiene interfaz aún; publicarla
+   como "onbordéate desde Eficore" habría sido falso. La salida: redactarla como lo que
+   sí es verdad hoy — "haces el trámite tú, conectamos sin cargo". JC decidió publicar
+   ambas vías sin "próximamente" con el riesgo explícito (registrado en el ADR).
+3. **La fecha y el conteo de permisos en la banda.** La primera versión decía "aprobó sus
+   tres permisos en julio de 2026" — dato verificable, como pide la fórmula. JC lo quitó
+   por lenguaje corporativo (ambigüedad deliberada en claims institucionales). Trade-off
+   consciente: los números duros los carga `#precios`.
+4. **Trampa técnica cazada antes de publicarse:** un motivo con `z-index:-1` dentro de
+   una banda CON fondo propio se pinta detrás del fondo y desaparece. La banda necesita
+   su propio stacking context (`position:relative;z-index:0`) — quedó comentado en el CSS.
+
+**Verificación:** contraste 6/6 OK, todas las rutas a 1440 y 390 sin desborde ni ocultos,
+borde real del texto 20px a 390, capturas de ambas piezas revisadas a ojo en ambos anchos,
+producción verificada por contenido tras el merge.
+
+**Pendientes que esta sesión deja o agrava:**
+- Mención de Tech Provider en la raíz — **diferida por JC** (`BACKLOG.md §5`).
+- 🔴 Las 4 capturas viejas (§0) **pesan más ahora**: la página afirma más cosas sobre
+  capturas que no coinciden con el producto.
+- El índice de ADRs no tenía la entrada del 0003 (archivo sin indexar) — corregido hoy.
+
 ## ✅ EN VIVO — Página de producto Eficore (`alijerik.com/eficore/`)
 - Hero: scroll-scrub de metraje real de latte art (176 cuadros, public/eficore-seq/,
   licencia libre ver FUENTE.md) + autoplay en reposo. Hero 01 3D descartado (historial git).
