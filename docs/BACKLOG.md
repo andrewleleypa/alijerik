@@ -67,44 +67,33 @@ rehacen otra vez al final**: se toman una sola vez, al cierre, no en cada iterac
 
 ---
 
-## 0d. 🔴 VIVO — `/tarjetas/` vende PVC y un pricing que murieron el 2026-08-01
+## 0d. ✅ REESCRITA Y PUBLICADA el 2026-08-02 — `/tarjetas/` vende wallet y el pricing v3. Quedan CUATRO remanentes con reloj
 
-**La página está prometiendo ahora mismo una tarjeta de plástico que ya no existe como
-producto.** El [ADR 0003](adr/0003-wallet-en-vez-de-pvc-y-pricing-por-asientos.md) lo
-decidió el 1-ago: la tarjeta va **al wallet del teléfono** (pipeline probado end-to-end
-ese mismo día con la tarjeta de JC), y el pricing pasa de $179/$349/$599 a **base $179 +
-tramos acumulativos por persona** (49/35/19 · anual $60/$120 · rediseño $99 al renovar).
+La reescritura completa salió en `ed18a7f` (narrativa: `STATUS.md §2026-08-02`, decisión:
+[ADR 0003](adr/0003-wallet-en-vez-de-pvc-y-pricing-por-asientos.md)). **JC publicó antes
+de los dos prerequisitos originales, como decisión de mercado consciente** — por eso los
+remanentes tienen fecha, no son "algún día":
 
-**La reescritura NO es un find-replace.** El plástico es la columna narrativa de la
-página — ~15 puntos la tocan: `<meta>` y OG, hero, la tabla comparativa contra la
-imprenta, el paso "Imprimimos tu plástico", los bullets de los tres planes, la nota de
-precio, dos FAQ y el **JSON-LD entero** (3 ofertas + 2 respuestas). La metáfora cambia
-de *"un plástico que no se reparte"* a *"tu tarjeta vive en el teléfono que ya llevas"*
-— con dos argumentos nuevos que el PVC no tenía: nunca se olvida, y abre en modo avión.
-El gesto de venta no cambia: se muestra, te escanean (documentado en la bitácora de
-`tarjetas-clientes` — hasta JC esperó NFC la primera vez; la página tiene que enseñar
-el gesto).
+1. 🔴 **Apple Developer Program ($99/año) — ESTA SEMANA.** La página ya promete Apple
+   Wallet; cada día sin certificado es promesa sin proveedor. Inscripción individual
+   (~48 h), NO como organización (pide D-U-N-S y demora). El generador de `.pkpass` ya
+   existe en la rama `feat/tarjetas-wallet` esperando el certificado.
+2. ⏰ **Correo de Google Wallet (acceso de publicación)** — solicitado 2-ago, promete
+   2–3 días. **Si el 5-ago no llegó, JC contacta asistencia.** Hasta que apruebe: se
+   vende, pero NO se entrega pase a cliente real (solo cuentas de prueba pueden
+   guardarlo).
+3. 📷 **La franja de prueba real quedó un paso atrás del producto**: muestra la tarjeta
+   web y el QR, pero no el pase. Cuando muera el "[TEST ONLY]", captura del pase real
+   en el teléfono de JC (regla §4: mirarla antes de publicar) y entra a la franja.
+4. 🔁 **Reconciliar los DOS pipelines de wallet** que existen por sesiones paralelas del
+   1-ago: `scripts/wallet/` en la rama `feat/tarjetas-wallet` (parametrizado por
+   `tarjetas.json`, trae Apple `.pkpass` + Google, SIN firmar) y
+   `tarjetas-clientes/scripts/wallet-pass.mjs` (Google fat JWT, FIRMADO y probado, datos
+   de JC hardcodeados). Decidir cuál es el canónico al pagar Apple; el parametrizado
+   lleva la delantera para multi-cliente.
 
-### 🔴 Prerequisito duro antes de publicar
-
-**Sacar el issuer de Google Wallet del modo demo.** En demo, un cliente real NO puede
-guardar el pase — publicar la promesa antes de eso sería repetir el error del PVC con
-otro disfraz.
-
-- **Estado: solicitud ENVIADA el 2026-08-02** (checklist 3/3 en la consola). Correo de
-  Google en 2–3 días; si al día 3 no llegó, JC contacta asistencia desde esa pantalla.
-- **Segundo prerequisito, decidido sin fecha de pago: Apple Wallet** ($99/año del
-  Developer Program, inscripción individual ~48 h). La página no debería prometer
-  "tu tarjeta en el wallet" con los iPhone afuera; **se paga al arrancar esta
-  reescritura**, no antes — acordado con JC el 2-ago.
-
-### Mientras tanto
-
-- **No cerrar ventas prometiendo plástico** (el CLAUDE.md de `tarjetas-clientes` §3 ya
-  lo dice).
-- La fórmula del §1 del CLAUDE.md aplica completa a la reescritura, y las capturas que
-  pida la página nueva (el pase en un teléfono real, p. ej.) siguen la regla §4:
-  mirarlas antes de publicar.
+Post-publicación pendiente de JC: **enviar `/tarjetas/` actualizada a Search Console**
+(regla §3 del CLAUDE.md de este repo — ese paso lo hace JC).
 
 ---
 

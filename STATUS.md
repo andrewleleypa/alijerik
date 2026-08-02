@@ -489,6 +489,47 @@ completo y salen con código 1 diciendo **SIN FIRMAR** en vez de reportar un éx
 
 Pasos de cuentas: `scripts/wallet/README.md`.
 
+## ⭐ 2026-08-02 — `/tarjetas/` vende WALLET: muere el PVC y entra el pricing v3 (sesión de la noche del 1-ago)
+
+**La página está EN PRODUCCIÓN con la promesa nueva** (merge `ed18a7f` a `main`): la tarjeta
+vive en el wallet del teléfono —Google Wallet y Apple Wallet—, escalera por asientos
+(base $179 · +$49/+$35/+$19 por tramos acumulativos · anual $60/$120 · rediseño $99 al
+renovar) y el JSON-LD entero reescrito (4 ofertas, 11 FAQ). Decisión y razonamiento:
+[ADR 0003](docs/adr/0003-wallet-en-vez-de-pvc-y-pricing-por-asientos.md). Lo que queda
+vivo: [BACKLOG §0d](docs/BACKLOG.md).
+
+**La misma noche, ANTES de tocar la página, el pipeline de Google se probó de verdad:**
+issuer "Alijerik" (`3388000000023167086`) con andrewleley@gmail.com, pase generado por
+`tarjetas-clientes/scripts/wallet-pass.mjs` (fat JWT), guardado en el Android de JC, y
+**otro teléfono escaneó el QR desde la pantalla del pase** y cayó en `/jc`. La lección del
+PVC al derecho: probar antes de prometer.
+
+**El override que hay que decir en voz alta:** el ADR 0003 ponía como prerequisito de
+publicación sacar el issuer del modo demo y tener Apple pagado. **JC decidió publicar antes
+de las dos cosas, como decisión de mercado, dos veces y con el riesgo enfrente.** Mitigación:
+el ciclo de venta es más largo que los dos relojes — el correo de Google (revisar el 5-ago)
+y la inscripción de Apple (**ESTA SEMANA**, la página ya lo promete).
+
+**Caminos falsos y hallazgos de la sesión:**
+1. **Los tramos confundieron al propio JC** ("¿qué más estamos cobrando?"): leyó los totales
+   como si todas las personas pagaran la tarifa del tramo del tamaño del equipo. No era un
+   error de precio, era de comunicación → la página ahora trae la cuenta HECHA
+   ($179 + 4×$49 + 5×$35 = $550) y la regla dicha ("los tramos se suman"). Si descuadra al
+   dueño, descuadra al visitante.
+2. **Duplicamos infraestructura sin saberlo.** La sesión de la MAÑANA del 1-ago (sección de
+   arriba) dejó en la rama `feat/tarjetas-wallet` generadores parametrizados
+   (`tarjetas.json`, `.pkpass` con ZIP propio, íconos); la sesión de la noche construyó
+   `wallet-pass.mjs` en `tarjetas-clientes` sin verlo. **La memoria entre sesiones se
+   actualiza al cerrar — dos sesiones el mismo día no se ven entre sí. `git branch -a` antes
+   de construir infra nueva.** Queda pendiente reconciliar los dos pipelines (§0d).
+3. **El estudio de mercado wallet respaldó el pricing** en vez de tumbarlo: Blinq/HiHello
+   cobran ~$600/AÑO por 10 personas, Popl $480/año; nosotros $610 EN DOS AÑOS. El dato entró
+   a la FAQ de renovación (sin nombres, la regla de siempre) y a
+   [KEYWORDS-TARJETAS.md §2-ago](docs/KEYWORDS-TARJETAS.md).
+
+Pendiente de captura: cuando Google apruebe y muera el "[TEST ONLY]", foto del pase real en
+el teléfono para la franja de prueba real de la página (movimiento 2 de la fórmula).
+
 ## ✅ EN VIVO — Página de producto Eficore (`alijerik.com/eficore/`)
 - Hero: scroll-scrub de metraje real de latte art (176 cuadros, public/eficore-seq/,
   licencia libre ver FUENTE.md) + autoplay en reposo. Hero 01 3D descartado (historial git).

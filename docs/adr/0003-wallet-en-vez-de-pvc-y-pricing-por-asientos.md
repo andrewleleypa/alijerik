@@ -9,9 +9,12 @@ con ajustes de quién paga.
 `tarjetas-clientes/CLAUDE.md` §3 (el QR solo con dominio final) ·
 [`docs/RENOVACIONES.md`](../RENOVACIONES.md) (cobro anual).
 
-> ⚠️ **NADA de esto está publicado.** `/tarjetas/` sigue mostrando el esquema del ADR
-> 0002 (PVC + $179/$349/$599). Este ADR registra la decisión; la reescritura de la
-> página es un pendiente vivo del BACKLOG y tiene un prerequisito duro (§Salida).
+> ✅ **PUBLICADO el 2026-08-02** (merge `ed18a7f`): `/tarjetas/` ya vende wallet y el
+> pricing v3. **Con un override consciente de JC:** la §Salida ponía como prerequisito
+> sacar el issuer del modo demo y tener Apple pagado; JC decidió publicar antes de las
+> dos cosas como decisión de mercado, reafirmada con el riesgo enfrente. Mitigación:
+> el ciclo de venta es más largo que los dos relojes (correo de Google ~2-3 días,
+> inscripción de Apple esta semana). La narrativa: `STATUS.md §2026-08-02`.
 
 ---
 
@@ -98,12 +101,15 @@ Descartado en el camino (para que nadie lo reproponga sin info nueva):
 
 ## Salida — qué falta para que esto sea real
 
-1. 🔴 **Prerequisito duro antes de publicar wallet en la página: sacar el issuer del
-   modo demo** ("Solicitar acceso de publicación" en la consola). En demo un cliente
-   real NO PUEDE guardar el pase — publicar antes de eso sería el error del PVC con
-   otro disfraz.
-2. Reescritura completa de `/tarjetas/` — el plástico es la columna narrativa de la
-   página (~15 puntos: hero, meta/OG, tabla comparativa, paso "Imprimimos tu plástico",
-   bullets de planes, nota de precio, 2 FAQ y el JSON-LD entero). Está en el BACKLOG.
-3. Apple Wallet ($99/año Developer Program) — decidido, sin fecha; hasta entonces el
-   iPhone abre la tarjeta web pero no guarda pase.
+*(Actualizada el 2-ago tras la publicación; el estado vivo se sigue en BACKLOG §0d.)*
+
+1. ⏰ **Sacar el issuer del modo demo** — solicitud ENVIADA el 2-ago, correo de Google
+   en 2–3 días (si el 5-ago no llegó, asistencia). Hasta que apruebe, un cliente real
+   NO puede guardar el pase: **vender se puede, entregar pases todavía no.**
+   *(El plan original era publicar DESPUÉS de esto; JC lo invirtió como decisión de
+   mercado — ver el banner de arriba.)*
+2. ✅ Reescritura completa de `/tarjetas/` — hecha y en producción (2-ago, `ed18a7f`),
+   con la cuenta de los tramos desglosada y el dato de mercado en la FAQ de renovación.
+3. 🔴 **Apple Wallet ($99/año Developer Program) — ESTA SEMANA.** Dejó de ser "sin
+   fecha" en el momento en que la página lo prometió. La rama `feat/tarjetas-wallet`
+   ya trae el generador de `.pkpass` esperando el certificado.
