@@ -67,6 +67,42 @@ rehacen otra vez al final**: se toman una sola vez, al cierre, no en cada iterac
 
 ---
 
+## 0d. 🔴 VIVO — `/tarjetas/` vende PVC y un pricing que murieron el 2026-08-01
+
+**La página está prometiendo ahora mismo una tarjeta de plástico que ya no existe como
+producto.** El [ADR 0003](adr/0003-wallet-en-vez-de-pvc-y-pricing-por-asientos.md) lo
+decidió el 1-ago: la tarjeta va **al wallet del teléfono** (pipeline probado end-to-end
+ese mismo día con la tarjeta de JC), y el pricing pasa de $179/$349/$599 a **base $179 +
+tramos acumulativos por persona** (49/35/19 · anual $60/$120 · rediseño $99 al renovar).
+
+**La reescritura NO es un find-replace.** El plástico es la columna narrativa de la
+página — ~15 puntos la tocan: `<meta>` y OG, hero, la tabla comparativa contra la
+imprenta, el paso "Imprimimos tu plástico", los bullets de los tres planes, la nota de
+precio, dos FAQ y el **JSON-LD entero** (3 ofertas + 2 respuestas). La metáfora cambia
+de *"un plástico que no se reparte"* a *"tu tarjeta vive en el teléfono que ya llevas"*
+— con dos argumentos nuevos que el PVC no tenía: nunca se olvida, y abre en modo avión.
+El gesto de venta no cambia: se muestra, te escanean (documentado en la bitácora de
+`tarjetas-clientes` — hasta JC esperó NFC la primera vez; la página tiene que enseñar
+el gesto).
+
+### 🔴 Prerequisito duro antes de publicar
+
+**Sacar el issuer de Google Wallet del modo demo** ("Solicitar acceso de publicación",
+lo pide JC en la consola cuando apruebe el diseño del pase). En demo, un cliente real
+NO puede guardar el pase — publicar la promesa antes de eso sería repetir el error del
+PVC con otro disfraz. La regla de los ambientes aplica: se avisa qué falta promover,
+decide JC.
+
+### Mientras tanto
+
+- **No cerrar ventas prometiendo plástico** (el CLAUDE.md de `tarjetas-clientes` §3 ya
+  lo dice).
+- La fórmula del §1 del CLAUDE.md aplica completa a la reescritura, y las capturas que
+  pida la página nueva (el pase en un teléfono real, p. ej.) siguen la regla §4:
+  mirarlas antes de publicar.
+
+---
+
 ## 0c. ✅ CERRADO por §0a — Correr la medición en TODAS las páginas (pedido de JC, 30-jul)
 
 Hasta ahora se midió **una** página (`/formula-antislop/`) y eso ya destapó dos fallos vivos
