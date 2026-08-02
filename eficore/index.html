@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eficore — La plataforma de WhatsApp para equipos</title>
-  <meta name="description" content="Eficore: una sola bandeja de WhatsApp, conversaciones asignadas y supervisión real. Desde $39/mes. Un producto de Alijerik." />
+  <meta name="description" content="Eficore: una sola bandeja de WhatsApp, conversaciones asignadas y supervisión real. Tech Provider de Meta. Desde $39/mes. Un producto de Alijerik." />
   <link rel="icon" href="/eficore-favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/eficore-favicon.svg" />
   <link rel="apple-touch-icon" href="/eficore-favicon-180.png" />
@@ -305,6 +305,68 @@
       .p-cards{grid-template-columns:1fr}
       .meta-nota{grid-template-columns:1fr;gap:12px;padding:26px 22px}
     }
+    /* ── El arranque: cargo único con dos puertas. A propósito NO es una tercera
+       carta: es una decisión (quién hace el trámite), no otro plan mensual.
+       Un solo contenedor delineado, partido por un filete. ── */
+    .arranque{
+      margin-top:20px;border-radius:24px;padding:36px 34px;
+      box-shadow:inset 0 0 0 1px rgba(232,211,176,.15);
+    }
+    .arranque__intro h4{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.01em}
+    .arranque__intro p{margin-top:8px;font-size:14px;color:var(--leche);line-height:1.6;max-width:560px}
+    .arranque__intro b{color:var(--espuma);font-weight:600}
+    .arranque__vias{margin-top:30px;display:grid;grid-template-columns:1.15fr .85fr}
+    .via{padding-right:34px}
+    .via--libre{border-left:1px solid rgba(232,211,176,.14);padding-left:34px;padding-right:0}
+    .via__tag{display:inline-block;padding:6px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;white-space:nowrap}
+    .via__tag--nos{background:rgba(194,65,12,.18);color:var(--terracota-luz)}
+    .via__tag--tu{background:rgba(151,161,92,.16);color:var(--olivo)}
+    .via__precio{margin-top:16px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+    .via__precio strong{font-family:var(--display);font-size:clamp(34px,4.6vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1}
+    .via__precio span{font-size:14px;color:var(--arena)}
+    .via .p-lista{margin-top:18px;gap:10px}
+    .via__nota{margin-top:18px;font-size:13px;color:var(--leche);line-height:1.6}
+    .via__nota b,.via--libre b{color:var(--espuma);font-weight:600}
+    .via--libre>p{margin-top:16px;font-size:14px;color:var(--leche);line-height:1.65}
+    .arranque__tp{margin-top:28px;padding-top:22px;border-top:1px solid rgba(232,211,176,.1);font-size:13px;color:var(--arena);line-height:1.6}
+    .arranque__tp a{color:var(--terracota-luz);text-decoration:none;border-bottom:1px solid rgba(232,116,60,.4)}
+    .arranque__tp a:hover{border-color:var(--terracota-luz)}
+    @media (max-width:860px){
+      .arranque{padding:28px 24px}
+      .arranque__vias{grid-template-columns:1fr}
+      .via{padding-right:0}
+      .via--libre{border-left:0;border-top:1px solid rgba(232,211,176,.14);padding-left:0;margin-top:26px;padding-top:26px}
+    }
+
+    /* ── Integración oficial: banda a sangre completa, la única sección con fondo
+       propio. Los hechos van en columnas editoriales sin caja — no son cartas. ── */
+    .banda-tp{
+      /* position+z-index: crea stacking context para que el motivo (z-index:-1)
+         se pinte SOBRE este fondo y no desaparezca detrás de él */
+      position:relative;z-index:0;
+      background:linear-gradient(180deg,#1E1710,#191309);
+      border-top:1px solid rgba(232,211,176,.08);
+      border-bottom:1px solid rgba(232,211,176,.08);
+    }
+    .sec--tp{padding-top:92px;padding-bottom:96px}
+    .tp-hechos{margin-top:50px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+    .tp-hecho{border-left:1px solid rgba(232,211,176,.22);padding-left:20px}
+    .tp-hecho h5{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+    .tp-hecho p{font-size:13.5px;color:var(--leche);line-height:1.65}
+    .tp-canales{margin-top:46px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .tp-canales .pill{
+      display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
+      font-size:12.5px;color:var(--leche);letter-spacing:.03em;
+      background:rgba(232,211,176,.08);box-shadow:inset 0 0 0 1px rgba(232,211,176,.22);
+    }
+    .tp-canales .pill svg{width:15px;height:15px;flex:none}
+    .tp-canales>p{font-size:13px;color:var(--arena);line-height:1.5;flex-basis:100%;margin-top:6px;max-width:640px}
+    .motif--grano{left:-120px;bottom:-70px;width:300px;opacity:.06}
+    @media (max-width:760px){
+      .sec--tp{padding-top:72px;padding-bottom:76px}
+      .tp-hechos{grid-template-columns:1fr;gap:26px}
+      .motif--grano{width:220px;left:-100px}
+    }
 
     /* CTA final */
     .cta-fin{text-align:center;padding-bottom:130px}
@@ -433,7 +495,7 @@
         <div class="card">
           <div class="chip chip--terracota"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,48V160H179.31a8,8,0,0,0-5.66,2.34l-19.31,19.32a8,8,0,0,1-5.66,2.34H107.31a8,8,0,0,1-5.66-2.34L82.34,162.34A8,8,0,0,0,76.68,160H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.68A15.89,15.89,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.32A15.89,15.89,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"/></svg></div>
           <h4>Una sola bandeja</h4>
-          <p>Todos tus números de WhatsApp y todos los mensajes, en un solo lugar. Nada se queda atrapado en el celular de nadie.</p>
+          <p>Todos tus números de WhatsApp — y los mensajes directos de Instagram y Messenger — en un solo lugar. Nada se queda atrapado en el celular de nadie.</p>
         </div>
         <div class="card">
           <div class="chip chip--miel"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></div>
@@ -522,6 +584,51 @@
       </div>
     </section>
 
+    <!-- Banda a sangre completa: la única sección con fondo propio. El argumento
+         institucional va justo antes del precio porque es lo que justifica el
+         arranque llave en mano. SIN logo de Meta a propósito: el asset oficial no
+         está licenciado (ver docs/BACKLOG.md); el claim en texto sí es uso legítimo. -->
+    <div class="banda-tp" id="techprovider">
+      <section class="sec sec--tp">
+        <!-- Grano de café: cuarto motivo del set latte art, primera vez en esta página -->
+        <svg class="motif motif--grano" viewBox="0 0 200 260" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width="1" stroke-linecap="round">
+          <ellipse cx="100" cy="130" rx="76" ry="110" transform="rotate(18 100 130)"/>
+          <path d="M76 36 C 120 88, 78 162, 124 222"/>
+        </svg>
+        <p class="eyebrow">// INTEGRACIÓN OFICIAL</p>
+        <h2>Somos Tech Provider de Meta</h2>
+        <p class="lead">Eficore no se cuelga de un celular ni de un WhatsApp Web disfrazado:
+        se conecta a la API oficial de WhatsApp con una aplicación propia que Meta revisó y
+        aprobó. Eso cambia lo que podemos hacer por ti.</p>
+
+        <div class="tp-hechos">
+          <div class="tp-hecho">
+            <h5>App Review aprobado</h5>
+            <p>Meta revisó la aplicación y aprobó sus tres permisos en julio de 2026.
+            Es la revisión formal de Meta, no un simple registro.</p>
+          </div>
+          <div class="tp-hecho">
+            <h5>Tu cuenta sigue siendo tuya</h5>
+            <p>La cuenta de WhatsApp Business queda a nombre de tu negocio, con tu número.
+            Alijerik pone la plataforma y la operación técnica.</p>
+          </div>
+          <div class="tp-hecho">
+            <h5>Sin intermediarios</h5>
+            <p>Ponemos tu número en línea nosotros mismos, con acceso directo a Meta —
+            sin tickets con revendedores ni esperas de terceros.</p>
+          </div>
+        </div>
+
+        <div class="tp-canales">
+          <span class="pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Z"/></svg>WhatsApp</span>
+          <span class="pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,106.34a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32,0L112,123.31,85.66,149.66a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0L144,132.69l26.34-26.35A8,8,0,0,1,181.66,106.34ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Z"/></svg>Messenger</span>
+          <span class="pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Instagram</span>
+          <p>La misma bandeja atiende también los mensajes directos de Instagram y los chats
+          de Messenger — cada hilo marcado con su canal.</p>
+        </div>
+      </section>
+    </div>
+
     <section class="sec sec--aire" id="precios">
       <p class="eyebrow">// PRECIOS</p>
       <h3 class="declara">5 usuarios por $39. Sí, cinco.</h3>
@@ -566,6 +673,39 @@
           <div class="p-mas">Se activa sobre el plan, cuando tu operación lo pida.
           Las respuestas que generen tus campañas caen en la misma bandeja del equipo.</div>
         </div>
+      </div>
+
+      <!-- El arranque: cargo único, con dos puertas. La gratis es real desde hoy —
+           el cliente puede hacer el trámite de Meta por su cuenta y la conexión no
+           se cobra — y además ancla el valor de la vía paga. -->
+      <div class="arranque">
+        <div class="arranque__intro">
+          <h4>El arranque, una sola vez</h4>
+          <p>Poner tu número en la API de WhatsApp es un trámite que en el mercado se cobra
+          entre <b>$200 y $300</b>. Aquí tiene dos puertas:</p>
+        </div>
+        <div class="arranque__vias">
+          <div class="via">
+            <span class="via__tag via__tag--nos">LO HACEMOS NOSOTROS</span>
+            <div class="via__precio"><strong>$159</strong><span>pago único · llave en mano</span></div>
+            <ul class="p-lista">
+              <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Tu número conectado y andando dentro de Eficore</li>
+              <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>El primer set de plantillas, redactado y sometido a aprobación de Meta</li>
+              <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Sesión de arranque con tu equipo, sobre tus casos</li>
+            </ul>
+            <p class="via__nota">Un solo pago cubre <b>todos los números</b> que conectes en tu
+            primer mes. ¿Sumas otro número más adelante? <b>$99 por número</b>, una sola vez.</p>
+          </div>
+          <div class="via via--libre">
+            <span class="via__tag via__tag--tu">LO HACES TÚ</span>
+            <div class="via__precio"><strong>$0</strong></div>
+            <p>¿Prefieres hacer el trámite con Meta por tu cuenta? Te pasamos la guía y
+            conectamos tu número a Eficore <b>sin cargo</b>.</p>
+          </div>
+        </div>
+        <p class="arranque__tp">Podemos hacer el arranque de punta a punta porque somos
+        <a href="#techprovider">Tech Provider de Meta</a>: acceso directo, sin intermediarios
+        ni tickets con terceros.</p>
       </div>
 
       <div class="meta-nota">
@@ -622,6 +762,7 @@
           <h5>PRODUCTO</h5>
           <a href="https://eficore.alijerik.com" target="_blank" rel="noopener">Entrar a la plataforma</a>
           <a href="#precios">Precios</a>
+          <a href="#techprovider">Tech Provider de Meta</a>
           <a href="/eficore/alternativa-panamena/">Alternativa panameña a Whaticket y Wati</a>
           <a href="/eficore/ley-81/">Ley 81 y WhatsApp en clínicas</a>
           <a href="/formula-antislop/">Por qué tu sitio se ve hecho con IA</a>

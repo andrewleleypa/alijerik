@@ -97,6 +97,29 @@ Post-publicación pendiente de JC: **enviar `/tarjetas/` actualizada a Search Co
 
 ---
 
+## 0e. Badge "Meta Tech Provider" — conseguir el asset OFICIAL antes de publicar logo alguno
+
+**Decidido el 2026-08-02, construyendo la sección `#techprovider` de `/eficore/`.**
+
+El PNG que había a mano (`Downloads/meta_techprovider_badge.png`) **se bajó de internet,
+no lo entregó Meta** — JC lo confirmó. El logo de Meta solo se usa con asset licenciado
+por ellos (Partner Center, kit del programa); publicar uno bajado de Google arriesga
+exactamente la relación que el badge presume. **La sección se publicó con el claim en
+TEXTO** ("Somos Tech Provider de Meta"), que es uso nominativo legítimo y no necesita
+licencia.
+
+Pendiente, en orden:
+
+1. **JC busca el asset oficial** en el panel de Meta (Partner Center / correo del
+   programa Tech Provider). Si Meta no entrega badge para Tech Providers, este punto
+   muere y el texto se queda como está — que ya vende.
+2. Con el asset en mano: agregarlo a la sección `#techprovider` de `/eficore/`
+   (la sección ya existe; es sumar la imagen con su licencia citada en el commit).
+3. **También en la página raíz `alijerik.com`** — pedido de JC del 2-ago mientras se
+   construía la sección de Eficore. La raíz no menciona Tech Provider todavía; al
+   agregar el badge, escribir la sección con la misma regla: claim específico y
+   verificable, no logo suelto.
+
 ## 0c. ✅ CERRADO por §0a — Correr la medición en TODAS las páginas (pedido de JC, 30-jul)
 
 Hasta ahora se midió **una** página (`/formula-antislop/`) y eso ya destapó dos fallos vivos
