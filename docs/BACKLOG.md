@@ -97,28 +97,40 @@ Post-publicación pendiente de JC: **enviar `/tarjetas/` actualizada a Search Co
 
 ---
 
-## 0e. Badge "Meta Tech Provider" — conseguir el asset OFICIAL antes de publicar logo alguno
+## 0e. Badge "Meta Tech Provider" — NO EXISTE; el camino real es Meta Business Partner (lejos aún)
 
-**Decidido el 2026-08-02, construyendo la sección `#techprovider` de `/eficore/`.**
+**Investigado en las fuentes oficiales de Meta el 2026-08-02** (páginas clave re-verificadas
+con fetch en vivo ese mismo día). La pregunta nació construyendo la sección `#techprovider`
+de `/eficore/`, con un PNG "Meta Tech Provider" bajado de internet sobre la mesa.
 
-El PNG que había a mano (`Downloads/meta_techprovider_badge.png`) **se bajó de internet,
-no lo entregó Meta** — JC lo confirmó. El logo de Meta solo se usa con asset licenciado
-por ellos (Partner Center, kit del programa); publicar uno bajado de Google arriesga
-exactamente la relación que el badge presume. **La sección se publicó con el claim en
-TEXTO** ("Somos Tech Provider de Meta"), que es uso nominativo legítimo y no necesita
-licencia.
+- **Meta NO emite badge, logo, listado ni material de marketing para "Tech Providers".**
+  Es una designación técnica (la que Alijerik ya tiene). La tabla comparativa oficial
+  los marca "Is a Meta Business Partner: **No**". El PNG de Downloads es, por
+  definición, un invento de internet: **no usarlo nunca, en ninguna superficie.**
+- **El único badge oficial es el de Meta Business Partner**, y solo en su nivel
+  "Badged Partner" (el nivel "Member" no da insignia). La ruta desde donde está
+  Alijerik: Tech Provider → upgrade a **"Tech Partner"** (App Dashboard → WhatsApp >
+  Quickstart → Become a Partner) → solicitud a Meta Business Partners con la
+  WhatsApp Specialty. Página oficial del upgrade:
+  https://developers.facebook.com/documentation/business-messaging/whatsapp/solution-providers/upgrade-to-tech-partner
+- **Umbrales del upgrade** (verificados en esa página): **≥10 clientes activos**
+  (cada uno con ≥1 mensaje vía la app en 30 días), **≥2,500 mensajes diarios promedio**
+  en 7 días (o ≥200 llamadas/día), **calidad ≥90%** del número. Y cumplirlos no
+  garantiza la insignia: la solicitud de Meta Business Partner la evalúa Meta aparte.
+  **Alijerik hoy: 2 clientes activos → esto no es un pendiente, es un DISPARADOR
+  de crecimiento.** Reabrir cuando Eficore ronde 10 clientes activos.
+- Dato del día: el Partner Directory público (facebook.com/business/partner-directory)
+  devuelve **404** (verificado 2-ago), y las políticas del badge exigen que la insignia
+  enlace al perfil en ese directorio — hasta el badge de MBP está cojo ahora mismo.
+- **Lo que SÍ se publica sin licencia — y ya está publicado en `/eficore/`:** el claim
+  en texto (uso nominativo). Prohibido sin aprobación de Meta: su logo, el de WhatsApp,
+  la insignia MBP, o llamarse "partner/socio oficial de Meta".
 
-Pendiente, en orden:
-
-1. **JC busca el asset oficial** en el panel de Meta (Partner Center / correo del
-   programa Tech Provider). Si Meta no entrega badge para Tech Providers, este punto
-   muere y el texto se queda como está — que ya vende.
-2. Con el asset en mano: agregarlo a la sección `#techprovider` de `/eficore/`
-   (la sección ya existe; es sumar la imagen con su licencia citada en el commit).
-3. **También en la página raíz `alijerik.com`** — pedido de JC del 2-ago mientras se
-   construía la sección de Eficore. La raíz no menciona Tech Provider todavía; al
-   agregar el badge, escribir la sección con la misma regla: claim específico y
-   verificable, no logo suelto.
+**Diseño (recomendación registrada; el veredicto final es de JC):** aunque el badge MBP
+llegara, en `/eficore/` no va — logo azul que no se puede recolorear sobre la paleta
+cappuccino, la misma razón por la que `_canal.html` de Eficore rechazó los logos
+oficiales de canal. Si algún día se obtiene, evaluarlo solo en la raíz `alijerik.com`
+(el pedido original de JC del 2-ago era precisamente badge también en la raíz).
 
 ## 0c. ✅ CERRADO por §0a — Correr la medición en TODAS las páginas (pedido de JC, 30-jul)
 
