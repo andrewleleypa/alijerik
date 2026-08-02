@@ -125,7 +125,17 @@
     .tramos .q{font-size:13.5px;color:var(--suave)}
     .tramos .p{font-family:var(--display);font-weight:900;font-size:22px;color:var(--text);white-space:nowrap}
     .tramos .p span{font-family:var(--mono);font-size:11px;color:var(--tenue);font-weight:400;margin-left:5px}
+    .tramos__como{margin-top:14px;font-size:12.5px;color:var(--tenue);line-height:1.5;max-width:none}
     .tramos__anual{margin-top:14px;padding-top:16px;border-top:1px solid #1a1f29;font-family:var(--mono);font-size:12.5px;color:var(--plasma);line-height:1.5;max-width:none}
+    .cuenta{margin-top:14px;max-width:940px;font-family:var(--mono);font-size:12.5px;color:var(--tenue);line-height:1.6}
+    .cuenta b{color:var(--text);font-weight:700}
+    /* La renovación: mismo componente que la "respuesta corta", con el otro acento.
+       Es el argumento de retención — no puede vivir en la letra chica. */
+    .renueva{margin-top:18px;max-width:940px;padding:22px 24px;border-radius:16px;
+      background:linear-gradient(160deg,#11141c,#0a0c12 64%);
+      border-left:3px solid var(--plasma);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    .renueva p{font-size:14.5px;max-width:none}
+    .renueva b{color:var(--plasma);font-weight:700}
     .ejemplos{margin-top:18px;max-width:940px;display:flex;gap:10px;flex-wrap:wrap}
     .ej{padding:9px 16px;border-radius:999px;border:1px solid #1d222e;font-family:var(--mono);font-size:12.5px;color:var(--tenue)}
     .ej b{color:var(--text);font-weight:700;margin-left:6px}
@@ -485,6 +495,7 @@
             <li><span class="q">De la 6.ª a la 10.ª</span><span class="p">+$35<span>c/u</span></span></li>
             <li><span class="q">De la 11.ª a la 20.ª</span><span class="p">+$19<span>c/u</span></span></li>
           </ul>
+          <p class="tramos__como">Los tramos se suman: cada persona paga la tarifa del tramo donde cae, no la del tamaño del equipo. Agregar una persona siempre suma — nunca abarata el total.</p>
           <p class="tramos__anual">Hasta 10 personas, el año sigue en $60. De 11 a 20: $120, todo el equipo.</p>
         </article>
       </div>
@@ -495,6 +506,24 @@
         <span class="ej">10 personas<b>$550</b></span>
         <span class="ej">20 personas<b>$740</b></span>
       </p>
+
+      <p class="cuenta">
+        La cuenta, hecha para un equipo de 10: $179 de base (con la 1.ª persona)
+        + 4 personas a $49 + 5 personas a $35 = <b>$550</b>. Para 20, se le suman
+        10 personas a $19 = <b>$740</b>.
+      </p>
+
+      <aside class="renueva">
+        <p>
+          <strong>El próximo año no vuelves a pagar la tarjeta.</strong> Renuevas por
+          <b>$60 todo el equipo</b> hasta 10 personas — en un equipo de 10 sale a $6 por
+          cabeza al año — y <b>$120</b> de 11 a 20. Eso cubre el dominio, el alojamiento
+          y todos los cambios de datos del año, el mismo día hábil, sin reimprimir ni
+          reinstalar nada: tu pase y tu QR siguen siendo los mismos. Y solo al renovar se
+          abre una ventana opcional: rediseñar la tarjeta —misma estructura, piel
+          nueva— por <b>$99</b>.
+        </p>
+      </aside>
 
       <a class="mas5" href="https://wa.me/50760933039?text=Hola%2C%20somos%20m%C3%A1s%20de%2020%20personas%20y%20quiero%20cotizar%20tarjetas%20digitales%20con%20QR">
         <span class="mas5__n">+20</span>
@@ -547,14 +576,16 @@
             y nunca se ve a medio armar.
           </dd>
 
-          <dt>Qué entra en los $60 y qué no</dt>
+          <dt>Qué entra en la renovación y qué no</dt>
           <dd>
             Entra <strong>cualquier cambio de datos</strong>, las veces que haga falta
             durante el año: número, cargo, correo, enlaces, foto, textos. No hay contador
             de cambios — hay sentido común. Lo que no entra es el <strong>trabajo
             nuevo</strong>: secciones que no existían, cambiar la identidad visual, rehacer
-            la tarjeta desde cero. Eso es diseño, no mantenimiento, y se cotiza aparte. Si
-            no sabes de qué lado cae lo tuyo, pregunta antes — se te dice sin compromiso.
+            la tarjeta desde cero. Eso es diseño, no mantenimiento, y se cotiza aparte —
+            con una excepción con fecha: <strong>al renovar</strong> puedes pedir un
+            rediseño (misma estructura, piel nueva) por $99. Si no sabes de qué lado cae
+            lo tuyo, pregunta antes — se te dice sin compromiso.
           </dd>
 
           <dt>Es una tarjeta, no un sitio web</dt>
@@ -593,7 +624,7 @@
       <div class="faq">
         <details>
           <summary>¿Cuánto cuesta una tarjeta de presentación digital en Panamá?</summary>
-          <p>En Alijerik, desde $179 en un pago único, más $60 al año. El pago único cubre el diseño a medida y tu tarjeta en el wallet del teléfono —Google Wallet y Apple Wallet—; los $60 anuales cubren el dominio, el alojamiento y los cambios de datos. Para equipos, el diseño se hace una vez y cada persona adicional suma su página, su QR y su pase: $49 por persona de la 2.ª a la 5.ª, $35 de la 6.ª a la 10.ª y $19 de la 11.ª a la 20.ª — 5 personas cuestan $375, 10 cuestan $550 y 20 cuestan $740. La renovación es $60 al año hasta 10 personas y $120 de 11 a 20. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una, no es un archivo que resuelves tú.</p>
+          <p>En Alijerik, desde $179 en un pago único, más $60 al año. El pago único cubre el diseño a medida y tu tarjeta en el wallet del teléfono —Google Wallet y Apple Wallet—; los $60 anuales cubren el dominio, el alojamiento y los cambios de datos. Para equipos, el diseño se hace una vez y cada persona adicional suma su página, su QR y su pase: $49 por persona de la 2.ª a la 5.ª, $35 de la 6.ª a la 10.ª y $19 de la 11.ª a la 20.ª. Los tramos se suman — cada persona paga la tarifa del tramo donde cae: un equipo de 10 son $179 + 4×$49 + 5×$35 = $550, uno de 5 son $375 y uno de 20 son $740. La renovación es $60 al año hasta 10 personas y $120 de 11 a 20. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una, no es un archivo que resuelves tú.</p>
         </details>
         <details>
           <summary>¿Qué incluye exactamente?</summary>
@@ -604,8 +635,12 @@
           <p>Como un pase en tu wallet — Google Wallet en Android, Apple Wallet en iPhone. Te mandamos un enlace, lo tocas y queda guardada, como una tarjeta de embarque. Para usarla: abres el pase, tocas el QR —se agranda y sube el brillo solo— y la otra persona lo escanea con su cámara. Se muestra, no se acerca como un pago sin contacto. Y abre hasta en modo avión, porque el pase vive en tu teléfono, no en la red.</p>
         </details>
         <details>
+          <summary>¿Qué cubre la renovación anual?</summary>
+          <p>La renovación es $60 al año por todo el equipo hasta 10 personas — en un equipo de 10 sale a $6 por persona al año — y $120 de 11 a 20. Como referencia: las aplicaciones internacionales de tarjetas digitales por suscripción cobran entre $48 y $60 por persona al año, todos los años. Cubre el dominio, el alojamiento y todos los cambios de datos del año, el mismo día hábil, sin reimprimir ni reinstalar nada: el pase del wallet y el QR siguen siendo los mismos. Solo al renovar se abre además una ventana opcional de rediseño por $99, con la misma estructura y piel nueva.</p>
+        </details>
+        <details>
           <summary>¿Cobran por cambiar mis datos después?</summary>
-          <p>No. Cambiar tu número, tu cargo, tu correo, tus enlaces, tu foto o tus textos entra en los $60 anuales, las veces que haga falta durante el año: no hay contador de cambios. Nos escribes y queda arriba el mismo día hábil. Lo que sí se cotiza aparte es el trabajo nuevo — agregar secciones que no existían, cambiar la identidad visual o rehacer la tarjeta desde cero —, porque eso es diseño y no mantenimiento.</p>
+          <p>No. Cambiar tu número, tu cargo, tu correo, tus enlaces, tu foto o tus textos entra en la renovación anual, las veces que haga falta durante el año: no hay contador de cambios. Nos escribes y queda arriba el mismo día hábil. Lo que sí se cotiza aparte es el trabajo nuevo — agregar secciones que no existían, cambiar la identidad visual o rehacer la tarjeta desde cero —, porque eso es diseño y no mantenimiento.</p>
         </details>
         <details>
           <summary>¿Puedo cambiar mi información después de imprimir el QR?</summary>
@@ -721,7 +756,7 @@
           {
             "@type": "Question",
             "name": "¿Cuánto cuesta una tarjeta de presentación digital en Panamá?",
-            "acceptedAnswer": { "@type": "Answer", "text": "En Alijerik, desde $179 en un pago único, más $60 al año. El pago único cubre el diseño a medida y la tarjeta en el wallet del teléfono (Google Wallet y Apple Wallet); los $60 anuales cubren el dominio, el alojamiento y los cambios de datos. Para equipos, el diseño se hace una vez y cada persona adicional suma su página, su QR y su pase: $49 por persona de la 2.ª a la 5.ª, $35 de la 6.ª a la 10.ª y $19 de la 11.ª a la 20.ª — 5 personas cuestan $375, 10 cuestan $550 y 20 cuestan $740. La renovación es $60 al año hasta 10 personas y $120 de 11 a 20. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una, no es un archivo que resuelve el cliente." }
+            "acceptedAnswer": { "@type": "Answer", "text": "En Alijerik, desde $179 en un pago único, más $60 al año. El pago único cubre el diseño a medida y la tarjeta en el wallet del teléfono (Google Wallet y Apple Wallet); los $60 anuales cubren el dominio, el alojamiento y los cambios de datos. Para equipos, el diseño se hace una vez y cada persona adicional suma su página, su QR y su pase: $49 por persona de la 2.ª a la 5.ª, $35 de la 6.ª a la 10.ª y $19 de la 11.ª a la 20.ª. Los tramos se suman — cada persona paga la tarifa del tramo donde cae: un equipo de 10 son $179 + 4×$49 + 5×$35 = $550, uno de 5 son $375 y uno de 20 son $740. La renovación es $60 al año hasta 10 personas y $120 de 11 a 20. Existen plantillas autogestionadas más baratas en el mercado panameño, entre $15 y $25 al año; la diferencia es que aquí la tarjeta se diseña una por una, no es un archivo que resuelve el cliente." }
           },
           {
             "@type": "Question",
@@ -735,8 +770,13 @@
           },
           {
             "@type": "Question",
+            "name": "¿Qué cubre la renovación anual de una tarjeta digital?",
+            "acceptedAnswer": { "@type": "Answer", "text": "La renovación es $60 al año por todo el equipo hasta 10 personas — en un equipo de 10 sale a $6 por persona al año — y $120 de 11 a 20 personas. Como referencia, las aplicaciones internacionales de tarjetas digitales por suscripción cobran entre $48 y $60 por persona al año, todos los años. La renovación cubre el dominio, el alojamiento y todos los cambios de datos del año, el mismo día hábil, sin reimprimir ni reinstalar nada: el pase del wallet y el código QR siguen siendo los mismos. Solo al renovar se abre además una ventana opcional de rediseño por $99, con la misma estructura y piel nueva." }
+          },
+          {
+            "@type": "Question",
             "name": "¿Alijerik cobra por cambiar los datos de la tarjeta digital?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Cambiar el número, el cargo, el correo, los enlaces, la foto o los textos entra en los $60 anuales, las veces que haga falta durante el año: no hay contador de cambios. El cliente escribe y queda arriba el mismo día hábil. Lo que sí se cotiza aparte es el trabajo nuevo: agregar secciones que no existían, cambiar la identidad visual o rehacer la tarjeta desde cero, porque eso es diseño y no mantenimiento." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Cambiar el número, el cargo, el correo, los enlaces, la foto o los textos entra en la renovación anual, las veces que haga falta durante el año: no hay contador de cambios. El cliente escribe y queda arriba el mismo día hábil. Lo que sí se cotiza aparte es el trabajo nuevo: agregar secciones que no existían, cambiar la identidad visual o rehacer la tarjeta desde cero, porque eso es diseño y no mantenimiento." }
           },
           {
             "@type": "Question",

@@ -137,3 +137,30 @@ disponible, y encaja exacto con §4 de `LENGUAJE-VISUAL.md` (honestidad específ
       escribir la sección 2 de este documento con volúmenes reales**
 - [ ] Repetir el sondeo AEO de `eficore/docs/aeo/BASELINE-2026-07.md` con preguntas de
       tarjetas digitales, para tener una línea base de cero menciones igual que con Eficore
+
+---
+
+## Actualización 2026-08-02 — la mitad WALLET (equipos por suscripción)
+
+Con el pivote del ADR 0003 (muere el PVC → pase en Google/Apple Wallet, pricing por
+asientos), el comprador de equipos va a comparar contra las apps internacionales de
+tarjeta digital. Verificado el 2026-08-02:
+
+| Servicio | Modelo | 10 personas |
+|---|---|---|
+| Blinq Business | $4.99/usuario/mes (anual, mín. 5) | **$600 CADA año** |
+| HiHello Business | $5/usuario/mes (anual, 5–100) | **$600 CADA año** |
+| Popl Teams | $4/usuario/mes (anual, mín. 5) | **$480 CADA año** |
+| **Alijerik v3** | $550 una vez + $60/año | **$610 en DOS años; $670 en tres** |
+
+**La lectura:** en equipos, el modelo de pago único + renovación plana GANA desde el
+año 2 y la brecha crece cada año. La renovación nuestra es $6/persona/año (equipo de
+10) contra $48–60/persona/año de la suscripción. En individuos estamos en rango
+(Popl Pro ~$84/año) diferenciados por diseño a medida + dominio propio.
+
+**Regla de copy (la misma de siempre):** sin nombres. El dato entra como categoría —
+"aplicaciones internacionales por suscripción: $48–60 por persona al año" — y ya está
+en la FAQ de renovación de `/tarjetas/`.
+
+Fuentes consultadas: blinq.me/pricing · hihello.com/pricing · popl.co/pages/pricing
+(vía búsqueda del 2026-08-02; los agregadores DBC/digitalbusinesscard.com coinciden).
