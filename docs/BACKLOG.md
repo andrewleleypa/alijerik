@@ -65,6 +65,45 @@ motivo** — no queda esperando a "cuando haya tiempo". Y si el pase de tratamie
 del ADR 0024 de Eficore avanza más (ritmo, tratamiento del mockup), **las capturas se
 rehacen otra vez al final**: se toman una sola vez, al cierre, no en cada iteración.
 
+### 🟡 Actualización 2026-08-05 — llegaron once capturas nuevas y el ítem SIGUE ABIERTO
+
+JC entregó once capturas frescas (`~/capturas eficore nuevas`, tomadas el 4-ago desde el
+tenant demo **ACME**, o sea de TEST y con datos sintéticos — la regla de arriba se
+cumplió). **Solo dos eran publicables.** Las nueve descartadas están justificadas una por
+una en `~/alijerik-comercial/activos/capturas/PROCEDENCIA.md` — leer ese archivo antes de
+volver a revisarlas, no hay que rehacer el análisis.
+
+**Lo que SÍ entró** (rama `feat/eficore-capturas-nuevas`, no son reemplazos de las cuatro
+viejas sino piezas nuevas en otros sitios):
+
+| Archivo | Ruta | Qué prueba |
+|---|---|---|
+| `eficore-shot-nota-interna.jpg` | `/eficore/` | La nota interna con mención `@` |
+| `eficore-shot-entrar.jpg` | `/eficore/ley-81/` | Acceso sin contraseña compartida |
+
+**Lo que falta para cerrar este §0 — y es concreto, no genérico:**
+
+1. **Una bandeja de escritorio limpia.** La nueva (`031636`) es la única que muestra las
+   etiquetas de **Instagram y Messenger** — el único soporte visual del reclamo omnicanal,
+   que hoy vive solo como texto — pero trae a la vista `jasdñlfkajsdf`, un enlace a
+   `claude.ai/code/artifact/...` y el nombre real de JC en cuatro variantes. **Vale la pena
+   rehacerla:** sembrar 4–5 conversaciones con nombres de demostración y capturarla otra vez.
+2. **Una de móvil que no sea del tenant real.** Las dos que llegaron (`mobile light` /
+   `mobile dark`) son del tenant de **Alijerik en producción**: se lee el número real
+   `6093-3039` y `Cerrada por JC (rocketmail)` siete veces, y toda la bandeja está cerrada
+   — parece un buzón muerto. Se ve muy bien el modo claro/oscuro; el contenido es el
+   problema, no la pantalla.
+3. **Una de campañas con plantilla en español.** La versión nueva de la pantalla mejoró y
+   ya no muestra el texto que estaba en voseo, pero la plantilla de ejemplo sigue siendo
+   `jaspers_market_order_confirmation_v1 (en_US)`, con la vista previa en inglés hablando
+   de *farm fresh groceries*.
+
+⚠️ **Lo que NO se pudo verificar:** si las cuatro viejas son de verdad anteriores al cambio
+de paleta del 30-jul. Se intentó muestreando el color del texto en el JPEG y **el método no
+sirve** (dio 80.9 contra 82.7 de luminancia para dos versiones distintas): el antialiasing
+y la compresión impiden que el píxel más oscuro llegue al color declarado. El camino bueno
+es leerle el CSS al ambiente, como ya dice la sección de arriba.
+
 ---
 
 ## 0d. ✅ REESCRITA Y PUBLICADA el 2026-08-02 — `/tarjetas/` vende wallet y el pricing v3. Quedan CUATRO remanentes con reloj

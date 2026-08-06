@@ -587,3 +587,110 @@ producción verificada por contenido tras el merge.
 - Preview: push a la rama → Cloudflare Pages genera URL de preview del branch.
 - Plan completo acordado en sesión 2026-07-19: 3 actos (elaboración → revelación →
   inmersión estilo Mercury), tiempo real Three.js, pre-render de plan B.
+
+
+---
+
+## ⭐ 2026-08-05 — El portafolio comercial en PDF, y los tres defectos que solo se vieron mirando
+
+**Rama:** `feat/eficore-capturas-nuevas` (NO mergeada — JC revisa y mergea).
+**Repo nuevo:** `~/alijerik-comercial` (privado, aparte de este a propósito).
+
+### De dónde salió
+
+Un laboratorio médico pidió un PDF por medio del tío de JC, que ayuda con la venta.
+El encargo real era más ancho: un **portafolio de servicios reutilizable con otros
+clientes**, con Eficore y las tarjetas QR al final.
+
+### Qué se construyó
+
+- **`~/alijerik-comercial`** — repo propio, privado. El portafolio es una plantilla HTML
+  de 12 hojas tamaño **carta** (no A4: en Panamá se imprime en carta) que se rellena con
+  una ficha JSON por cliente y sale en PDF con el Chrome del sistema. Dos banderas apagan
+  hojas enteras (`--sin-precios`, `--sin-tarjetas`) y **el índice y los números de sección
+  se renumeran solos** — se probó apagando las dos.
+- **Por qué repo aparte y no una carpeta de este:** acá un push a `main` despliega a
+  producción, y el portafolio lleva precios de negociación. La duplicación de tres JPG es
+  costo trivial al lado de publicar una tabla de precios sin querer.
+- **Identidad heredada, no reinventada**: paleta cappuccino, Bricolage Grotesque (embebida
+  como woff2, no desde Google Fonts) y los motivos de latte art. Los precios y el copy se
+  copiaron de lo que ya dice `/eficore/`, para que un prospecto que compare no encuentre
+  dos versiones. Detalle en `alijerik-comercial/docs/LENGUAJE-VISUAL-PDF.md`.
+
+### En ESTE repo — dos capturas nuevas y dos defectos preexistentes
+
+JC pasó once capturas nuevas (`~/capturas eficore nuevas`). **Solo dos son publicables**;
+las nueve descartadas quedan justificadas una por una en
+`alijerik-comercial/activos/capturas/PROCEDENCIA.md`, para que nadie las vuelva a revisar
+desde cero. Las dos que entraron:
+
+| Captura | Dónde | Qué argumento prueba |
+|---|---|---|
+| `eficore-shot-nota-interna.jpg` | `/eficore/`, tras la rejilla de cartas | La nota interna con mención `@`, y que el cliente no la ve |
+| `eficore-shot-entrar.jpg` | `/eficore/ley-81/`, junto a «Dónde encaja Eficore» | Que el acceso por rol empieza sin contraseñas compartidas |
+
+Y **dos defectos que ya estaban en producción** (comprobado con control: se midió y se
+capturó la misma zona desde `main`, sin los cambios de esta rama):
+
+1. **El último ítem de la lista de `/eficore/ley-81/` se partía en tres columnas.**
+   `.lista li` es `display:flex`, así que **cada hijo del `<li>` es un flex item**: el
+   texto de antes del enlace, el enlace, y el texto de después quedaban en tres columnas.
+   Solo se notaba en el único `<li>` que lleva un `<a>` embebido. Arreglo: envolver ese
+   texto en un `<span>`, y una nota en el CSS para que no vuelva a pasar.
+2. **A 390px, la sombra del celular caía sobre la primera línea del pie de foto de
+   `.shots`** y ahí el contraste bajaba a 4.32:1. El color no era el problema — era qué
+   había detrás. Arreglo: el celular sube (`bottom:52px`) y el pie baja (`margin-top:26px`).
+
+### Caminos falsos (aquí es donde se pierde el tiempo la segunda vez)
+
+- **Muestrear píxeles de un JPEG NO sirve para saber si una captura es anterior o
+  posterior a un cambio de paleta.** Se escribió el medidor, se corrió sobre la captura
+  vieja y la nueva, y dio 80.9 contra 82.7 de luminancia: dos versiones distintas que el
+  instrumento no distingue. En texto pequeño con antialiasing y compresión, el píxel más
+  oscuro del trazo nunca llega al color declarado en el CSS. **Para saber qué paleta sirve
+  un ambiente hay que leerle el CSS** (`curl .../login | grep -- "--muted:#"`). El límite
+  quedó escrito en la cabecera de `alijerik-comercial/scripts/muestrear.mjs`.
+- **Recortar una captura por CSS (`overflow:hidden`) no recorta nada de verdad**: la
+  imagen completa sigue dentro del PDF, pesa igual, y lo que se escondió sigue ahí. Por
+  eso el recorte se hace con `scripts/recortar.mjs`, que produce un archivo nuevo.
+- El **check** de las listas del PDF se dibujó primero con un `linear-gradient` a 45°
+  dentro de un círculo. Se leía como el **símbolo de prohibido**, encima de una lista de
+  beneficios. Ninguna medición lo detecta. Ahora es un SVG con el trazo dibujado.
+
+### Cómo verificar (reproducible)
+
+```bash
+# Sitio
+npm run build && npx vite preview --port 4319 --strictPort
+BASE=http://localhost:4319 node scripts/verificar-rutas.mjs          # las 10 rutas, 1440 y 390
+BASE=http://localhost:4319 node scripts/medir-borde-texto.mjs /eficore/ /eficore/ley-81/
+BASE=http://localhost:4319 ANCHO=390 node "C:/Users/andre/.claude/skills/formula-antislop/scripts/medir-contraste-real.mjs" /eficore/ /eficore/ley-81/
+BASE=http://localhost:4319 node scripts/ver-seccion.mjs /eficore/ ".prueba" 1440 mirar.png   # ← script NUEVO: capturar para MIRAR
+
+# Portafolio
+cd ~/alijerik-comercial
+node scripts/generar.mjs clientes/laboratorio-medico.json
+node scripts/medir.mjs salidas/portafolio-alijerik.html --control   # primero el control
+node scripts/medir.mjs salidas/portafolio-alijerik.html
+node scripts/vista.mjs salidas/portafolio-alijerik.html             # PNG por hoja, para mirarlas
+```
+
+**Estado medido de `/eficore/` al cerrar:** 61 tratamientos de texto, **4 fallan** — los
+cuatro en el hero, sobre el degradado, y **los cuatro son de `main`**: se comprobó midiendo
+la rama y `main` por separado. No se tocaron; el velo del hero está calibrado con
+`scripts/medir-hero.mjs` y moverlo es una decisión aparte.
+`/eficore/ley-81/`: 36 tratamientos, 0 fallan. Las 10 rutas sin desborde a 1440 y 390.
+
+### Lo que NO se hizo, a propósito
+
+- **No se cerró el §0 del BACKLOG** (las 4 capturas viejas). De las once nuevas ninguna
+  reemplaza a `eficore-shot-desktop.jpg` ni a `eficore-shot-cel.jpg`: la única bandeja de
+  escritorio nueva trae basura de prueba a la vista (`jasdñlfkajsdf`, un enlace a
+  claude.ai) y las dos de móvil son del tenant REAL de Alijerik. Ver §0 actualizado.
+- **No se tocó la pestaña «Queue»** del inbox, que sigue en inglés en las capturas. Es
+  etiqueta de producto que el personal de Nessalud ya usa: decisión de JC, no un typo.
+- **No se mergeó nada a `main`.** La rama queda para que JC la revise.
+- **En `/eficore/` no entró la captura de la pantalla de entrada**: la página no tiene una
+  sección de identidad o seguridad donde sostenga un argumento, y meterla como quinta
+  carta habría engordado la rejilla — justo lo que la fórmula pide evitar. Se puso donde sí
+  prueba algo: la página de Ley 81.
