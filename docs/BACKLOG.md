@@ -106,6 +106,28 @@ es leerle el CSS al ambiente, como ya dice la sección de arriba.
 
 ---
 
+## 0f. 🔁 El `lastmod` del sitemap se queda atrás en cada publicación (detectado 2026-08-06)
+
+`public/sitemap.xml` decía **2026-07-26** para `/eficore/` cuando esa página se había
+republicado el **2-ago** (arranque + banda Tech Provider) y otra vez el **6-ago** (capturas
+nuevas). Google usa `lastmod` para decidir si vale la pena volver a rastrear: con la fecha
+vieja le estamos diciendo *«no cambié»* justo cuando sí cambió. **Pesa más que pedir una
+reindexación a mano**, que solo acelera lo que igual iba a pasar.
+
+Se corrigieron las dos fechas el 6-ago. **La causa de fondo sigue viva: nadie toca el
+sitemap al publicar.** Opciones, sin decidir:
+- Generarlo en el build de Vite a partir de las entradas de `rollupOptions.input` + la fecha
+  del último commit que tocó cada archivo (`git log -1 --format=%cs -- <ruta>`). Es la
+  correcta y no se olvida nunca.
+- O una línea en la lista de verificación de publicación. Depende de la disciplina, así que
+  volverá a fallar.
+
+Ojo con lo obvio que no es: **`changefreq` y `priority` los ignoran los buscadores desde hace
+años.** Lo único que se lee de este archivo es `loc` y `lastmod`, así que la única parte que
+hay que mantener honesta es la fecha.
+
+---
+
 ## 0d. ✅ REESCRITA Y PUBLICADA el 2026-08-02 — `/tarjetas/` vende wallet y el pricing v3. Quedan CUATRO remanentes con reloj
 
 La reescritura completa salió en `ed18a7f` (narrativa: `STATUS.md §2026-08-02`, decisión:
