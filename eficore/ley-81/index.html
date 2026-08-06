@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://alijerik.com/eficore/ley-81/" />
   <link rel="icon" href="/eficore-favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/eficore-favicon.svg" />
-  <link rel="apple-touch-icon" href="/eficore-favicon-180.png" />
+  <link rel="apple-touch-icon" href="/eficore-favicon-180.png" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Cómo cumplir la Ley 81 usando WhatsApp en una clínica" />
   <meta property="og:description" content="Qué exige la Ley 81 de Panamá cuando tu clínica atiende pacientes por WhatsApp. Checklist accionable." />
@@ -132,6 +132,28 @@
     .aviso p{font-size:14.5px}
 
     .lista{margin-top:24px;max-width:700px;list-style:none}
+
+    /* «Dónde encaja Eficore»: la lista manda y la prueba acompaña.
+       Bloque asimétrico — ninguna otra sección de esta página va a dos
+       columnas, así que rompe la métrica en vez de repetirla. */
+    .encaje{display:grid;grid-template-columns:1.22fr .78fr;gap:44px;align-items:start;margin-top:26px}
+    .encaje .lista{margin-top:0;max-width:none}
+    .prueba-lateral img{
+      display:block;width:100%;height:auto;border-radius:14px;border:1px solid #2A2019;
+      box-shadow:0 30px 70px rgba(0,0,0,.5);
+    }
+    .prueba-lateral figcaption{
+      margin-top:12px;font-size:11.5px;color:var(--arena);letter-spacing:.04em;line-height:1.6;
+    }
+    @media (max-width:860px){
+      .encaje{grid-template-columns:1fr;gap:30px}
+      .prueba-lateral{max-width:340px}
+    }
+    /* ⚠️ `display:flex` convierte en un ITEM cada hijo del <li>. Un <li> que
+       lleve un <a> embebido en el texto se parte en tres columnas: el texto de
+       antes, el enlace y el texto de después. Estuvo así en producción sin que
+       nadie lo notara — se cazó mirando la sección, no midiéndola.
+       Por eso el texto de un <li> con enlace va envuelto en un <span>. */
     .lista li{display:flex;gap:12px;align-items:flex-start;padding:9px 0;font-size:15px;color:var(--leche)}
     .lista li svg{width:18px;height:18px;flex:none;margin-top:4px;color:var(--olivo)}
 
@@ -320,14 +342,24 @@
     <section class="wrap sec">
       <h2 class="reveal">Dónde encaja Eficore</h2>
       <p class="angosta">Eficore cubre la parte de infraestructura del checklist — los puntos 4 al 7 — y firma el acuerdo del punto 10 como contraparte panameña.</p>
+      <div class="encaje">
       <ul class="lista">
         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Número institucional sobre la API oficial de WhatsApp Business, no el celular de nadie</li>
         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Accesos por rol, revocables cuando alguien deja la clínica</li>
         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Historial completo: quién respondió, cuándo y qué se dijo</li>
         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Notas internas separadas de lo que ve el paciente</li>
         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>En campañas, la baja del paciente se respeta sola y de inmediato</li>
-        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Contraparte panameña: contrato local y <a class="enlace" href="/privacidad/">política de privacidad publicada</a> con nuestro rol de encargado del tratamiento</li>
+        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span>Contraparte panameña: contrato local y <a class="enlace" href="/privacidad/">política de privacidad publicada</a> con nuestro rol de encargado del tratamiento</span></li>
       </ul>
+        <figure class="prueba-lateral reveal">
+          <img src="/eficore-shot-entrar.jpg" width="841" height="866" loading="lazy" decoding="async"
+               alt="Pantalla de entrada de Eficore: pide el correo corporativo de la persona y manda un código, sin contraseñas.">
+          <figcaption>El acceso por rol empieza aquí: cada persona entra con <strong>su</strong>
+          correo y un código. No hay una contraseña de recepción que se herede de un turno al
+          siguiente, ni que haya que cambiar cuando alguien se va. Captura real, datos de
+          demostración.</figcaption>
+        </figure>
+      </div>
       <p style="margin-top:26px">Los puntos 1, 2, 3, 8 y 9 son decisiones y procedimientos de la clínica. Podemos ayudarte a montarlos, pero no los podemos firmar por ti.</p>
     </section>
 

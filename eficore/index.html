@@ -177,7 +177,30 @@
     .shots figcaption{margin-top:16px;font-size:11.5px;color:var(--arena);letter-spacing:.04em}
     @media (max-width:760px){
       .shots__desk{width:100%}
-      .shots__cel{width:32%;bottom:28px;right:-6px}
+      /* El celular sube y el pie baja: a 390 la sombra del celular caía sobre
+         la primera línea del pie de foto y el contraste ahí bajaba a 4.3:1
+         (medido con medir-contraste-real.mjs). El color no era el problema —
+         el problema era qué había detrás. */
+      .shots__cel{width:32%;bottom:52px;right:-6px}
+      .shots figcaption{margin-top:26px}
+    }
+
+    /* Prueba en pantalla de lo que afirman las cartas de arriba.
+       Va DESPUÉS de la rejilla a propósito: una rejilla de cuatro cartas es
+       la forma más plantilla de toda la página, y una banda 3:1 detrás de
+       ella le rompe el compás. Ver docs/LENGUAJE-VISUAL.md §1 y §2. */
+    .prueba{margin-top:46px}
+    .prueba h5{
+      font-family:var(--display);font-size:clamp(17px,2.4vw,21px);font-weight:700;
+      letter-spacing:-.01em;margin-bottom:16px;max-width:640px;line-height:1.2;
+    }
+    .prueba img{
+      display:block;width:100%;height:auto;border-radius:16px;border:1px solid #2A2019;
+      box-shadow:0 26px 70px rgba(0,0,0,.5);
+    }
+    .prueba figcaption{
+      margin-top:14px;font-size:11.5px;color:var(--arena);letter-spacing:.04em;
+      max-width:640px;line-height:1.6;
     }
 
     /* Features: capas y aire, no bordes. Cada carta con su tinte del mundo café. */
@@ -513,6 +536,14 @@
           <p>En la compu y en el celular, a la persona correcta. Sin ruido para el resto del equipo.</p>
         </div>
       </div>
+
+      <figure class="prueba">
+        <h5>El equipo se coordina dentro del hilo, sin que el cliente lo vea</h5>
+        <img src="/eficore-shot-nota-interna.jpg" width="1450" height="478" loading="lazy" decoding="async"
+             alt="Nota interna dentro de una conversación de Eficore, con una mención a otra persona del equipo, y el selector entre responder por WhatsApp o dejar una nota interna.">
+        <figcaption>Captura real de la plataforma, con datos de demostración. La nota queda dentro de
+        la conversación y marcada como interna — el cliente no la recibe nunca.</figcaption>
+      </figure>
     </section>
 
     <section class="sec sec--aire" id="campanas">
