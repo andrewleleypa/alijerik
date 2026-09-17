@@ -34,3 +34,12 @@ está así?"*. Las correcciones tácticas pequeñas no lo necesitan; basta el co
   lenguaje deliberadamente ambiguo (sin fecha ni conteo de permisos) · **sin badge: no existe para Tech
   Providers** (investigado en fuentes oficiales — `BACKLOG.md §0e`; el camino real es Meta Business Partner,
   disparador ≥10 clientes activos) · canales IG/Messenger con Phosphor · discovery queda verbal, fuera de página.
+
+- [0005 — El raíz se queda en `p=none` hasta tener censo de remitentes; `mfa.alijerik.com` ya está cerrado](0005-dmarc-raiz-en-none-hasta-censo-de-remitentes.md)
+  · *decidido 2026-09-17, a partir de dos reportes DMARC que llegaron solos a `contacto@`* ·
+  `mfa.alijerik.com` **verificado pasando 100 %** (Resend sobre Amazon SES, DKIM exacto y SPF alineado en
+  modo relajado; 10 mensajes del go-live de CompaCorp medidos contra Microsoft y Google) · el raíz
+  **sigue suplantable a propósito**: ya tiene SPF y DKIM listos, pero subirlo a `quarantine` sin censo de
+  remitentes manda correo comercial a spam **sin error visible** · **revisión programada 8-oct-2026** con
+  criterio de aprobación explícito · estado técnico, comandos y 🔴 los cuatro caminos falsos de la sesión
+  en [`docs/DMARC.md`](../DMARC.md) · el trabajo pendiente en [`BACKLOG.md` §6](../BACKLOG.md).

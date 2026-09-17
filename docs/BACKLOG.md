@@ -474,3 +474,45 @@ esa madrugada** ("queda para después"). Al hacerlo:
 
 Hoy `/tarjetas/` se enlaza desde la portada y desde `/jc/`. Un enlace más desde el pie
 de `/eficore/` no sobra, pero tampoco es urgente: la portada ya la hace descubrible.
+
+---
+
+## 6. ⏰ Subir `alijerik.com` a DMARC `quarantine` — diferido a propósito el 17-sep-2026
+
+**Decidido, no construido, y con fecha.** La decisión completa vive en el
+[ADR 0005](adr/0005-dmarc-raiz-en-none-hasta-censo-de-remitentes.md) y el estado técnico
+verificado en [`DMARC.md`](DMARC.md). Acá queda solo lo que hay que hacer.
+
+Hoy `alijerik.com` está en `p=none`: DMARC observa y no protege. **Cualquiera puede mandar
+correo diciendo ser `@alijerik.com` y llega al buzón.** Y el arreglo es un solo registro
+TXT en Cloudflare — cinco minutos de trabajo.
+
+🔴 **Y aun así no se toca todavía, porque el prerrequisito manda:** el raíz es el dominio
+del correo comercial (`contacto@`, cotizaciones, formularios, avisos de Eficore). Si un
+remitente legítimo no está cubierto por el SPF o el DKIM, `quarantine` lo manda a spam
+**sin error visible**. No se ve un fallo: se ven correos que nunca llegaron, y se descubre
+semanas después por un cliente que dice que nunca recibió nada.
+
+### ⏰ Disparador: 8 de octubre de 2026
+
+Tres semanas de reportes en `p=none`, que **son** el censo de remitentes. No hay que
+construir nada: el censo ya está corriendo solo.
+
+| Paso | Qué | Bloquea al siguiente |
+|---|---|---|
+| 1 | Buscar en `contacto@alijerik.com` los reportes con asunto `Report domain: alijerik.com` (el raíz, **NO** `mfa.`) | Si no hay ninguno, el censo no arrancó: averiguar por qué antes de seguir |
+| 2 | Abrir los XML y listar todo remitente con `header_from = alijerik.com` (comandos en [`DMARC.md` §5](DMARC.md)) | — |
+| 3 | Poner un agregador gratis en el `rua=`, junto al buzón propio ([`DMARC.md` §7](DMARC.md)) | Sin esto el volumen del raíz no se lee a mano |
+| 4 | Subir a `quarantine` **solo si** todo remitente del censo está identificado y pasando | Un solo remitente propio en `fail` bloquea el cambio: se arregla (SPF o DKIM), no se ignora |
+
+**Reversa:** volver el TXT a `v=DMARC1; p=none; rua=...`, efecto en minutos según el TTL.
+⚠️ Pero la reversa **no recupera los correos que ya se cuarentenaron** — por eso el orden
+de los pasos 2 y 4 no es negociable.
+
+### Lo que NO entra en este ítem
+
+`mfa.alijerik.com` está **cerrado y verificado**: pasa 100 % contra Microsoft y Google
+(Resend sobre Amazon SES, DKIM y SPF alineados). **No tocarlo.** Y los endurecimientos
+menores del raíz (`~all` → `-all`, `sp=` explícito, `v=spf1 -all` en `mfa`) están
+evaluados y descartados por ahora en la tabla de [`DMARC.md` §4](DMARC.md) — no volver a
+abrirlos sin leer esa tabla primero.
