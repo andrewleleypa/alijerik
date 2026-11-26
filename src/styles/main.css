@@ -390,9 +390,8 @@ body.lite .hero__brand {
   flex-shrink: 0;
   border-radius: 12px;
   color: var(--plasma);
-  background: rgba(0, 229, 255, 0.10);
 }
-.card__glyph .ic { width: 26px; height: 26px; }
+.card__glyph .ia { width: 46px; height: 46px; }
 .card__text { display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
 .card__name {
   font-family: "Orbitron", sans-serif;
@@ -448,9 +447,8 @@ a.channel:hover {
   flex-shrink: 0;
   border-radius: 11px;
   color: var(--plasma);
-  background: rgba(0, 229, 255, 0.09);
 }
-.channel__glyph .ic { width: 23px; height: 23px; }
+.channel__glyph .ia { width: 46px; height: 46px; }
 /* min-width:0 es obligatorio: un hijo flex arranca en min-width:auto y NO se
    encoge por debajo del ancho de su contenido. Sin esto, contacto@alijerik.com
    desbordaba su tarjeta y se montaba sobre la de al lado. */
@@ -492,7 +490,7 @@ a.channel:hover {
   color: rgba(0, 229, 255, 0.75);
   letter-spacing: 0.03em;
 }
-.footer__tie .ic { width: 16px; height: 16px; }
+.footer__tie .ia { width: 28px; height: 28px; }
 .footer__links {
   margin-top: 1.4rem;
   display: flex;
@@ -622,3 +620,14 @@ a.channel:hover {
   .card__go { width: 100%; }
   .sangre { padding: 2rem 0 1.8rem; }
 }
+
+/* Íconos propios, estilo «mancha de café». Sobre este fondo oscuro, trazo claro y colores claros. */
+    /* Íconos propios, estilo «mancha de café»: mancha de color detrás, dibujo a mano alzada encima.
+       Fuente única de los colores: .m-* sobre fondo claro; con .osc, la versión clara para fondo oscuro. */
+    .ia{width:52px;height:52px;flex:none;display:block;--ink:#12314F}
+    .ia.osc{--ink:#FCFCFA}
+    .m-terra{--c:#C2410C}.m-miel{--c:#C98A12}.m-oliva{--c:#6B7A2A}.m-azul{--c:#5C8FC4}.m-cafe{--c:#7A4A2B}.m-rosa{--c:#D08A6B}
+    .osc.m-terra{--c:#E0643A}.osc.m-miel{--c:#E3A62E}.osc.m-oliva{--c:#9BAE4A}.osc.m-azul{--c:#9DBCE0}.osc.m-cafe{--c:#D2A06E}.osc.m-rosa{--c:#E8A98C}
+    .vb{width:20px;height:20px;flex:none;display:block;--c:#1B4B7A}
+    .vb--osc{--c:#F2C14E}
+    
