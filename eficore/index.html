@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eficore — La plataforma de WhatsApp para equipos</title>
-  <meta name="description" content="Eficore: una sola bandeja de WhatsApp, conversaciones asignadas y supervisión real. Tech Provider de Meta. Desde $39/mes. Un producto de Alijerik." />
+  <meta name="description" content="Eficore: inbox de WhatsApp supervisable para equipos en Panamá. 5 usuarios por US$39 al mes, campañas con baja certificada y cumplimiento de la Ley 81." />
   <link rel="icon" href="/eficore-favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/eficore-favicon.svg" />
   <link rel="apple-touch-icon" href="/eficore-favicon-180.png" />
@@ -21,13 +21,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Eficore","description":"Eficore: inbox de WhatsApp supervisable para equipos en Panamá. 5 usuarios por US$39 al mes, campañas con baja certificada y cumplimiento de la Ley 81.","url":"https://alijerik.com/eficore/","applicationCategory":"BusinessApplication","operatingSystem":"Web","publisher":{"@type":"Organization","name":"Alijerik","url":"https://alijerik.com/"},"offers":{"@type":"Offer","price":"39","priceCurrency":"USD","description":"Plan mensual con 5 usuarios incluidos"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Alijerik","item":"https://alijerik.com/"},{"@type":"ListItem","position":2,"name":"Eficore","item":"https://alijerik.com/eficore/"}]}]}</script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     :root{
       --espresso:#17120D; --espuma:#FBF5EA; --leche:#E8D3B0;
       --terracota:#C2410C; --terracota-luz:#E8743C; --arena:#A8957E;
-      /* Tintes de apoyo, del mismo mundo café: miel y olivo (el olivo ya vive en el producto) */
-      --miel:#D9A441; --olivo:#97A15C;
+      /* Identidad de la herramienta */
+      --lienzo:#E4E5E2; --panel:#FCFCFA; --tinta:#12314F; --tinta-2:#3E5A76; --azul:#1B4B7A;
+      --sobre-azul:#D3E0EE; --r:12px;
+      --sombra:0 2px 4px rgba(20,26,34,.06), 0 12px 28px rgba(20,26,34,.09);
       --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
     }
     html{scroll-behavior:auto}
@@ -132,290 +135,230 @@
     /* ── Pista de scroll ── */
     #track{height:560vh}
 
-    /* ══ PRODUCTO (scrollea por encima del hero fijo) ══ */
+    /* ══ PRODUCTO: la identidad de la herramienta, sobre el lienzo claro ══
+       El tramo transparente de 70px deja ver el inicio oscuro detrás del primer panel. */
     .product{
-      position:relative;z-index:8;background:var(--espresso);
-      box-shadow:0 -40px 80px rgba(23,18,13,.9);
-      overflow:hidden;
+      position:relative;z-index:8;color:var(--tinta);overflow-x:clip;
+      background:linear-gradient(to bottom,transparent 70px,var(--lienzo) 70px);
     }
-    .sec{max-width:1080px;margin:0 auto;padding:110px 28px;position:relative}
-    /* ── Ritmo: las secciones NO deben respirar todas igual ──
-       Seis secciones con el mismo padding y el mismo ancho se leen como
-       plantilla. Ver docs/LENGUAJE-VISUAL.md §1. */
-    .sec--aire{padding-top:152px;padding-bottom:138px}
-    .sec--junto{padding-top:74px;padding-bottom:78px}
-    .sec--angosta{max-width:880px}
-    .sec h3.declara{font-size:clamp(34px,5.8vw,62px);max-width:780px}
-    @media (max-width:760px){
-      .sec--aire{padding-top:96px;padding-bottom:88px}
-      .sec--junto{padding-top:60px;padding-bottom:62px}
-    }
-    /* Ecos del latte art: line-art sutil, nunca protagonista */
-    .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1}
-    .motif--swirl{top:-40px;right:-190px;width:640px;opacity:.07}
-    .motif--heart{left:50%;top:50%;transform:translate(-50%,-58%);width:380px;opacity:.05}
-    @media (max-width:760px){
-      .motif--swirl{width:420px;right:-160px;opacity:.06}
-      .motif--heart{width:280px}
-    }
-    .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--terracota-luz);margin-bottom:18px}
-    .sec h1,.sec h2,.sec h3{font-family:var(--display);font-size:clamp(28px,4.4vw,46px);font-weight:700;line-height:1.1;letter-spacing:-.015em;max-width:660px}
-    .sec .lead{margin-top:16px;font-size:clamp(15px,1.9vw,18px);color:var(--leche);max-width:560px;line-height:1.6}
-    .ic{width:30px;height:30px;color:currentColor}
+    .product a:focus-visible{outline:2px solid var(--azul);outline-offset:3px;border-radius:6px}
+    .banda a:focus-visible{outline-color:var(--panel)}
+    .product h1,.product h2,.product h3{font-family:var(--display);font-weight:700;line-height:1.1;letter-spacing:-.015em}
+    .product h1,.product h2{font-size:clamp(28px,4.2vw,44px)}
+    .lead{margin-top:16px;font-size:clamp(15px,1.9vw,18px);color:var(--tinta-2);line-height:1.6;max-width:560px}
+    .pie{margin-top:14px;font-size:12px;color:var(--tinta-2);letter-spacing:.02em;line-height:1.6;max-width:520px}
+    .ic{width:24px;height:24px;flex:none}
+    .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--tinta-2);margin-bottom:18px}
+    .hay-motivo{position:relative;z-index:0}
+    .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1;opacity:.06}
+    .motif--swirl{top:-40px;right:-150px;width:520px}
+    .motif--grano{left:-170px;bottom:-60px;width:300px}
+    .motif--heart{left:50%;top:50%;transform:translate(-50%,-58%);width:420px}
+    .motif--vapor-b{top:-60px;left:-140px;width:460px}
 
-    /* Capturas reales: escritorio (paper) + celular (espresso) superpuesto */
-    .shots{position:relative;margin-top:54px}
-    .shots__desk{
-      width:88%;display:block;border-radius:16px;border:1px solid #2A2019;
-      box-shadow:0 30px 80px rgba(0,0,0,.5);
-    }
-    .shots__cel{
-      position:absolute;right:0;bottom:34px;width:23%;display:block;
-      border-radius:18px;border:1px solid #3A3327;
-      box-shadow:0 34px 90px rgba(0,0,0,.65);
-    }
-    .shots figcaption{margin-top:16px;font-size:11.5px;color:var(--arena);letter-spacing:.04em}
-    @media (max-width:760px){
-      .shots__desk{width:100%}
-      /* El celular sube y el pie baja: a 390 la sombra del celular caía sobre
-         la primera línea del pie de foto y el contraste ahí bajaba a 4.3:1
-         (medido con medir-contraste-real.mjs). El color no era el problema —
-         el problema era qué había detrás. */
-      .shots__cel{width:32%;bottom:52px;right:-6px}
-      .shots figcaption{margin-top:26px}
+    /* Reveal en CSS puro: nunca baja de .3 */
+    @media (prefers-reduced-motion:no-preference){
+      @supports (animation-timeline:view()){
+        .reveal{animation:reveal-in linear both;animation-timeline:view();animation-range:entry 4% cover 26%}
+        @keyframes reveal-in{from{opacity:.3;transform:translateY(22px)}to{opacity:1;transform:none}}
+      }
     }
 
-    /* Prueba en pantalla de lo que afirman las cartas de arriba.
-       Va DESPUÉS de la rejilla a propósito: una rejilla de cuatro cartas es
-       la forma más plantilla de toda la página, y una banda 3:1 detrás de
-       ella le rompe el compás. Ver docs/LENGUAJE-VISUAL.md §1 y §2. */
-    .prueba{margin-top:46px}
-    .prueba h5{
-      font-family:var(--display);font-size:clamp(17px,2.4vw,21px);font-weight:700;
-      letter-spacing:-.01em;margin-bottom:16px;max-width:640px;line-height:1.2;
+    /* 1 · Producto: panel que sube sobre el inicio; la captura se sale por el borde y se recorta */
+    .pp{
+      position:relative;z-index:0;overflow:hidden;
+      width:min(1180px,calc(100% - 40px));margin:0 auto;
+      background:var(--panel);border-radius:var(--r);box-shadow:var(--sombra);
+      display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:44px;
+      padding:76px 0 0 56px;
     }
-    .prueba img{
-      display:block;width:100%;height:auto;border-radius:16px;border:1px solid #2A2019;
-      box-shadow:0 26px 70px rgba(0,0,0,.5);
+    .pp__txt{padding-bottom:76px;align-self:center}
+    .pp__txt h1{max-width:460px}
+    .pp__vis{position:relative;margin-right:-130px;align-self:end}
+    .pp__vis figure{max-height:470px;overflow:hidden;border-top-left-radius:var(--r)}
+    .pp__desk{display:block;width:100%;height:auto}
+    .pp__cel{
+      position:absolute;left:-26px;bottom:26px;width:150px;height:auto;display:block;
+      border-radius:18px;box-shadow:0 18px 44px rgba(20,26,34,.28);
     }
-    .prueba figcaption{
-      margin-top:14px;font-size:11.5px;color:var(--arena);letter-spacing:.04em;
-      max-width:640px;line-height:1.6;
+    @media (max-width:860px){
+      .pp{grid-template-columns:1fr;gap:30px;padding:48px 20px 0}
+      .pp__txt{padding-bottom:0}
+      .pp__vis{margin-right:-20px}
+      .pp__vis figure{max-height:300px}
+      .pp__cel{left:auto;right:30px;bottom:12px;width:84px}
     }
 
-    /* Features: capas y aire, no bordes. Cada carta con su tinte del mundo café. */
-    .grid{margin-top:54px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .card{
-      border-radius:22px;padding:30px 28px;
-      background:linear-gradient(160deg,#231B12,#1B140E 62%);
-      box-shadow:0 18px 44px rgba(12,7,3,.45), inset 0 1px 0 rgba(251,245,234,.05);
-      transition:transform .25s ease, box-shadow .25s ease;
+    /* 2 · Orden, responsables y visibilidad: sobre el lienzo, columnas invertidas */
+    .s-orden{
+      width:min(1180px,calc(100% - 40px));margin:0 auto;padding:128px 0 92px;
+      display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:64px;align-items:center;
     }
-    .card:hover{transform:translateY(-4px);box-shadow:0 28px 60px rgba(12,7,3,.6), inset 0 1px 0 rgba(251,245,234,.08)}
-    .card h4{margin:18px 0 8px;font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.01em}
-    .card p{font-size:14.5px;color:var(--leche);line-height:1.6}
-    .chip{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center}
-    .chip--terracota{background:rgba(194,65,12,.18);color:var(--terracota-luz)}
-    .chip--miel{background:rgba(217,164,65,.14);color:var(--miel)}
-    .chip--olivo{background:rgba(151,161,92,.14);color:var(--olivo)}
-    .chip--leche{background:rgba(232,211,176,.12);color:var(--leche)}
+    .s-orden__fig{grid-column:1;grid-row:1}
+    .s-orden__txt{grid-column:2;grid-row:1}
+    .s-orden__fig .fig-t{font-size:clamp(17px,2.2vw,20px);line-height:1.25;margin-bottom:16px;max-width:560px}
+    .s-orden__fig img{display:block;width:100%;height:auto;border-radius:var(--r);box-shadow:var(--sombra)}
+    .ideas{margin-top:30px;display:flex;flex-direction:column;gap:24px;list-style:none}
+    .ideas li{display:flex;gap:15px;align-items:flex-start}
+    .ideas .chip{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(27,75,122,.1);color:var(--azul);flex:none}
+    .ideas h3{font-size:17px;margin-bottom:5px}
+    .ideas p{font-size:14.5px;color:var(--tinta-2);line-height:1.6}
+    @media (max-width:860px){
+      .s-orden{grid-template-columns:1fr;gap:36px;padding:84px 0 64px}
+      .s-orden__fig,.s-orden__txt{grid-column:auto;grid-row:auto}
+    }
 
-    /* ── Campañas: la historia completa en una pantalla de chat ── */
-    .camp{margin-top:54px;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
-    .camp__puntos{display:flex;flex-direction:column;gap:26px}
+    /* 3 · Campañas: la única banda a todo el ancho */
+    .banda{
+      position:relative;z-index:0;padding:132px 0 124px;color:var(--panel);
+      background:linear-gradient(165deg,var(--azul),var(--tinta));
+    }
+    .banda__in{width:min(1080px,calc(100% - 40px));margin:0 auto;position:relative}
+    .banda h2{max-width:640px}
+    .banda .lead{color:var(--sobre-azul)}
+    .camp{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .camp__puntos{display:flex;flex-direction:column;gap:28px}
     .punto{display:flex;gap:16px;align-items:flex-start}
-    .punto .chip{flex:none;width:46px;height:46px;border-radius:14px}
-    .punto .chip .ic{width:24px;height:24px}
-    .punto h5{font-family:var(--display);font-size:16.5px;font-weight:700;margin-bottom:5px;letter-spacing:-.01em}
-    .punto p{font-size:14px;color:var(--leche);line-height:1.6}
-    .tel{
-      border-radius:26px;padding:26px 22px;
-      background:linear-gradient(170deg,#241B13,#1A130D 70%);
-      box-shadow:0 30px 70px rgba(12,7,3,.55), inset 0 1px 0 rgba(251,245,234,.06);
-    }
+    .punto .chip{flex:none;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);color:var(--panel)}
+    .punto h3{font-size:17px;margin-bottom:5px}
+    .punto p{font-size:14.5px;color:var(--sobre-azul);line-height:1.6}
+    .tel{border-radius:var(--r);padding:26px 22px;background:var(--panel);color:var(--tinta);box-shadow:0 24px 60px rgba(8,20,36,.4)}
     .tel .msg{
-      max-width:88%;padding:12px 15px;font-size:13.5px;line-height:1.55;
-      border-radius:18px 18px 4px 18px;margin-left:auto;
-      background:rgba(151,161,92,.2);color:var(--espuma);
+      max-width:88%;padding:11px 14px;font-size:14px;line-height:1.55;
+      border-radius:12px 12px 3px 12px;margin-left:auto;background:#DCE7F3;color:var(--tinta);
     }
-    .tel .msg time{display:block;text-align:right;margin-top:6px;font-size:10.5px;color:var(--arena)}
-    .tel .quick{display:flex;gap:8px;margin:12px 0 20px;justify-content:flex-end;flex-wrap:wrap}
-    .tel .quick span{
-      padding:8px 16px;border-radius:999px;font-size:12.5px;color:var(--leche);
-      background:rgba(232,211,176,.08);box-shadow:inset 0 0 0 1px rgba(232,211,176,.22);
+    .tel .msg time{display:block;text-align:right;margin-top:6px;font-size:11px;color:var(--tinta-2)}
+    .tel .quick{display:flex;gap:8px;margin:12px 0 18px;justify-content:flex-end;flex-wrap:wrap}
+    .tel .quick span{padding:8px 15px;border-radius:999px;font-size:13px;color:var(--azul);background:rgba(27,75,122,.1)}
+    .tel .msg--in{border-radius:12px 12px 12px 3px;margin-left:0;margin-right:auto;background:#ECEEEA}
+    .tel .msg--in time{text-align:left}
+    .tel .baja{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:13px;color:var(--tinta-2)}
+    .tel .baja svg{width:18px;height:18px;color:var(--azul);flex:none}
+    .tel .kpis{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+    .tel .kpis span{padding:7px 13px;border-radius:999px;font-size:12px;letter-spacing:.03em}
+    .k-env{background:var(--lienzo);color:var(--tinta)}
+    .k-ent{background:rgba(27,75,122,.13);color:var(--azul)}
+    .k-baj{background:var(--tinta);color:var(--panel)}
+    .aviso-ley{
+      margin-top:52px;max-width:720px;display:flex;gap:16px;align-items:flex-start;
+      padding:22px 26px;border-radius:var(--r);background:rgba(255,255,255,.12);box-shadow:inset 4px 0 0 var(--panel);
     }
-    .tel .msg--in{
-      border-radius:18px 18px 18px 4px;margin-left:0;margin-right:auto;
-      background:#2A2019;color:var(--espuma);
-    }
-    .tel .baja{
-      display:flex;align-items:center;gap:8px;margin-top:16px;
-      font-size:12px;color:var(--arena);letter-spacing:.03em;
-    }
-    .tel .baja svg{width:16px;height:16px;color:var(--olivo);flex:none}
-    .tel .kpis{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
-    .tel .kpis span{
-      padding:7px 13px;border-radius:999px;font-size:11.5px;letter-spacing:.05em;
-    }
-    .tel .kpis .k-env{background:rgba(232,211,176,.1);color:var(--leche)}
-    .tel .kpis .k-ent{background:rgba(151,161,92,.16);color:var(--olivo)}
-    .tel .kpis .k-baj{background:rgba(194,65,12,.16);color:var(--terracota-luz)}
-    .camp__ley{
-      margin-top:44px;display:flex;gap:14px;align-items:flex-start;max-width:640px;
-      padding:18px 22px;border-radius:16px;background:rgba(232,211,176,.05);
-    }
-    .camp__ley svg{width:22px;height:22px;color:var(--miel);flex:none;margin-top:2px}
-    .camp__ley p{font-size:13px;color:var(--leche);line-height:1.6}
+    .aviso-ley svg{width:26px;height:26px;flex:none;margin-top:1px}
+    .aviso-ley p{font-size:15px;line-height:1.6;color:var(--panel)}
     @media (max-width:860px){
-      .camp{grid-template-columns:1fr;gap:36px}
+      .banda{padding:88px 0 84px}
+      .camp{grid-template-columns:1fr;gap:40px}
     }
 
-    /* Video demo */
-    .demo{
-      margin-top:54px;border-radius:22px;overflow:hidden;
-      background:#1D1610;box-shadow:0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(251,245,234,.05);
-    }
-    .demo video{width:100%;display:block}
-    .demo-cap{padding:14px 20px;font-size:11.5px;color:var(--arena);letter-spacing:.04em;background:#191209}
+    /* 4 · Modo oscuro: una figura angosta, alineada a la izquierda */
+    .s-oscuro{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:116px 0 36px}
+    .s-oscuro figure{max-width:620px}
+    .s-oscuro img{display:block;width:100%;height:auto;border-radius:var(--r);box-shadow:var(--sombra)}
+    @media (max-width:860px){.s-oscuro{padding:72px 0 20px}}
 
-    /* ── Precios: dos cartas, cero letra pequeña ── */
-    .p-cards{margin-top:54px;display:grid;grid-template-columns:1.12fr .88fr;gap:20px;align-items:start}
-    .p-card{
-      position:relative;border-radius:24px;padding:38px 34px;overflow:hidden;
-      background:linear-gradient(165deg,#241B12,#1B140E 65%);
-      box-shadow:0 24px 60px rgba(12,7,3,.5), inset 0 1px 0 rgba(251,245,234,.06);
-    }
-    .p-card::before{
-      content:"";position:absolute;top:0;left:0;right:0;height:4px;
-      background:linear-gradient(90deg,var(--terracota),var(--terracota-luz),var(--miel));
-    }
-    .p-card--addon::before{background:linear-gradient(90deg,var(--miel),var(--olivo))}
-    .p-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .p-head h4{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.01em}
-    .p-tag{
-      padding:6px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;
-      background:rgba(194,65,12,.18);color:var(--terracota-luz);white-space:nowrap;
-    }
-    .p-card--addon .p-tag{background:rgba(217,164,65,.14);color:var(--miel)}
-    .p-precio{margin-top:22px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-    .p-precio strong{font-family:var(--display);font-size:clamp(48px,7vw,72px);font-weight:800;letter-spacing:-.03em;line-height:1}
-    .p-precio span{font-size:15px;color:var(--arena)}
-    .p-inc{margin-top:6px;font-size:14px;color:var(--leche)}
-    .p-lista{margin-top:26px;display:flex;flex-direction:column;gap:12px;list-style:none}
-    .p-lista li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--leche);line-height:1.55}
-    .p-lista svg{width:19px;height:19px;flex:none;margin-top:1px;color:var(--olivo)}
-    .p-card--addon .p-lista svg{color:var(--miel)}
-    .p-mas{
-      margin-top:26px;padding:15px 18px;border-radius:14px;font-size:13px;line-height:1.6;
-      color:var(--leche);background:rgba(232,211,176,.06);
-    }
-    .p-mas b{color:var(--espuma);font-weight:600}
-    .p-card .btn-p{margin-top:28px;text-align:center;display:block}
-    .p-prueba{margin-top:14px;text-align:center;font-size:12.5px;color:var(--arena);letter-spacing:.03em}
-    /* La tarifa de Meta, explicada sin esconder nada */
-    .meta-nota{
-      margin-top:20px;border-radius:24px;padding:34px;
-      background:rgba(232,211,176,.05);
-      display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;
-    }
-    .meta-nota>svg{width:30px;height:30px;color:var(--miel);margin-top:2px}
-    .meta-nota h4{font-family:var(--display);font-size:17px;font-weight:700;margin-bottom:10px}
-    .meta-nota p{font-size:13.5px;color:var(--leche);line-height:1.65;max-width:640px}
-    .meta-nota p+p{margin-top:8px}
-    .meta-nota a{color:var(--terracota-luz);text-decoration:none;border-bottom:1px solid rgba(232,116,60,.4)}
-    .meta-nota a:hover{border-color:var(--terracota-luz)}
-    @media (max-width:860px){
-      .p-cards{grid-template-columns:1fr}
-      .meta-nota{grid-template-columns:1fr;gap:12px;padding:26px 22px}
-    }
-    /* ── El arranque: cargo único con dos puertas. A propósito NO es una tercera
-       carta: es una decisión (quién hace el trámite), no otro plan mensual.
-       Un solo contenedor delineado, partido por un filete. ── */
-    .arranque{
-      margin-top:20px;border-radius:24px;padding:36px 34px;
-      box-shadow:inset 0 0 0 1px rgba(232,211,176,.15);
-    }
-    .arranque__intro h4{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.01em}
-    .arranque__intro p{margin-top:8px;font-size:14px;color:var(--leche);line-height:1.6;max-width:560px}
-    .arranque__intro b{color:var(--espuma);font-weight:600}
-    .arranque__vias{margin-top:30px;display:grid;grid-template-columns:1.15fr .85fr}
-    .via{padding-right:34px}
-    .via--libre{border-left:1px solid rgba(232,211,176,.14);padding-left:34px;padding-right:0}
-    .via__tag{display:inline-block;padding:6px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;white-space:nowrap}
-    .via__tag--nos{background:rgba(194,65,12,.18);color:var(--terracota-luz)}
-    .via__tag--tu{background:rgba(151,161,92,.16);color:var(--olivo)}
-    .via__precio{margin-top:16px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-    .via__precio strong{font-family:var(--display);font-size:clamp(34px,4.6vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1}
-    .via__precio span{font-size:14px;color:var(--arena)}
-    .via .p-lista{margin-top:18px;gap:10px}
-    .via__nota{margin-top:18px;font-size:13px;color:var(--leche);line-height:1.6}
-    .via__nota b,.via--libre b{color:var(--espuma);font-weight:600}
-    .via--libre>p{margin-top:16px;font-size:14px;color:var(--leche);line-height:1.65}
-    .arranque__tp{margin-top:28px;padding-top:22px;border-top:1px solid rgba(232,211,176,.1);font-size:13px;color:var(--arena);line-height:1.6}
-    .arranque__tp a{color:var(--terracota-luz);text-decoration:none;border-bottom:1px solid rgba(232,116,60,.4)}
-    .arranque__tp a:hover{border-color:var(--terracota-luz)}
-    @media (max-width:860px){
-      .arranque{padding:28px 24px}
-      .arranque__vias{grid-template-columns:1fr}
-      .via{padding-right:0}
-      .via--libre{border-left:0;border-top:1px solid rgba(232,211,176,.14);padding-left:0;margin-top:26px;padding-top:26px}
-    }
-
-    /* ── Integración oficial: banda a sangre completa, la única sección con fondo
-       propio. Los hechos van en columnas editoriales sin caja — no son cartas. ── */
-    .banda-tp{
-      /* position+z-index: crea stacking context para que el motivo (z-index:-1)
-         se pinte SOBRE este fondo y no desaparezca detrás de él */
-      position:relative;z-index:0;
-      background:linear-gradient(180deg,#1E1710,#191309);
-      border-top:1px solid rgba(232,211,176,.08);
-      border-bottom:1px solid rgba(232,211,176,.08);
-    }
-    .sec--tp{padding-top:92px;padding-bottom:96px}
-    .tp-hechos{margin-top:50px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
-    .tp-hecho{border-left:1px solid rgba(232,211,176,.22);padding-left:20px}
-    .tp-hecho h5{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
-    .tp-hecho p{font-size:13.5px;color:var(--leche);line-height:1.65}
-    .tp-canales{margin-top:46px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    /* 5 · Tech Provider: solo texto, angosta */
+    .s-tp{width:min(720px,calc(100% - 40px));margin:0 auto;padding:92px 0 100px;position:relative}
+    .tp-hechos{margin-top:40px}
+    .tp-hechos>div{display:grid;grid-template-columns:190px 1fr;gap:24px;padding:22px 0;box-shadow:inset 0 1px 0 rgba(18,49,79,.14)}
+    .tp-hechos dt{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.01em}
+    .tp-hechos dd{font-size:14.5px;color:var(--tinta-2);line-height:1.65}
+    .tp-canales{margin-top:30px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .tp-canales .pill{
       display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
-      font-size:12.5px;color:var(--leche);letter-spacing:.03em;
-      background:rgba(232,211,176,.08);box-shadow:inset 0 0 0 1px rgba(232,211,176,.22);
+      font-size:13px;color:var(--tinta);background:var(--panel);box-shadow:0 2px 4px rgba(20,26,34,.06);
     }
-    .tp-canales .pill svg{width:15px;height:15px;flex:none}
-    .tp-canales>p{font-size:13px;color:var(--arena);line-height:1.5;flex-basis:100%;margin-top:6px;max-width:640px}
-    .motif--grano{left:-120px;bottom:-70px;width:300px;opacity:.06}
+    .tp-canales .pill svg{width:16px;height:16px;color:var(--azul)}
+    .tp-canales>p{font-size:13.5px;color:var(--tinta-2);line-height:1.55;flex-basis:100%;margin-top:6px}
     @media (max-width:760px){
-      .sec--tp{padding-top:72px;padding-bottom:76px}
-      .tp-hechos{grid-template-columns:1fr;gap:26px}
-      .motif--grano{width:220px;left:-100px}
+      .s-tp{padding:68px 0 72px}
+      .tp-hechos>div{grid-template-columns:1fr;gap:6px}
     }
 
-    /* CTA final */
-    .cta-fin{text-align:center;padding-bottom:130px}
-    .cta-fin h1,.cta-fin h2,.cta-fin h3{margin:0 auto}
-    .cta-fin .btns{margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    /* 6 · Precios: el único lugar con tarjetas */
+    .s-precios{width:min(1080px,calc(100% - 40px));margin:0 auto;padding:148px 0 128px;position:relative}
+    .s-precios h2{font-size:clamp(34px,5.6vw,60px);max-width:780px}
+    .p-cards{margin-top:52px;display:grid;grid-template-columns:1.12fr .88fr;gap:22px;align-items:start}
+    .p-card{padding:38px 34px;border-radius:var(--r);background:var(--panel);box-shadow:var(--sombra)}
+    .p-card--dest{background:linear-gradient(165deg,var(--azul),var(--tinta));color:var(--panel)}
+    .p-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .p-head h3{font-size:21px}
+    .p-tag{padding:6px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;white-space:nowrap;background:rgba(27,75,122,.1);color:var(--azul)}
+    .p-card--dest .p-tag{background:rgba(255,255,255,.16);color:var(--panel)}
+    .p-precio{margin-top:22px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+    .p-precio strong{font-family:var(--display);font-size:clamp(48px,7vw,72px);font-weight:800;letter-spacing:-.03em;line-height:1}
+    .p-precio span{font-size:15px;color:var(--tinta-2)}
+    .p-card--dest .p-precio span{color:var(--sobre-azul)}
+    .p-lista{margin-top:26px;display:flex;flex-direction:column;gap:12px;list-style:none}
+    .p-lista li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--tinta-2);line-height:1.55}
+    .p-lista svg{width:19px;height:19px;flex:none;margin-top:1px;color:var(--azul)}
+    .p-card--dest .p-lista li{color:var(--sobre-azul)}
+    .p-card--dest .p-lista svg{color:var(--panel)}
+    .p-mas{margin-top:26px;padding:15px 18px;border-radius:10px;font-size:13.5px;line-height:1.6;color:var(--tinta-2);background:#ECEEEA}
+    .p-mas b{color:var(--tinta);font-weight:600}
+    .p-card--dest .p-mas{background:rgba(255,255,255,.1);color:var(--sobre-azul)}
+    .p-card--dest .p-mas b{color:var(--panel)}
+    .p-card .btn-p{margin-top:28px;text-align:center;display:block}
+    .btn-p--inv{background:var(--panel);color:var(--azul)}
+    .btn-p--inv:hover{background:#fff}
+    .p-prueba{margin-top:14px;text-align:center;font-size:13px;color:var(--sobre-azul)}
+    .product a.enlace{color:var(--azul);text-decoration:underline;text-decoration-color:rgba(27,75,122,.45);text-underline-offset:3px}
+    .arranque{margin-top:22px;border-radius:var(--r);padding:38px 34px;background:rgba(18,49,79,.06)}
+    .arranque__intro h3{font-size:19px}
+    .arranque__intro p{margin-top:8px;font-size:14.5px;color:var(--tinta-2);line-height:1.6;max-width:560px}
+    .arranque b,.via b{color:var(--tinta);font-weight:600}
+    .arranque__vias{margin-top:30px;display:grid;grid-template-columns:1.15fr .85fr}
+    .via{padding-right:34px}
+    .via--libre{box-shadow:inset 1px 0 0 rgba(18,49,79,.16);padding-left:34px;padding-right:0}
+    .via__tag{display:inline-block;padding:6px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;white-space:nowrap}
+    .via__tag--nos{background:var(--azul);color:var(--panel)}
+    .via__tag--tu{background:rgba(18,49,79,.1);color:var(--tinta)}
+    .via__precio{margin-top:16px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+    .via__precio strong{font-family:var(--display);font-size:clamp(34px,4.6vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1}
+    .via__precio span{font-size:14px;color:var(--tinta-2)}
+    .via .p-lista{margin-top:18px;gap:10px}
+    .via__nota{margin-top:18px;font-size:13.5px;color:var(--tinta-2);line-height:1.6}
+    .via--libre>p{margin-top:16px;font-size:14.5px;color:var(--tinta-2);line-height:1.65}
+    .arranque__tp{margin-top:28px;padding-top:22px;box-shadow:inset 0 1px 0 rgba(18,49,79,.12);font-size:13.5px;color:var(--tinta-2);line-height:1.6}
+    .meta-nota{margin-top:44px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;max-width:760px}
+    .meta-nota>svg{width:28px;height:28px;color:var(--azul);margin-top:2px}
+    .meta-nota h3{font-size:17px;margin-bottom:10px}
+    .meta-nota p{font-size:14px;color:var(--tinta-2);line-height:1.65}
+    .meta-nota p+p{margin-top:8px}
+    .meta-nota b{color:var(--tinta);font-weight:600}
+    @media (max-width:860px){
+      .s-precios{padding:92px 0 84px}
+      .p-cards{grid-template-columns:1fr}
+      .p-card{padding:30px 24px}
+      .arranque{padding:28px 22px}
+      .arranque__vias{grid-template-columns:1fr}
+      .via{padding-right:0}
+      .via--libre{box-shadow:inset 0 1px 0 rgba(18,49,79,.16);padding-left:0;margin-top:26px;padding-top:26px}
+      .meta-nota{grid-template-columns:1fr;gap:10px}
+    }
+
+    /* 7 · Llamado final: angosto, con más aire */
+    .cta-fin{width:min(640px,calc(100% - 40px));margin:0 auto;padding:196px 0 176px;text-align:center;position:relative}
+    .cta-fin .lead{margin-left:auto;margin-right:auto}
+    .cta-fin .btns{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
     .btn-p{
-      display:inline-block;padding:16px 36px;border-radius:999px;background:var(--terracota);
-      color:var(--espuma);text-decoration:none;font-weight:600;letter-spacing:.04em;font-size:15px;
-      box-shadow:0 8px 32px rgba(194,65,12,.4);transition:transform .25s, background .25s;
+      display:inline-block;padding:15px 34px;border-radius:999px;background:var(--azul);
+      color:var(--panel);text-decoration:none;font-weight:600;letter-spacing:.03em;font-size:15px;
+      box-shadow:0 8px 24px rgba(27,75,122,.28);transition:transform .25s, background .25s;
     }
-    .btn-p:hover{transform:translateY(-2px);background:var(--terracota-luz)}
+    .btn-p:hover{transform:translateY(-2px);background:var(--tinta)}
     .btn-g{
-      display:inline-block;padding:16px 36px;border-radius:999px;
-      color:var(--leche);text-decoration:none;font-weight:600;letter-spacing:.04em;font-size:15px;
-      box-shadow:inset 0 0 0 1px #3A3327;transition:box-shadow .25s, color .25s;
+      display:inline-block;padding:15px 34px;border-radius:999px;color:var(--azul);text-decoration:none;
+      font-weight:600;letter-spacing:.03em;font-size:15px;box-shadow:inset 0 0 0 1.5px var(--azul);
+      transition:background .25s;
     }
-    .btn-g:hover{box-shadow:inset 0 0 0 1px var(--arena);color:var(--espuma)}
+    .btn-g:hover{background:rgba(27,75,122,.08)}
+    @media (max-width:760px){.cta-fin{padding:120px 0 110px}}
 
-    /* ── Footer: la taza de la marca parte la línea ── */
-    footer{padding:0 28px 46px}
-    .f-divide{
-      max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;
-    }
-    .f-divide::before,.f-divide::after{content:"";flex:1;height:1px;background:#2A2019}
+    /* 8 · Pie: la taza en su color de marca parte la línea */
+    footer{padding:0 20px 46px}
+    .f-divide{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px}
+    .f-divide::before,.f-divide::after{content:"";flex:1;height:1px;background:rgba(18,49,79,.16)}
     .f-cup{width:44px;height:44px;flex:none;overflow:visible}
-    /* El humito de la tacita: respira y sube, en bucle */
     .f-vapor{transform-origin:bottom center;transform-box:fill-box;animation:vapor 2.8s ease-in-out infinite}
     .f-vapor--1{opacity:.7}
     .f-vapor--2{opacity:.5;animation-delay:1.4s;animation-duration:3.2s}
@@ -426,33 +369,23 @@
     }
     @media (prefers-reduced-motion: reduce){
       .f-vapor{animation:none;opacity:.6}
-      .card,.card:hover,.btn-p:hover,#t4 .cta:hover{transform:none}
+      .btn-p:hover,#t4 .cta:hover{transform:none}
     }
-    .f-grid{
-      max-width:1080px;margin:46px auto 0;display:grid;gap:36px;
-      grid-template-columns:1.4fr 1fr 1fr;align-items:start;
-    }
+    .f-grid{max-width:1080px;margin:46px auto 0;display:grid;gap:36px;grid-template-columns:1.4fr 1fr 1fr;align-items:start}
     .f-brand .fw{letter-spacing:.18em;font-weight:700;font-size:15px;font-family:var(--display)}
-    .f-brand p{margin-top:10px;font-size:13px;color:var(--arena);line-height:1.6;max-width:260px}
-    .f-col h5{font-size:11px;letter-spacing:.2em;color:var(--arena);font-weight:600;margin-bottom:14px}
-    .f-col a{display:block;color:var(--leche);text-decoration:none;font-size:13.5px;padding:5px 0;transition:color .2s}
-    .f-col a:hover{color:var(--terracota-luz)}
+    .f-brand p{margin-top:10px;font-size:13.5px;color:var(--tinta-2);line-height:1.6;max-width:260px}
+    .f-col h5{font-size:11px;letter-spacing:.2em;color:var(--tinta-2);font-weight:600;margin-bottom:14px}
+    .f-col a{display:block;color:var(--tinta);text-decoration:none;font-size:13.5px;padding:5px 0;transition:color .2s}
+    .f-col a:hover{color:var(--azul);text-decoration:underline}
     .f-legal{
-      max-width:1080px;margin:44px auto 0;padding-top:20px;border-top:1px solid #211913;
+      max-width:1080px;margin:44px auto 0;padding-top:20px;box-shadow:inset 0 1px 0 rgba(18,49,79,.12);
       display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      font-size:11.5px;color:var(--arena);letter-spacing:.04em;
+      font-size:12px;color:var(--tinta-2);letter-spacing:.03em;
     }
-    /* La firma de la marca. Sigue siendo un susurro — pero con carácter.
-       No subirla de volumen ni moverla del pie: funciona porque se descubre. */
-    .f-legal .firma{font-family:var(--display);font-size:12.5px;letter-spacing:.015em;color:var(--arena)}
+    .f-legal .firma{font-family:var(--display);font-size:12.5px;letter-spacing:.015em}
     @media (max-width:760px){
       .f-grid{grid-template-columns:1fr;gap:30px}
       .f-legal{justify-content:center;text-align:center}
-    }
-
-    @media (max-width:760px){
-      .sec{padding:80px 20px}
-      .grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -491,216 +424,238 @@
   <div id="track"></div>
 
   <main class="product">
-    <section class="sec">
-      <!-- Humito de la marca: vetas de vapor subiendo, cada una con su carácter -->
-      <svg class="motif motif--swirl" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#E8743C" stroke-width="1.3" stroke-linecap="round">
-        <path d="M210 560 C 186 480, 238 430, 214 350 C 192 280, 240 220, 222 150 C 212 110, 226 80, 220 48" opacity=".55"/>
-        <path d="M310 585 C 340 500, 282 440, 316 355 C 344 285, 296 225, 322 150 C 334 112, 320 78, 328 30" opacity=".8"/>
-        <path d="M415 555 C 396 490, 442 435, 420 365 C 402 305, 446 250, 428 185 C 419 152, 432 118, 425 88" opacity=".4"/>
-      </svg>
-      <span id="producto" aria-hidden="true"></span>
-      <p class="eyebrow">// EL PRODUCTO</p>
-      <h1>Una bandeja que tu equipo de verdad puede compartir.</h1>
-      <p class="lead">Los mensajes de tus clientes dejan de vivir en el celular de alguien.
-      Entran a Eficore, se asignan, y cualquiera del equipo puede ver el hilo completo.</p>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+      <symbol id="i-bandeja" viewBox="0 0 256 256"><path d="M216,48V160H179.31a8,8,0,0,0-5.66,2.34l-19.31,19.32a8,8,0,0,1-5.66,2.34H107.31a8,8,0,0,1-5.66-2.34L82.34,162.34A8,8,0,0,0,76.68,160H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.68A15.89,15.89,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.32A15.89,15.89,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"/></symbol>
+      <symbol id="i-dueno" viewBox="0 0 256 256"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+      <symbol id="i-ojo" viewBox="0 0 256 256"><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" opacity="0.2"/><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></symbol>
+      <symbol id="i-campana" viewBox="0 0 256 256"><path d="M208,192H48a8,8,0,0,1-6.88-12C47.71,168.6,56,139.81,56,104a72,72,0,0,1,144,0c0,35.82,8.3,64.6,14.9,76A8,8,0,0,1,208,192Z" opacity="0.2"/><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></symbol>
+      <symbol id="i-megafono" viewBox="0 0 256 256"><path d="M240,120a48,48,0,0,1-48,48H152V72h40A48,48,0,0,1,240,120Z" opacity="0.2"/><path d="M192,64H152a8,8,0,0,0-2.53.41L82.7,86.67A7.88,7.88,0,0,1,80,87.13V80a8,8,0,0,0-16,0v8H48a24,24,0,0,0-24,24v16a24,24,0,0,0,24,24H64v8a8,8,0,0,0,16,0v-7.13a7.88,7.88,0,0,1,2.7.46l66.77,22.26A8,8,0,0,0,152,176h40a56,56,0,0,0,0-112ZM40,128V112a8,8,0,0,1,8-8H64v32H48A8,8,0,0,1,40,128Zm40,8.56V103.44a23.62,23.62,0,0,0,7.76-1.59L144,83.1v73.8L87.76,138.15A23.62,23.62,0,0,0,80,136.56ZM192,160H160V80h32a40,40,0,0,1,0,80Zm-24,40a8,8,0,0,1-8,8H144a8,8,0,0,1-7.59-5.47l-8-24a8,8,0,0,1,15.18-5.06l6.17,18.53H160A8,8,0,0,1,168,200Z"/></symbol>
+      <symbol id="i-grafico" viewBox="0 0 256 256"><path d="M224,200h-8V40a8,8,0,0,0-8-8H168a8,8,0,0,0-8,8V80H112a8,8,0,0,0-8,8v40H56a8,8,0,0,0-8,8v64H40a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16h8V136a8,8,0,0,1,8-8h40V88a8,8,0,0,1,8-8h40V40a8,8,0,0,1,8-8h64a8,8,0,0,1,8,8V200h8A8,8,0,0,1,232,208Zm-72-8h40V48H160Zm-56,0h40V96H104Zm-48,0H96V144H56Z"/></symbol>
+      <symbol id="i-ok" viewBox="0 0 256 256"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 256 256"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+      <symbol id="i-escudo" viewBox="0 0 256 256"><path d="M208,40V114.79c0,89.61-75.94,119.34-78,120.12a8,8,0,0,1-4,0c-2.06-.78-78-30.51-78-120.12V40a8,8,0,0,1,8-8H200A8,8,0,0,1,208,40Z" opacity="0.2"/><path d="M208,24H48A16,16,0,0,0,32,40v74.79c0,92.36,78.1,123,93.76,128.18a19.6,19.6,0,0,0,12.48,0C153.9,237.82,224,207.15,224,114.79V40A16,16,0,0,0,208,24Zm0,90.79c0,81.36-69.72,108.21-80,111.61-10.28-3.4-80-30.25-80-111.61V40H208ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
+      <symbol id="i-info" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></symbol>
+      <symbol id="i-wa" viewBox="0 0 256 256"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Z"/></symbol>
+      <symbol id="i-msg" viewBox="0 0 256 256"><path d="M181.66,106.34a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32,0L112,123.31,85.66,149.66a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0L144,132.69l26.34-26.35A8,8,0,0,1,181.66,106.34ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Z"/></symbol>
+      <symbol id="i-ig" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12,12A12,12,0,0,1,192,76Z"/></symbol>
+    </defs></svg>
 
-      <figure class="shots">
-        <img class="shots__desk" src="/eficore-shot-desktop.jpg" alt="Eficore en escritorio: bandeja, conversación tomada y ficha del cliente (tema paper)" loading="lazy">
-        <img class="shots__cel" src="/eficore-shot-cel.jpg" alt="Eficore en el celular: búsqueda de clientes (tema espresso)" loading="lazy">
-        <figcaption>Capturas reales de la plataforma · tema paper y espresso · escritorio y celular</figcaption>
-      </figure>
+    <!-- 1 · Producto: el panel sube 70px sobre el borde inferior del inicio -->
+    <section class="pp" id="producto">
+      <!-- Humito de la marca: vetas de vapor subiendo -->
+      <svg class="motif motif--swirl" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#1B4B7A" stroke-width="1.3" stroke-linecap="round">
+        <path d="M210 560 C 186 480, 238 430, 214 350 C 192 280, 240 220, 222 150 C 212 110, 226 80, 220 48"/>
+        <path d="M310 585 C 340 500, 282 440, 316 355 C 344 285, 296 225, 322 150 C 334 112, 320 78, 328 30"/>
+        <path d="M415 555 C 396 490, 442 435, 420 365 C 402 305, 446 250, 428 185 C 419 152, 432 118, 425 88"/>
+      </svg>
+      <div class="pp__txt">
+        <h1>Una bandeja que tu equipo de verdad puede compartir.</h1>
+        <p class="lead">Los mensajes de tus clientes dejan de vivir en el celular de alguien.
+        Entran a Eficore, se asignan, y cualquiera del equipo puede ver el hilo completo.</p>
+        <p class="pie">Captura real de la plataforma. Datos de demostración.</p>
+      </div>
+      <div class="pp__vis">
+        <figure>
+          <img class="pp__desk" src="/eficore-bandeja-escritorio.jpg" width="1440" height="900" loading="lazy" decoding="async"
+               alt="Eficore en escritorio: lista de conversaciones a la izquierda, el hilo de una clienta con una nota interna al centro y la ficha del cliente a la derecha.">
+        </figure>
+        <img class="pp__cel" src="/eficore-bandeja-telefono.jpg" width="780" height="1688" loading="lazy" decoding="async"
+             alt="Eficore en el teléfono: lista de conversaciones con su responsable y barra inferior de Abiertas, Queue, Para mí y Cerradas.">
+      </div>
     </section>
 
-    <!-- Sin eyebrow a propósito: rompe la apertura repetida de las otras secciones -->
-    <section class="sec sec--junto">
-      <h2>Orden, responsables y visibilidad. Sin cambiar de app.</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="chip chip--terracota"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,48V160H179.31a8,8,0,0,0-5.66,2.34l-19.31,19.32a8,8,0,0,1-5.66,2.34H107.31a8,8,0,0,1-5.66-2.34L82.34,162.34A8,8,0,0,0,76.68,160H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.68A15.89,15.89,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.32A15.89,15.89,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"/></svg></div>
-          <h4>Una sola bandeja</h4>
-          <p>Todos tus números de WhatsApp — y los mensajes directos de Instagram y Messenger — en un solo lugar. Nada se queda atrapado en el celular de nadie.</p>
-        </div>
-        <div class="card">
-          <div class="chip chip--miel"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></div>
-          <h4>Cada conversación tiene dueño</h4>
-          <p>Asignar, tomar o transferir. En todo momento se sabe quién responde qué — y el historial queda completo.</p>
-        </div>
-        <div class="card">
-          <div class="chip chip--olivo"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" opacity="0.2"/><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg></div>
-          <h4>Supervisión sin perseguir</h4>
-          <p>Los supervisores ven la operación en vivo: qué está atendido, qué espera respuesta y cómo se resolvió cada caso.</p>
-        </div>
-        <div class="card">
-          <div class="chip chip--leche"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,192H48a8,8,0,0,1-6.88-12C47.71,168.6,56,139.81,56,104a72,72,0,0,1,144,0c0,35.82,8.3,64.6,14.9,76A8,8,0,0,1,208,192Z" opacity="0.2"/><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg></div>
-          <h4>Notificaciones que sí llegan</h4>
-          <p>En la compu y en el celular, a la persona correcta. Sin ruido para el resto del equipo.</p>
-        </div>
-      </div>
-
-      <figure class="prueba">
-        <h5>El equipo se coordina dentro del hilo, sin que el cliente lo vea</h5>
-        <img src="/eficore-shot-nota-interna.jpg" width="1450" height="478" loading="lazy" decoding="async"
-             alt="Nota interna dentro de una conversación de Eficore, con una mención a otra persona del equipo, y el selector entre responder por WhatsApp o dejar una nota interna.">
-        <figcaption>Captura real de la plataforma, con datos de demostración. La nota queda dentro de
+    <!-- 2 · Orden, responsables y visibilidad: sobre el lienzo, sin panel -->
+    <section class="s-orden">
+      <figure class="s-orden__fig reveal">
+        <h3 class="fig-t">El equipo se coordina dentro del hilo, sin que el cliente lo vea</h3>
+        <img src="/eficore-bandeja-nota.jpg" width="670" height="300" loading="lazy" decoding="async"
+             alt="Hilo de una conversación en Eficore con una nota interna dentro de un recuadro punteado que menciona a una persona del equipo, entre los mensajes de la clienta.">
+        <figcaption class="pie">Captura real de la plataforma. Datos de demostración. La nota queda dentro de
         la conversación y marcada como interna — el cliente no la recibe nunca.</figcaption>
       </figure>
-    </section>
-
-    <section class="sec sec--aire" id="campanas">
-      <p class="eyebrow">// CAMPAÑAS · ADD-ON</p>
-      <h2>Toda tu cartera, en un solo envío</h2>
-      <p class="lead">Recordatorios de pago, renovaciones, promociones: eliges la plantilla y
-      a quién le llega, y sale en minutos. Las respuestas caen en la misma bandeja de tu
-      equipo, listas para cerrar.</p>
-
-      <div class="camp">
-        <div class="camp__puntos">
-          <div class="punto">
-            <div class="chip chip--terracota"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M240,120a48,48,0,0,1-48,48H152V72h40A48,48,0,0,1,240,120Z" opacity="0.2"/><path d="M192,64H152a8,8,0,0,0-2.53.41L82.7,86.67A7.88,7.88,0,0,1,80,87.13V80a8,8,0,0,0-16,0v8H48a24,24,0,0,0-24,24v16a24,24,0,0,0,24,24H64v8a8,8,0,0,0,16,0v-7.13a7.88,7.88,0,0,1,2.7.46l66.77,22.26A8,8,0,0,0,152,176h40a56,56,0,0,0,0-112ZM40,128V112a8,8,0,0,1,8-8H64v32H48A8,8,0,0,1,40,128Zm40,8.56V103.44a23.62,23.62,0,0,0,7.76-1.59L144,83.1v73.8L87.76,138.15A23.62,23.62,0,0,0,80,136.56ZM192,160H160V80h32a40,40,0,0,1,0,80Zm-24,40a8,8,0,0,1-8,8H144a8,8,0,0,1-7.59-5.47l-8-24a8,8,0,0,1,15.18-5.06l6.17,18.53H160A8,8,0,0,1,168,200Z"/></svg></div>
-            <div>
-              <h5>Plantillas aprobadas, envío en lote</h5>
-              <p>Eliges la plantilla, eliges a quién le llega, y sale. Cada envío queda registrado con su estado: enviado, entregado, leído.</p>
-            </div>
-          </div>
-          <div class="punto">
-            <div class="chip chip--miel"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,200h-8V40a8,8,0,0,0-8-8H168a8,8,0,0,0-8,8V80H112a8,8,0,0,0-8,8v40H56a8,8,0,0,0-8,8v64H40a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16h8V136a8,8,0,0,1,8-8h40V88a8,8,0,0,1,8-8h40V40a8,8,0,0,1,8-8h64a8,8,0,0,1,8,8V200h8A8,8,0,0,1,232,208Zm-72-8h40V48H160Zm-56,0h40V96H104Zm-48,0H96V144H56Z"/></svg></div>
-            <div>
-              <h5>Resultados que se ven</h5>
-              <p>Cuántos salieron, cuántos llegaron y cuántos lo leyeron — por campaña, en el mismo tablero donde tu equipo atiende.</p>
-            </div>
-          </div>
-          <div class="punto">
-            <div class="chip chip--olivo"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></div>
-            <div>
-              <h5>Tu número, siempre bien parado</h5>
-              <p>Cada envío lleva botón de baja y la baja se respeta sola. Menos bloqueos y reportes — tu número mantiene reputación para seguir vendiendo.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- La historia que vende: el envío sale, el cliente responde, tu equipo cierra -->
-        <div class="tel" aria-label="Ejemplo de campaña: recordatorio de renovación con respuesta del cliente">
-          <div class="msg">Hola, Marta. Tu póliza vence el 30 de julio. Si quieres, la renovamos desde ya y no pierdes cobertura.
-            <time>10:31</time>
-          </div>
-          <div class="quick"><span>Renovar ahora</span><span>Darme de baja</span></div>
-          <div class="msg msg--in">Renovar ahora
-            <time style="text-align:left">10:34</time>
-          </div>
-          <div class="baja">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
-            La respuesta cae en tu bandeja, asignada — lista para cerrar la venta.
-          </div>
-          <div class="kpis">
-            <span class="k-env">Enviados 214</span>
-            <span class="k-ent">Entregados 209</span>
-            <span class="k-baj">Leídos 121</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="camp__ley">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V114.79c0,89.61-75.94,119.34-78,120.12a8,8,0,0,1-4,0c-2.06-.78-78-30.51-78-120.12V40a8,8,0,0,1,8-8H200A8,8,0,0,1,208,40Z" opacity="0.2"/><path d="M208,24H48A16,16,0,0,0,32,40v74.79c0,92.36,78.1,123,93.76,128.18a19.6,19.6,0,0,0,12.48,0C153.9,237.82,224,207.15,224,114.79V40A16,16,0,0,0,208,24Zm0,90.79c0,81.36-69.72,108.21-80,111.61-10.28-3.4-80-30.25-80-111.61V40H208ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>
-        <p>Diseñado para operar con la Ley 81 de Panamá en mente: se envía a quien dio su
-        número para eso, la baja se respeta de inmediato y todo queda registrado.</p>
+      <div class="s-orden__txt">
+        <h2>Orden, responsables y visibilidad. Sin cambiar de app.</h2>
+        <ul class="ideas">
+          <li class="reveal">
+            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-bandeja"/></svg></span>
+            <div><h3>Una sola bandeja</h3>
+            <p>Todos tus números de WhatsApp — y los mensajes directos de Instagram y Messenger — en un solo lugar. Nada se queda atrapado en el celular de nadie.</p></div>
+          </li>
+          <li class="reveal">
+            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-dueno"/></svg></span>
+            <div><h3>Cada conversación tiene dueño</h3>
+            <p>Asignar, tomar o transferir. En todo momento se sabe quién responde qué — y el historial queda completo.</p></div>
+          </li>
+          <li class="reveal">
+            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-ojo"/></svg></span>
+            <div><h3>Supervisión sin perseguir</h3>
+            <p>Los supervisores ven la operación en vivo: qué está atendido, qué espera respuesta y cómo se resolvió cada caso.</p></div>
+          </li>
+          <li class="reveal">
+            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-campana"/></svg></span>
+            <div><h3>Notificaciones que sí llegan</h3>
+            <p>En la compu y en el celular, a la persona correcta. Sin ruido para el resto del equipo.</p></div>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- Sin eyebrow y sin lead: entra directo al video. Segunda variación de apertura. -->
-    <section class="sec sec--junto sec--angosta">
-      <h2>El flujo completo, en un minuto</h2>
-      <div class="demo">
-        <video controls playsinline preload="metadata" poster="/eficore-demo-poster.jpg" src="/eficore-demo.mp4"></video>
-        <div class="demo-cap">Grabado en la plataforma real · entorno de pruebas con datos ficticios</div>
+    <!-- 3 · Campañas: la única banda a todo el ancho (hija directa de main) -->
+    <section class="banda hay-motivo" id="campanas">
+      <svg class="motif motif--vapor-b" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round">
+        <path d="M210 560 C 186 480, 238 430, 214 350 C 192 280, 240 220, 222 150 C 212 110, 226 80, 220 48"/>
+        <path d="M310 585 C 340 500, 282 440, 316 355 C 344 285, 296 225, 322 150 C 334 112, 320 78, 328 30"/>
+      </svg>
+      <div class="banda__in">
+        <h2>Toda tu cartera, en un solo envío</h2>
+        <p class="lead">Recordatorios de pago, renovaciones, promociones: eliges la plantilla y
+        a quién le llega, y sale en minutos. Las respuestas caen en la misma bandeja de tu
+        equipo, listas para cerrar.</p>
+
+        <div class="camp">
+          <div class="camp__puntos">
+            <div class="punto">
+              <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-megafono"/></svg></span>
+              <div>
+                <h3>Plantillas aprobadas, envío en lote</h3>
+                <p>Eliges la plantilla, eliges a quién le llega, y sale. Cada envío queda registrado con su estado: enviado, entregado, leído.</p>
+              </div>
+            </div>
+            <div class="punto">
+              <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-grafico"/></svg></span>
+              <div>
+                <h3>Resultados que se ven</h3>
+                <p>Cuántos salieron, cuántos llegaron y cuántos lo leyeron — por campaña, en el mismo tablero donde tu equipo atiende.</p>
+              </div>
+            </div>
+            <div class="punto">
+              <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-ok"/></svg></span>
+              <div>
+                <h3>Tu número, siempre bien parado</h3>
+                <p>Cada envío lleva botón de baja y la baja se respeta sola. Menos bloqueos y reportes — tu número mantiene reputación para seguir vendiendo.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- El envío sale, el cliente responde, tu equipo cierra -->
+          <div class="tel" aria-label="Ejemplo de campaña: recordatorio de renovación con respuesta del cliente">
+            <div class="msg">Hola, Marta. Tu póliza vence el 30 de julio. Si quieres, la renovamos desde ya y no pierdes cobertura.
+              <time>10:31</time>
+            </div>
+            <div class="quick"><span>Renovar ahora</span><span>Darme de baja</span></div>
+            <div class="msg msg--in">Renovar ahora
+              <time>10:34</time>
+            </div>
+            <div class="baja">
+              <svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>
+              La respuesta cae en tu bandeja, asignada — lista para cerrar la venta.
+            </div>
+            <div class="kpis">
+              <span class="k-env">Enviados 214</span>
+              <span class="k-ent">Entregados 209</span>
+              <span class="k-baj">Leídos 121</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="aviso-ley">
+          <svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-escudo"/></svg>
+          <p>Diseñado para operar con la Ley 81 de Panamá en mente: se envía a quien dio su
+          número para eso, la baja se respeta de inmediato y todo queda registrado.</p>
+        </div>
       </div>
     </section>
 
-    <!-- Banda a sangre completa: la única sección con fondo propio. El argumento
-         institucional va justo antes del precio porque es lo que justifica el
-         arranque llave en mano. SIN logo de Meta a propósito: el asset oficial no
-         está licenciado (ver docs/BACKLOG.md); el claim en texto sí es uso legítimo. -->
-    <div class="banda-tp" id="techprovider">
-      <section class="sec sec--tp">
-        <!-- Grano de café: cuarto motivo del set latte art, primera vez en esta página -->
-        <svg class="motif motif--grano" viewBox="0 0 200 260" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width="1" stroke-linecap="round">
-          <ellipse cx="100" cy="130" rx="76" ry="110" transform="rotate(18 100 130)"/>
-          <path d="M76 36 C 120 88, 78 162, 124 222"/>
-        </svg>
-        <p class="eyebrow">// INTEGRACIÓN OFICIAL</p>
-        <h2>Somos Tech Provider de Meta</h2>
-        <p class="lead">Eficore no se cuelga de un celular ni de un WhatsApp Web disfrazado:
-        se conecta a la API oficial de WhatsApp con una aplicación propia que Meta revisó y
-        aprobó. Eso cambia lo que podemos hacer por ti.</p>
+    <!-- 4 · En lugar del video: la misma bandeja en modo oscuro -->
+    <section class="s-oscuro">
+      <figure class="reveal">
+        <img src="/eficore-bandeja-oscuro.jpg" width="1440" height="900" loading="lazy" decoding="async"
+             alt="Eficore en modo oscuro: la misma bandeja con la lista de conversaciones, el hilo de la clienta y su ficha, sobre fondo azul muy oscuro.">
+        <figcaption class="pie">La misma bandeja en modo oscuro. Datos de demostración.</figcaption>
+      </figure>
+    </section>
 
-        <div class="tp-hechos">
-          <div class="tp-hecho">
-            <h5>App Review aprobado</h5>
-            <p>La aplicación pasó el App Review de Meta: la revisión formal donde
-            Meta examina y aprueba lo que una plataforma puede hacer. No es un
-            simple registro.</p>
-          </div>
-          <div class="tp-hecho">
-            <h5>Tu cuenta sigue siendo tuya</h5>
-            <p>La cuenta de WhatsApp Business queda a nombre de tu negocio, con tu número.
-            Alijerik pone la plataforma y la operación técnica.</p>
-          </div>
-          <div class="tp-hecho">
-            <h5>Sin intermediarios</h5>
-            <p>Ponemos tu número en línea nosotros mismos, con acceso directo a Meta —
-            sin tickets con revendedores ni esperas de terceros.</p>
-          </div>
+    <!-- 5 · Tech Provider: texto angosto, sin rejilla. SIN logo de Meta a propósito:
+         el asset oficial no está licenciado (ver docs/BACKLOG.md); el claim en texto sí es uso legítimo. -->
+    <section class="s-tp hay-motivo" id="techprovider">
+      <svg class="motif motif--grano" viewBox="0 0 200 260" aria-hidden="true" fill="none" stroke="#1B4B7A" stroke-width="1" stroke-linecap="round">
+        <ellipse cx="100" cy="130" rx="76" ry="110" transform="rotate(18 100 130)"/>
+        <path d="M76 36 C 120 88, 78 162, 124 222"/>
+      </svg>
+      <h2>Somos Tech Provider de Meta</h2>
+      <p class="lead">Eficore no se cuelga de un celular ni de un WhatsApp Web disfrazado:
+      se conecta a la API oficial de WhatsApp con una aplicación propia que Meta revisó y
+      aprobó. Eso cambia lo que podemos hacer por ti.</p>
+
+      <dl class="tp-hechos">
+        <div class="reveal">
+          <dt>App Review aprobado</dt>
+          <dd>La aplicación pasó el App Review de Meta: la revisión formal donde
+          Meta examina y aprueba lo que una plataforma puede hacer. No es un
+          simple registro.</dd>
         </div>
-
-        <div class="tp-canales">
-          <span class="pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Z"/></svg>WhatsApp</span>
-          <span class="pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,106.34a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32,0L112,123.31,85.66,149.66a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0L144,132.69l26.34-26.35A8,8,0,0,1,181.66,106.34ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Z"/></svg>Messenger</span>
-          <span class="pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Instagram</span>
-          <p>La misma bandeja atiende también los mensajes directos de Instagram y los chats
-          de Messenger — cada hilo marcado con su canal.</p>
+        <div class="reveal">
+          <dt>Tu cuenta sigue siendo tuya</dt>
+          <dd>La cuenta de WhatsApp Business queda a nombre de tu negocio, con tu número.
+          Alijerik pone la plataforma y la operación técnica.</dd>
         </div>
-      </section>
-    </div>
+        <div class="reveal">
+          <dt>Sin intermediarios</dt>
+          <dd>Ponemos tu número en línea nosotros mismos, con acceso directo a Meta —
+          sin tickets con revendedores ni esperas de terceros.</dd>
+        </div>
+      </dl>
 
-    <section class="sec sec--aire" id="precios">
+      <div class="tp-canales">
+        <span class="pill"><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-wa"/></svg>WhatsApp</span>
+        <span class="pill"><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-msg"/></svg>Messenger</span>
+        <span class="pill"><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-ig"/></svg>Instagram</span>
+        <p>La misma bandeja atiende también los mensajes directos de Instagram y los chats
+        de Messenger — cada hilo marcado con su canal.</p>
+      </div>
+    </section>
+
+    <!-- 6 · Precios: el único lugar con tarjetas -->
+    <section class="s-precios" id="precios">
       <p class="eyebrow">// PRECIOS</p>
-      <h3 class="declara">5 usuarios por $39. Sí, cinco.</h3>
+      <h2>5 usuarios por $39. Sí, cinco.</h2>
       <p class="lead">En Panamá lo normal es pagar entre $40 y $90 al mes por tres a cinco
       agentes — y hay quien cobra $89 por cuatro. Además, muchos suman su propia tarifa por
       cada mensaje de campaña que mandas. Aquí no: un plan, un add-on fijo, y solo la tarifa
       de Meta a costo.</p>
 
       <div class="p-cards">
-        <div class="p-card">
+        <div class="p-card p-card--dest">
           <div class="p-head">
-            <h4>Eficore</h4>
+            <h3>Eficore</h3>
             <span class="p-tag">EL PLAN</span>
           </div>
           <div class="p-precio"><strong>$39</strong><span>al mes · incluye 5 usuarios</span></div>
           <ul class="p-lista">
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Bandeja compartida con todos tus números de WhatsApp</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Conversaciones asignadas, con historial completo</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Supervisión de la operación en vivo</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Notificaciones en la compu y el celular</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Plantillas de WhatsApp para respuestas y avisos</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Notas internas y menciones dentro del hilo</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Se instala como app en escritorio y celular</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Bandeja compartida con todos tus números de WhatsApp</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Conversaciones asignadas, con historial completo</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Supervisión de la operación en vivo</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Notificaciones en la compu y el celular</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Plantillas de WhatsApp para respuestas y avisos</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Notas internas y menciones dentro del hilo</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Se instala como app en escritorio y celular</li>
           </ul>
           <div class="p-mas">¿Equipo más grande? <b>+$10 al mes</b> por usuario adicional,
           o <b>5 usuarios más por $39</b> — el mismo precio del plan.</div>
-          <a class="btn-p" href="https://wa.me/50760933039?text=Hola%2C%20quiero%20una%20demo%20de%20Eficore" target="_blank" rel="noopener">Solicitar una demo</a>
+          <a class="btn-p btn-p--inv" href="https://wa.me/50760933039?text=Hola%2C%20quiero%20una%20demo%20de%20Eficore" target="_blank" rel="noopener">Solicitar una demo</a>
           <p class="p-prueba">Prueba de 15 días para conocerlo con tu equipo.</p>
         </div>
 
-        <div class="p-card p-card--addon">
+        <div class="p-card">
           <div class="p-head">
-            <h4>Campañas</h4>
+            <h3>Campañas</h3>
             <span class="p-tag">ADD-ON</span>
           </div>
           <div class="p-precio"><strong>$56</strong><span>al mes · + tarifa de Meta por mensaje</span></div>
           <ul class="p-lista">
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Envíos en lote con plantillas aprobadas por Meta</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Botón de baja en cada envío, respetado al instante</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Resultados por campaña: enviados, entregados, leídos</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Envíos en lote con plantillas aprobadas por Meta</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Botón de baja en cada envío, respetado al instante</li>
+            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Resultados por campaña: enviados, entregados, leídos</li>
           </ul>
           <div class="p-mas">Se activa sobre el plan, cuando tu operación lo pida.
           Las respuestas que generen tus campañas caen en la misma bandeja del equipo.</div>
@@ -710,9 +665,9 @@
       <!-- El arranque: cargo único, con dos puertas. La gratis es real desde hoy —
            el cliente puede hacer el trámite de Meta por su cuenta y la conexión no
            se cobra — y además ancla el valor de la vía paga. -->
-      <div class="arranque">
+      <div class="arranque reveal">
         <div class="arranque__intro">
-          <h4>El arranque, una sola vez</h4>
+          <h3>El arranque, una sola vez</h3>
           <p>Poner tu número en la API de WhatsApp es un trámite que en el mercado se cobra
           entre <b>$200 y $300</b>. Aquí tiene dos puertas:</p>
         </div>
@@ -721,9 +676,9 @@
             <span class="via__tag via__tag--nos">LO HACEMOS NOSOTROS</span>
             <div class="via__precio"><strong>$159</strong><span>pago único · llave en mano</span></div>
             <ul class="p-lista">
-              <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Tu número conectado y andando dentro de Eficore</li>
-              <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>El primer set de plantillas, redactado y sometido a aprobación de Meta</li>
-              <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Sesión de arranque con tu equipo, sobre tus casos</li>
+              <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Tu número conectado y andando dentro de Eficore</li>
+              <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>El primer set de plantillas, redactado y sometido a aprobación de Meta</li>
+              <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Sesión de arranque con tu equipo, sobre tus casos</li>
             </ul>
             <p class="via__nota">Un solo pago cubre <b>todos los números</b> que conectes en tu
             primer mes. ¿Sumas otro número más adelante? <b>$99 por número</b>, una sola vez.</p>
@@ -736,52 +691,51 @@
           </div>
         </div>
         <p class="arranque__tp">Podemos hacer el arranque de punta a punta porque somos
-        <a href="#techprovider">Tech Provider de Meta</a>: acceso directo, sin intermediarios
+        <a class="enlace" href="#techprovider">Tech Provider de Meta</a>: acceso directo, sin intermediarios
         ni tickets con terceros.</p>
       </div>
 
       <div class="meta-nota">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></svg>
+        <svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-info"/></svg>
         <div>
-          <h4>La tarifa de WhatsApp, sin letra pequeña</h4>
+          <h3>La tarifa de WhatsApp, sin letra pequeña</h3>
           <p>Cuando un cliente te escribe y tu equipo responde, Meta no cobra nada. Cuando tú
           inicias la conversación — un recordatorio, una promoción — el mensaje sale con una
           plantilla y Meta cobra una tarifa <b>por mensaje entregado</b>, que depende del país
           del destinatario y del tipo de plantilla.</p>
           <p>Esa tarifa se factura al <b>precio de lista de Meta</b> — el mismo que cualquiera
           puede consultar en la
-          <a href="https://business.whatsapp.com/products/platform-pricing" target="_blank" rel="noopener">página oficial de precios de Meta</a>.
+          <a class="enlace" href="https://business.whatsapp.com/products/platform-pricing" target="_blank" rel="noopener">página oficial de precios de Meta</a>.
           Sin sorpresas en el estado de cuenta.</p>
         </div>
       </div>
     </section>
 
-    <section class="sec sec--angosta cta-fin">
-      <!-- Eco del corazón de la marca, en una sola línea -->
-      <svg class="motif motif--heart" viewBox="0 0 48 40" aria-hidden="true" fill="none" stroke="#E8D3B0" stroke-width=".7" stroke-linecap="round">
+    <!-- 7 · Llamado final: angosto, con más aire -->
+    <section class="cta-fin hay-motivo">
+      <svg class="motif motif--heart" viewBox="0 0 48 40" aria-hidden="true" fill="none" stroke="#1B4B7A" stroke-width=".7" stroke-linecap="round">
         <path d="M24 12.2 C 23 10.6, 20.6 10.2, 19.2 11.7 C 17.6 13.4, 18.8 15.2, 24 17.8 C 29.2 15.2, 30.4 13.4, 28.8 11.7 C 27.4 10.2, 25 10.6, 24 12.2 Z" transform="translate(0 8) scale(1.35) translate(-8 -6)"/>
       </svg>
-      <p class="eyebrow">// SIGUIENTE PASO</p>
       <h2>¿Te lo imaginas en tu operación?</h2>
-      <p class="lead" style="margin-left:auto;margin-right:auto">Cuéntanos cómo trabaja tu equipo hoy y te mostramos Eficore andando, con tus casos.</p>
+      <p class="lead">Cuéntanos cómo trabaja tu equipo hoy y te mostramos Eficore andando, con tus casos.</p>
       <div class="btns">
         <a class="btn-p" href="https://wa.me/50760933039?text=Hola%2C%20quiero%20una%20demo%20de%20Eficore" target="_blank" rel="noopener">Solicitar una demo</a>
         <a class="btn-g" href="mailto:contacto@alijerik.com?subject=Demo%20de%20Eficore">Escribir por correo</a>
       </div>
     </section>
 
+    <!-- 8 · Pie: la taza de la marca parte la línea -->
     <footer>
       <div class="f-divide">
-        <!-- La taza de la marca: café terracota, corazón de espuma, humito -->
         <svg class="f-cup" viewBox="0 0 48 52" aria-hidden="true">
-          <g fill="none" stroke="#6F5F4E" stroke-width="1.4" stroke-linecap="round">
+          <g fill="none" stroke="#C2410C" stroke-width="1.4" stroke-linecap="round">
             <path class="f-vapor f-vapor--1" d="M18 8 c -1.5 -2.5, 1.5 -4.5, 0 -7"/>
             <path class="f-vapor f-vapor--2" d="M27 9 c 1.5 -2.5, -1.5 -4.5, 0 -7"/>
           </g>
-          <path d="M7 20 C 7.5 33, 14 46, 24 46 C 34 46, 40.5 33, 41 20 Z" fill="#241B13" stroke="#6F5F4E" stroke-width="1.2"/>
-          <path d="M40 22 c 6.5 0.5, 6.5 12, -0.5 13" fill="none" stroke="#6F5F4E" stroke-width="1.4"/>
-          <ellipse cx="24" cy="20" rx="17" ry="7" fill="#C2410C"/>
-          <path d="M24 18.2 C 23 16.6, 20.6 16.2, 19.2 17.7 C 17.6 19.4, 18.8 21.2, 24 23.8 C 29.2 21.2, 30.4 19.4, 28.8 17.7 C 27.4 16.2, 25 16.6, 24 18.2 Z" fill="#FBF5EA"/>
+          <path d="M7 20 C 7.5 33, 14 46, 24 46 C 34 46, 40.5 33, 41 20 Z" fill="#C2410C" stroke="#C2410C" stroke-width="1.2"/>
+          <path d="M40 22 c 6.5 0.5, 6.5 12, -0.5 13" fill="none" stroke="#C2410C" stroke-width="1.4"/>
+          <ellipse cx="24" cy="20" rx="17" ry="7" fill="#8A2D08"/>
+          <path d="M24 18.2 C 23 16.6, 20.6 16.2, 19.2 17.7 C 17.6 19.4, 18.8 21.2, 24 23.8 C 29.2 21.2, 30.4 19.4, 28.8 17.7 C 27.4 16.2, 25 16.6, 24 18.2 Z" fill="#FCFCFA"/>
         </svg>
       </div>
 
