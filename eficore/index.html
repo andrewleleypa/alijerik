@@ -270,6 +270,11 @@
     .s-oscuro .pie{margin-left:auto;margin-right:auto}
     .s-oscuro img{display:block;width:100%;height:auto;border-radius:var(--r);box-shadow:var(--sombra)}
     @media (max-width:860px){.s-oscuro{padding:72px 0 20px}}
+    @media (max-width:600px){
+      .s-oscuro__vista{height:270px;overflow:hidden;margin-right:-20px;border-radius:var(--r) 0 0 var(--r);box-shadow:var(--sombra)}
+      .s-oscuro img{width:1300px;max-width:none;margin:-14px 0 0 -62px;border-radius:0;box-shadow:none}
+      .motif--heart{display:none}
+    }
 
     /* 5 · Tech Provider: solo texto, angosta */
     .s-tp{width:min(720px,calc(100% - 40px));margin:0 auto;padding:92px 0 100px;position:relative}
@@ -484,7 +489,7 @@
       <figure class="s-orden__fig reveal">
         <h3 class="fig-t">El equipo se coordina dentro del hilo, sin que el cliente lo vea</h3>
         <picture>
-          <source media="(max-width:600px)" srcset="/eficore-bandeja-nota-angosta.jpg" width="430" height="171">
+          <source media="(max-width:600px)" srcset="/eficore-bandeja-nota-angosta.jpg" width="1122" height="592">
           <img src="/eficore-bandeja-nota.jpg" width="670" height="300" loading="lazy" decoding="async"
                alt="Hilo de una conversación en Eficore con una nota interna dentro de un recuadro punteado que menciona a una persona del equipo, entre los mensajes de la clienta.">
         </picture>
@@ -587,8 +592,10 @@
     <!-- 4 · En lugar del video: la misma bandeja en modo oscuro -->
     <section class="s-oscuro">
       <figure class="reveal">
-        <img src="/eficore-bandeja-oscuro.jpg" width="1440" height="900" loading="lazy" decoding="async"
-             alt="Eficore en modo oscuro: la misma bandeja con la lista de conversaciones, el hilo de la clienta y su ficha, sobre fondo azul muy oscuro.">
+        <div class="s-oscuro__vista">
+          <img src="/eficore-bandeja-oscuro.jpg" width="1440" height="900" loading="lazy" decoding="async"
+               alt="Eficore en modo oscuro: la misma bandeja con la lista de conversaciones, el hilo de la clienta y su ficha, sobre fondo azul muy oscuro.">
+        </div>
         <figcaption class="pie">La misma bandeja en modo oscuro. Datos de demostración.</figcaption>
       </figure>
     </section>
