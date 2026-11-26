@@ -147,7 +147,16 @@
     .product h1,.product h2{font-size:clamp(28px,4.2vw,44px)}
     .lead{margin-top:16px;font-size:clamp(15px,1.9vw,18px);color:var(--tinta-2);line-height:1.6;max-width:560px}
     .pie{margin-top:14px;font-size:12px;color:var(--tinta-2);letter-spacing:.02em;line-height:1.6;max-width:520px}
-    .ic{width:24px;height:24px;flex:none}
+
+    /* Íconos propios, estilo «mancha de café»: mancha de color detrás, dibujo a mano alzada encima.
+       Fuente única de los colores: .m-* sobre fondo claro; con .osc, la versión clara para fondo oscuro. */
+    .ia{width:52px;height:52px;flex:none;display:block;--ink:#12314F}
+    .ia.osc{--ink:#FCFCFA}
+    .m-terra{--c:#C2410C}.m-miel{--c:#C98A12}.m-oliva{--c:#6B7A2A}.m-azul{--c:#5C8FC4}.m-cafe{--c:#7A4A2B}.m-rosa{--c:#D08A6B}
+    .osc.m-terra{--c:#E0643A}.osc.m-miel{--c:#E3A62E}.osc.m-oliva{--c:#9BAE4A}.osc.m-azul{--c:#9DBCE0}.osc.m-cafe{--c:#D2A06E}.osc.m-rosa{--c:#E8A98C}
+    .vb{width:20px;height:20px;flex:none;display:block;--c:#1B4B7A}
+    .vb--osc{--c:#F2C14E}
+    .chip .ia{width:62px;height:62px}
     .hay-motivo{position:relative;z-index:0}
     .motif{position:absolute;pointer-events:none;user-select:none;z-index:-1;opacity:.06}
     .motif--swirl{top:-40px;right:-150px;width:520px}
@@ -208,7 +217,7 @@
     .s-orden__fig img{display:block;width:100%;height:auto;border-radius:var(--r);box-shadow:var(--sombra)}
     .ideas{margin-top:30px;display:flex;flex-direction:column;gap:24px;list-style:none}
     .ideas li{display:flex;gap:15px;align-items:flex-start}
-    .ideas .chip{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(27,75,122,.1);color:var(--azul);flex:none}
+    .ideas .chip{width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex:none}
     .ideas h3{font-size:17px;margin-bottom:5px}
     .ideas p{font-size:14.5px;color:var(--tinta-2);line-height:1.6}
     @media (max-width:860px){
@@ -232,7 +241,7 @@
     .camp{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
     .camp__puntos{display:flex;flex-direction:column;gap:28px}
     .punto{display:flex;gap:16px;align-items:flex-start}
-    .punto .chip{flex:none;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);color:var(--panel)}
+    .punto .chip{flex:none;width:64px;height:64px;display:flex;align-items:center;justify-content:center}
     .punto h3{font-size:17px;margin-bottom:5px}
     .punto p{font-size:14.5px;color:var(--sobre-azul);line-height:1.6}
     .tel{border-radius:var(--r);padding:26px 22px;background:var(--panel);color:var(--tinta);box-shadow:0 24px 60px rgba(8,20,36,.4)}
@@ -246,7 +255,7 @@
     .tel .msg--in{border-radius:12px 12px 12px 3px;margin-left:0;margin-right:auto;background:#ECEEEA}
     .tel .msg--in time{text-align:left}
     .tel .baja{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:13px;color:var(--tinta-2)}
-    .tel .baja svg{width:18px;height:18px;color:var(--azul);flex:none}
+    .tel .baja svg{width:20px;height:20px;flex:none}
     .tel .kpis{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
     .tel .kpis span{padding:7px 13px;border-radius:999px;font-size:12px;letter-spacing:.03em}
     .k-env{background:var(--lienzo);color:var(--tinta)}
@@ -256,7 +265,7 @@
       margin-top:52px;max-width:720px;display:flex;gap:16px;align-items:flex-start;
       padding:22px 26px;border-radius:var(--r);background:rgba(255,255,255,.12);box-shadow:inset 4px 0 0 var(--panel);
     }
-    .aviso-ley svg{width:26px;height:26px;flex:none;margin-top:1px}
+    .aviso-ley svg{width:46px;height:46px;flex:none;margin-top:-4px}
     .aviso-ley p{font-size:15px;line-height:1.6;color:var(--panel)}
     @media (max-width:860px){
       .banda{padding:88px 0 84px}
@@ -309,9 +318,9 @@
     .p-card--dest .p-precio span{color:var(--sobre-azul)}
     .p-lista{margin-top:26px;display:flex;flex-direction:column;gap:12px;list-style:none}
     .p-lista li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--tinta-2);line-height:1.55}
-    .p-lista svg{width:19px;height:19px;flex:none;margin-top:1px;color:var(--azul)}
+    .p-lista svg{width:20px;height:20px;flex:none;margin-top:1px}
     .p-card--dest .p-lista li{color:var(--sobre-azul)}
-    .p-card--dest .p-lista svg{color:var(--panel)}
+    .p-card--dest .p-lista svg{--c:#F2C14E}
     .p-mas{margin-top:26px;padding:15px 18px;border-radius:10px;font-size:13.5px;line-height:1.6;color:var(--tinta-2);background:#ECEEEA}
     .p-mas b{color:var(--tinta);font-weight:600}
     .p-card--dest .p-mas{background:rgba(255,255,255,.1);color:var(--sobre-azul)}
@@ -339,7 +348,7 @@
     .via--libre>p{margin-top:16px;font-size:14.5px;color:var(--tinta-2);line-height:1.65}
     .arranque__tp{margin-top:28px;padding-top:22px;box-shadow:inset 0 1px 0 rgba(18,49,79,.12);font-size:13.5px;color:var(--tinta-2);line-height:1.6}
     .meta-nota{margin-top:44px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;max-width:760px}
-    .meta-nota>svg{width:28px;height:28px;color:var(--azul);margin-top:2px}
+    .meta-nota>svg{width:46px;height:46px;margin-top:-6px}
     .meta-nota h3{font-size:17px;margin-bottom:10px}
     .meta-nota p{font-size:14px;color:var(--tinta-2);line-height:1.65}
     .meta-nota p+p{margin-top:8px}
@@ -443,17 +452,8 @@
   <div id="track"></div>
 
   <main class="product">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="f-mancha" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="8" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="f-pulso" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter><symbol id="a-bandeja" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M51.4 26.9 Q52.6 32.4 50.0 42.2 Q47.4 51.9 42.2 55.6 Q36.9 59.2 25.8 56.4 Q14.6 53.6 9.7 47.3 Q4.8 40.9 7.4 32.6 Q10.0 24.2 12.6 19.0 Q15.2 13.8 25.5 14.5 Q35.8 15.3 43.1 18.4 Q50.3 21.4 51.4 26.9 Z" fill="var(--c)" opacity=".92"/><path d="M50.4 28.9 Q54.0 37.4 52.2 40.1 Q50.4 42.7 40.8 48.1 Q31.2 53.6 25.6 51.6 Q20.0 49.6 14.6 42.9 Q9.2 36.1 10.9 31.9 Q12.6 27.7 18.8 21.5 Q25.0 15.2 28.5 14.7 Q32.0 14.2 39.4 17.3 Q46.8 20.4 50.4 28.9 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L17 17 Q18 13 22 13 L42 13 Q46 13 47 17 L54 39" stroke-width="3.3"/><path d="M10 40 L17 17 Q18 13 22 13 L42 13 Q46 13 47 17 L54 39" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M9 39 L25 39 Q27 39 28 42 Q30 47 33 47 Q36 47 38 42 Q39 39 41 39 L55 39" stroke-width="3.3"/><path d="M9 39 L25 39 Q27 39 28 42 Q30 47 33 47 Q36 47 38 42 Q39 39 41 39 L55 39" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M10 41 L10 51 Q10 55 14 55 L50 55 Q54 55 54 51 L54 43" stroke-width="3.3"/><path d="M10 41 L10 51 Q10 55 14 55 L50 55 Q54 55 54 51 L54 43" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-persona" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M56.2 27.3 Q61.6 36.2 58.0 39.7 Q54.3 43.2 45.8 49.9 Q37.4 56.6 30.3 54.3 Q23.3 52.0 17.9 44.1 Q12.5 36.1 11.7 31.6 Q10.9 27.0 16.3 18.1 Q21.6 9.1 29.7 10.8 Q37.8 12.6 44.3 15.5 Q50.8 18.4 56.2 27.3 Z" fill="var(--c)" opacity=".92"/><path d="M50.5 27.1 Q52.6 31.7 50.9 38.1 Q49.3 44.5 41.8 47.9 Q34.3 51.3 26.2 49.5 Q18.2 47.6 14.4 42.0 Q10.6 36.4 11.7 30.7 Q12.7 25.0 16.9 20.0 Q21.1 15.1 30.5 15.2 Q39.9 15.2 44.1 18.9 Q48.4 22.6 50.5 27.1 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 12 C25 12 21 17 21 23 C21 29 26 34 32 34 C38 34 43 29 43 23 C43 18 39 12.5 33 12" stroke-width="3.3"/><path d="M32 12 C25 12 21 17 21 23 C21 29 26 34 32 34 C38 34 43 29 43 23 C43 18 39 12.5 33 12" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M12 54 C12 43 20 38 32 38 C44 38 52 43 52 54" stroke-width="3.3"/><path d="M12 54 C12 43 20 38 32 38 C44 38 52 43 52 54" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-ojo" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M53.4 21.2 Q56.4 30.5 53.7 41.3 Q50.9 52.1 46.6 54.3 Q42.3 56.6 33.6 55.3 Q24.9 54.1 19.2 48.3 Q13.6 42.5 13.6 31.5 Q13.5 20.4 18.0 17.0 Q22.6 13.7 29.4 11.1 Q36.3 8.5 43.4 10.2 Q50.4 11.9 53.4 21.2 Z" fill="var(--c)" opacity=".92"/><path d="M51.9 30.6 Q54.5 37.1 50.5 43.5 Q46.5 49.9 39.7 50.8 Q32.9 51.7 29.7 51.2 Q26.6 50.8 21.5 46.5 Q16.3 42.2 15.2 34.0 Q14.0 25.7 18.9 20.3 Q23.8 14.9 30.5 15.0 Q37.2 15.2 43.2 19.6 Q49.2 24.0 51.9 30.6 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M6 32 C16 18 26 14 33 14 C42 14 52 20 58 32" stroke-width="3.3"/><path d="M6 32 C16 18 26 14 33 14 C42 14 52 20 58 32" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M7 33 C16 46 25 50 32 50 C41 50 51 45 57 33" stroke-width="3.3"/><path d="M7 33 C16 46 25 50 32 50 C41 50 51 45 57 33" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M32 24 C27 24 24 28 24 32 C24 37 28 41 33 41 C38 41 41 37 41 32 C41 27 37 24.5 33 24" stroke-width="3.3"/><path d="M32 24 C27 24 24 28 24 32 C24 37 28 41 33 41 C38 41 41 37 41 32 C41 27 37 24.5 33 24" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-campana" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M51.9 22.2 Q56.0 30.1 56.5 38.1 Q57.0 46.1 45.7 53.6 Q34.5 61.1 29.0 60.6 Q23.6 60.0 15.0 53.8 Q6.3 47.7 6.6 36.5 Q7.0 25.3 12.4 21.4 Q17.9 17.4 25.1 14.0 Q32.2 10.6 40.1 12.4 Q47.9 14.2 51.9 22.2 Z" fill="var(--c)" opacity=".92"/><path d="M50.5 26.4 Q54.0 35.1 50.1 39.7 Q46.3 44.3 43.3 48.8 Q40.3 53.3 32.5 52.9 Q24.7 52.5 19.1 44.1 Q13.6 35.7 13.0 28.8 Q12.4 22.0 19.0 17.0 Q25.6 11.9 31.9 13.2 Q38.2 14.5 42.6 16.1 Q47.0 17.7 50.5 26.4 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 9 C27 9 24 12 24 15 C17 18 15 25 15 33 L15 40 L9 47 L55 47 L49 40 L49 33 C49 25 46 18 40 15 C40 12 37 9 33 9" stroke-width="3.3"/><path d="M32 9 C27 9 24 12 24 15 C17 18 15 25 15 33 L15 40 L9 47 L55 47 L49 40 L49 33 C49 25 46 18 40 15 C40 12 37 9 33 9" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M25 52 C27 57 37 57 39 52" stroke-width="3.3"/><path d="M25 52 C27 57 37 57 39 52" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-megafono" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M55.5 26.1 Q57.6 29.6 53.5 40.4 Q49.5 51.2 44.7 53.7 Q39.9 56.3 29.6 53.3 Q19.4 50.4 14.6 44.2 Q9.8 38.0 10.2 33.1 Q10.5 28.2 18.0 17.3 Q25.5 6.4 32.9 6.7 Q40.2 7.1 46.8 14.8 Q53.5 22.6 55.5 26.1 Z" fill="var(--c)" opacity=".92"/><path d="M49.4 28.9 Q51.1 34.3 49.7 40.1 Q48.3 45.8 40.6 50.3 Q32.9 54.8 27.7 51.9 Q22.4 48.9 18.2 44.3 Q14.0 39.7 13.4 32.2 Q12.8 24.7 17.4 20.2 Q22.0 15.6 30.1 15.2 Q38.1 14.8 42.9 19.2 Q47.6 23.5 49.4 28.9 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26 L10 40 L21 40 L45 52 L45 14 L21 26 L10 26" stroke-width="3.3"/><path d="M10 26 L10 40 L21 40 L45 52 L45 14 L21 26 L10 26" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M22 41 L26 55 L33 55 L30 44" stroke-width="3.3"/><path d="M22 41 L26 55 L33 55 L30 44" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M50 23 C55 28 55 36 50 41" stroke-width="3.3"/><path d="M50 23 C55 28 55 36 50 41" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M54 17 C62 26 62 38 54 47" stroke-width="3.3"/><path d="M54 17 C62 26 62 38 54 47" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-barras" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M56.2 24.0 Q57.7 29.4 53.9 37.3 Q50.2 45.2 41.8 50.6 Q33.5 56.0 28.2 56.8 Q22.9 57.5 13.1 47.8 Q3.4 38.1 6.0 29.1 Q8.7 20.1 16.9 17.1 Q25.0 14.1 32.0 12.1 Q39.0 10.0 46.8 14.3 Q54.7 18.5 56.2 24.0 Z" fill="var(--c)" opacity=".92"/><path d="M50.5 24.9 Q50.7 28.9 49.7 35.1 Q48.8 41.4 43.9 45.3 Q38.9 49.2 29.1 50.2 Q19.3 51.3 17.3 46.5 Q15.2 41.7 12.9 35.3 Q10.6 28.9 15.0 23.2 Q19.4 17.5 29.9 16.4 Q40.4 15.3 45.4 18.1 Q50.3 20.9 50.5 24.9 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M10 54 L10 37 L22 36 L22 54" stroke-width="3.3"/><path d="M10 54 L10 37 L22 36 L22 54" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M27 54 L27 22 L39 23 L39 54" stroke-width="3.3"/><path d="M27 54 L27 22 L39 23 L39 54" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M44 54 L44 11 L55 11 L56 54" stroke-width="3.3"/><path d="M44 54 L44 11 L55 11 L56 54" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M5 57 L59 57" stroke-width="3.3"/><path d="M5 57 L59 57" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-escudo" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M52.5 25.9 Q53.9 28.0 52.2 40.5 Q50.5 53.0 45.9 55.4 Q41.3 57.8 30.9 54.1 Q20.5 50.5 14.7 47.3 Q8.9 44.2 9.6 36.6 Q10.3 28.9 13.2 20.9 Q16.0 12.9 26.3 11.3 Q36.6 9.8 43.8 16.8 Q51.0 23.8 52.5 25.9 Z" fill="var(--c)" opacity=".92"/><path d="M49.4 25.8 Q52.0 32.2 50.4 36.4 Q48.7 40.6 42.4 45.5 Q36.1 50.4 29.6 51.7 Q23.2 53.1 16.7 45.2 Q10.2 37.4 10.3 31.8 Q10.3 26.3 17.9 19.5 Q25.5 12.7 31.5 13.2 Q37.4 13.6 42.0 16.5 Q46.7 19.5 49.4 25.8 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 9 C38 13 45 15 52 15 C52 33 47 47 32 56 C17 47 12 33 12 15 C19 15 26 13 31 9" stroke-width="3.3"/><path d="M32 9 C38 13 45 15 52 15 C52 33 47 47 32 56 C17 47 12 33 12 15 C19 15 26 13 31 9" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M23 32 L30 39 L42 25" stroke-width="3.3"/><path d="M23 32 L30 39 L42 25" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-billetera" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M56.5 26.3 Q58.7 33.8 54.6 42.0 Q50.5 50.2 42.1 54.8 Q33.7 59.3 23.6 56.6 Q13.5 53.8 11.2 47.7 Q8.9 41.7 8.4 29.9 Q7.9 18.2 13.9 17.2 Q19.9 16.1 27.3 11.4 Q34.7 6.7 44.5 12.8 Q54.3 18.8 56.5 26.3 Z" fill="var(--c)" opacity=".92"/><path d="M51.4 29.9 Q53.9 37.8 51.3 40.2 Q48.8 42.7 40.6 46.8 Q32.5 50.9 24.7 49.8 Q17.0 48.8 13.9 43.8 Q10.8 38.8 11.7 32.4 Q12.7 26.0 18.8 20.1 Q24.9 14.1 32.0 14.8 Q39.0 15.6 44.0 18.8 Q49.0 22.0 51.4 29.9 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M9 24 Q9 18 15 18 L49 18 Q55 18 55 24 L55 47 Q55 53 49 53 L15 53 Q9 53 9 47 L9 24" stroke-width="3.3"/><path d="M9 24 Q9 18 15 18 L49 18 Q55 18 55 24 L55 47 Q55 53 49 53 L15 53 Q9 53 9 47 L9 24" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M15 18 L40 10 Q43 9 44 12 L45 18" stroke-width="3.3"/><path d="M15 18 L40 10 Q43 9 44 12 L45 18" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M55 31 L44 31 Q39 31 39 36 Q39 41 44 41 L55 41" stroke-width="3.3"/><path d="M55 31 L44 31 Q39 31 39 36 Q39 41 44 41 L55 41" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-audifonos" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M50.4 24.1 Q54.4 32.7 51.6 42.4 Q48.8 52.0 43.5 53.9 Q38.3 55.8 27.8 51.6 Q17.2 47.4 11.6 45.3 Q6.0 43.2 7.8 36.5 Q9.6 29.7 14.9 22.4 Q20.1 15.0 29.6 10.6 Q39.1 6.2 42.7 10.9 Q46.4 15.6 50.4 24.1 Z" fill="var(--c)" opacity=".92"/><path d="M51.9 29.4 Q53.5 37.6 50.9 39.9 Q48.4 42.1 41.2 46.2 Q34.1 50.3 26.3 49.5 Q18.5 48.7 15.9 42.8 Q13.4 37.0 12.0 32.3 Q10.7 27.6 18.2 20.7 Q25.8 13.9 31.3 13.2 Q36.9 12.4 43.6 16.9 Q50.3 21.3 51.9 29.4 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M12 38 L12 32 C12 20 20 11 32 11 C44 11 52 20 52 32 L52 38" stroke-width="3.3"/><path d="M12 38 L12 32 C12 20 20 11 32 11 C44 11 52 20 52 32 L52 38" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M12 36 Q12 33 15 33 L21 33 L21 51 L15 51 Q12 51 12 48 Z" stroke-width="3.3"/><path d="M12 36 Q12 33 15 33 L21 33 L21 51 L15 51 Q12 51 12 48 Z" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M52 36 Q52 33 49 33 L43 33 L43 51 L49 51 Q52 51 52 48 Z" stroke-width="3.3"/><path d="M52 36 Q52 33 49 33 L43 33 L43 51 L49 51 Q52 51 52 48 Z" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-globo" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M54.3 23.3 Q57.6 25.9 55.9 35.1 Q54.1 44.2 46.6 48.0 Q39.1 51.9 28.6 51.8 Q18.0 51.8 14.0 43.7 Q9.9 35.5 12.0 28.2 Q14.1 20.8 18.2 15.8 Q22.3 10.7 31.5 9.3 Q40.7 8.0 45.9 14.4 Q51.1 20.7 54.3 23.3 Z" fill="var(--c)" opacity=".92"/><path d="M48.4 27.7 Q52.5 37.1 49.0 42.4 Q45.5 47.7 38.6 50.9 Q31.8 54.1 25.0 52.3 Q18.3 50.4 15.6 43.3 Q12.8 36.1 13.8 30.5 Q14.7 25.0 15.8 20.7 Q16.8 16.4 28.1 16.6 Q39.3 16.8 41.7 17.5 Q44.2 18.3 48.4 27.7 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 C19 8 9 18 9 32 C9 46 19 56 32 56 C46 56 56 46 56 32 C56 19 46 9 33 8" stroke-width="3.3"/><path d="M32 8 C19 8 9 18 9 32 C9 46 19 56 32 56 C46 56 56 46 56 32 C56 19 46 9 33 8" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M10 32 L55 32" stroke-width="3.3"/><path d="M10 32 L55 32" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M32 8 C23 18 23 46 32 56 C41 46 41 18 32 8" stroke-width="3.3"/><path d="M32 8 C23 18 23 46 32 56 C41 46 41 18 32 8" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M13 20 Q32 25 52 20" stroke-width="3.3"/><path d="M13 20 Q32 25 52 20" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M13 44 Q32 39 52 44" stroke-width="3.3"/><path d="M13 44 Q32 39 52 44" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-alerta" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M55.5 30.4 Q56.4 39.4 54.1 42.1 Q51.9 44.9 45.2 51.4 Q38.6 58.0 32.2 56.7 Q25.8 55.3 19.1 48.7 Q12.4 42.0 12.5 37.0 Q12.6 31.9 14.5 24.1 Q16.5 16.2 27.3 12.6 Q38.1 9.0 46.4 15.2 Q54.7 21.5 55.5 30.4 Z" fill="var(--c)" opacity=".92"/><path d="M49.5 28.2 Q52.3 34.9 50.7 41.5 Q49.0 48.0 41.0 51.5 Q32.9 54.9 26.1 52.1 Q19.3 49.4 16.2 43.0 Q13.0 36.6 11.5 33.4 Q10.1 30.3 16.5 22.9 Q23.0 15.5 29.5 14.8 Q36.0 14.2 41.3 17.8 Q46.6 21.4 49.5 28.2 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 10 L57 53 L7 53 L31 10" stroke-width="3.3"/><path d="M32 10 L57 53 L7 53 L31 10" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M32 25 L32 39" stroke-width="3.3"/><path d="M32 25 L32 39" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M32 45 L32 46" stroke-width="3.3"/><path d="M32 45 L32 46" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-info" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M52.3 25.9 Q54.0 29.7 53.3 36.9 Q52.6 44.1 45.2 47.1 Q37.8 50.1 30.3 53.3 Q22.8 56.4 16.0 45.5 Q9.2 34.6 9.3 27.8 Q9.4 21.0 12.2 15.0 Q15.0 9.0 26.0 10.7 Q37.0 12.5 43.8 17.3 Q50.6 22.0 52.3 25.9 Z" fill="var(--c)" opacity=".92"/><path d="M51.0 26.8 Q52.6 34.4 50.9 37.8 Q49.3 41.2 41.2 47.5 Q33.0 53.9 28.1 53.3 Q23.2 52.8 17.7 44.7 Q12.3 36.6 12.7 31.8 Q13.1 26.9 15.6 21.4 Q18.2 15.8 28.9 14.8 Q39.7 13.7 44.6 16.5 Q49.5 19.2 51.0 26.8 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 C19 8 9 18 9 32 C9 46 19 56 32 56 C46 56 56 46 56 32 C56 19 46 9 33 8" stroke-width="3.3"/><path d="M32 8 C19 8 9 18 9 32 C9 46 19 56 32 56 C46 56 56 46 56 32 C56 19 46 9 33 8" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M32 28 L32 44" stroke-width="3.3"/><path d="M32 28 L32 44" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M32 19 L32 20" stroke-width="3.3"/><path d="M32 19 L32 20" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-ok" viewBox="0 0 64 64"><g filter="url(#f-mancha)"><path d="M54.5 28.5 Q61.8 37.8 55.7 43.8 Q49.6 49.9 42.2 53.1 Q34.9 56.4 26.9 53.3 Q18.8 50.2 13.1 44.4 Q7.4 38.6 9.5 30.8 Q11.7 23.0 17.4 16.5 Q23.1 10.1 27.6 11.4 Q32.0 12.8 39.6 16.0 Q47.3 19.3 54.5 28.5 Z" fill="var(--c)" opacity=".92"/><path d="M52.5 27.5 Q54.6 33.8 51.5 40.8 Q48.5 47.8 40.2 51.0 Q31.8 54.2 28.0 52.9 Q24.1 51.6 18.5 45.8 Q13.0 39.9 12.1 32.7 Q11.2 25.5 16.6 20.9 Q21.9 16.3 28.7 15.5 Q35.4 14.8 43.0 18.0 Q50.5 21.2 52.5 27.5 Z" fill="none" stroke="#2a1608" stroke-width="1.6" opacity=".22"/></g><g filter="url(#f-pulso)" fill="none" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 C19 8 9 18 9 32 C9 46 19 56 32 56 C46 56 56 46 56 32 C56 19 46 9 33 8" stroke-width="3.3"/><path d="M32 8 C19 8 9 18 9 32 C9 46 19 56 32 56 C46 56 56 46 56 32 C56 19 46 9 33 8" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/><path d="M21 33 L29 41 L44 24" stroke-width="3.3"/><path d="M21 33 L29 41 L44 24" stroke-width="1.5" opacity=".6" transform="translate(.8 .6)"/></g></symbol><symbol id="a-visto" viewBox="0 0 64 64"><g filter="url(#f-pulso)" fill="none" stroke="var(--c)" stroke-linecap="round" stroke-linejoin="round"><path d="M11 34 L25 48 L53 14" stroke-width="7"/><path d="M11 34 L25 48 L53 14" stroke-width="3" opacity=".55" transform="translate(1.2 .9)"/></g></symbol><symbol id="a-flecha" viewBox="0 0 64 64"><g filter="url(#f-pulso)" fill="none" stroke="var(--c)" stroke-linecap="round" stroke-linejoin="round"><path d="M10 32 L50 32" stroke-width="7"/><path d="M10 32 L50 32" stroke-width="3" opacity=".55" transform="translate(1.2 .9)"/><path d="M36 18 L52 32 L36 46" stroke-width="7"/><path d="M36 18 L52 32 L36 46" stroke-width="3" opacity=".55" transform="translate(1.2 .9)"/></g></symbol></defs></svg>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-      <symbol id="i-bandeja" viewBox="0 0 256 256"><path d="M216,48V160H179.31a8,8,0,0,0-5.66,2.34l-19.31,19.32a8,8,0,0,1-5.66,2.34H107.31a8,8,0,0,1-5.66-2.34L82.34,162.34A8,8,0,0,0,76.68,160H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.68A15.89,15.89,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.32A15.89,15.89,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"/></symbol>
-      <symbol id="i-dueno" viewBox="0 0 256 256"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
-      <symbol id="i-ojo" viewBox="0 0 256 256"><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" opacity="0.2"/><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></symbol>
-      <symbol id="i-campana" viewBox="0 0 256 256"><path d="M208,192H48a8,8,0,0,1-6.88-12C47.71,168.6,56,139.81,56,104a72,72,0,0,1,144,0c0,35.82,8.3,64.6,14.9,76A8,8,0,0,1,208,192Z" opacity="0.2"/><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></symbol>
-      <symbol id="i-megafono" viewBox="0 0 256 256"><path d="M240,120a48,48,0,0,1-48,48H152V72h40A48,48,0,0,1,240,120Z" opacity="0.2"/><path d="M192,64H152a8,8,0,0,0-2.53.41L82.7,86.67A7.88,7.88,0,0,1,80,87.13V80a8,8,0,0,0-16,0v8H48a24,24,0,0,0-24,24v16a24,24,0,0,0,24,24H64v8a8,8,0,0,0,16,0v-7.13a7.88,7.88,0,0,1,2.7.46l66.77,22.26A8,8,0,0,0,152,176h40a56,56,0,0,0,0-112ZM40,128V112a8,8,0,0,1,8-8H64v32H48A8,8,0,0,1,40,128Zm40,8.56V103.44a23.62,23.62,0,0,0,7.76-1.59L144,83.1v73.8L87.76,138.15A23.62,23.62,0,0,0,80,136.56ZM192,160H160V80h32a40,40,0,0,1,0,80Zm-24,40a8,8,0,0,1-8,8H144a8,8,0,0,1-7.59-5.47l-8-24a8,8,0,0,1,15.18-5.06l6.17,18.53H160A8,8,0,0,1,168,200Z"/></symbol>
-      <symbol id="i-grafico" viewBox="0 0 256 256"><path d="M224,200h-8V40a8,8,0,0,0-8-8H168a8,8,0,0,0-8,8V80H112a8,8,0,0,0-8,8v40H56a8,8,0,0,0-8,8v64H40a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16h8V136a8,8,0,0,1,8-8h40V88a8,8,0,0,1,8-8h40V40a8,8,0,0,1,8-8h64a8,8,0,0,1,8,8V200h8A8,8,0,0,1,232,208Zm-72-8h40V48H160Zm-56,0h40V96H104Zm-48,0H96V144H56Z"/></symbol>
-      <symbol id="i-ok" viewBox="0 0 256 256"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
-      <symbol id="i-check" viewBox="0 0 256 256"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
-      <symbol id="i-escudo" viewBox="0 0 256 256"><path d="M208,40V114.79c0,89.61-75.94,119.34-78,120.12a8,8,0,0,1-4,0c-2.06-.78-78-30.51-78-120.12V40a8,8,0,0,1,8-8H200A8,8,0,0,1,208,40Z" opacity="0.2"/><path d="M208,24H48A16,16,0,0,0,32,40v74.79c0,92.36,78.1,123,93.76,128.18a19.6,19.6,0,0,0,12.48,0C153.9,237.82,224,207.15,224,114.79V40A16,16,0,0,0,208,24Zm0,90.79c0,81.36-69.72,108.21-80,111.61-10.28-3.4-80-30.25-80-111.61V40H208ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
-      <symbol id="i-info" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></symbol>
       <symbol id="i-wa" viewBox="0 0 256 256"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Z"/></symbol>
       <symbol id="i-msg" viewBox="0 0 256 256"><path d="M181.66,106.34a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32,0L112,123.31,85.66,149.66a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0L144,132.69l26.34-26.35A8,8,0,0,1,181.66,106.34ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Z"/></symbol>
       <symbol id="i-ig" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12,12A12,12,0,0,1,192,76Z"/></symbol>
@@ -499,22 +499,22 @@
         <h2>Orden, responsables y visibilidad. Sin cambiar de app.</h2>
         <ul class="ideas">
           <li class="reveal">
-            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-bandeja"/></svg></span>
+            <span class="chip"><svg class="ia m-terra" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-bandeja"/></svg></span>
             <div><h3>Una sola bandeja</h3>
             <p>Todos tus números de WhatsApp — y los mensajes directos de Instagram y Messenger — en un solo lugar. Nada se queda atrapado en el celular de nadie.</p></div>
           </li>
           <li class="reveal">
-            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-dueno"/></svg></span>
+            <span class="chip"><svg class="ia m-miel" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-persona"/></svg></span>
             <div><h3>Cada conversación tiene dueño</h3>
             <p>Asignar, tomar o transferir. En todo momento se sabe quién responde qué — y el historial queda completo.</p></div>
           </li>
           <li class="reveal">
-            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-ojo"/></svg></span>
+            <span class="chip"><svg class="ia m-oliva" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-ojo"/></svg></span>
             <div><h3>Supervisión sin perseguir</h3>
             <p>Los supervisores ven la operación en vivo: qué está atendido, qué espera respuesta y cómo se resolvió cada caso.</p></div>
           </li>
           <li class="reveal">
-            <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-campana"/></svg></span>
+            <span class="chip"><svg class="ia m-azul" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-campana"/></svg></span>
             <div><h3>Notificaciones que sí llegan</h3>
             <p>En la compu y en el celular, a la persona correcta. Sin ruido para el resto del equipo.</p></div>
           </li>
@@ -537,21 +537,21 @@
         <div class="camp">
           <div class="camp__puntos">
             <div class="punto">
-              <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-megafono"/></svg></span>
+              <span class="chip"><svg class="ia osc m-cafe" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-megafono"/></svg></span>
               <div>
                 <h3>Plantillas aprobadas, envío en lote</h3>
                 <p>Eliges la plantilla, eliges a quién le llega, y sale. Cada envío queda registrado con su estado: enviado, entregado, leído.</p>
               </div>
             </div>
             <div class="punto">
-              <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-grafico"/></svg></span>
+              <span class="chip"><svg class="ia osc m-rosa" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-barras"/></svg></span>
               <div>
                 <h3>Resultados que se ven</h3>
                 <p>Cuántos salieron, cuántos llegaron y cuántos lo leyeron — por campaña, en el mismo tablero donde tu equipo atiende.</p>
               </div>
             </div>
             <div class="punto">
-              <span class="chip"><svg class="ic" fill="currentColor" aria-hidden="true"><use href="#i-ok"/></svg></span>
+              <span class="chip"><svg class="ia osc m-terra" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-ok"/></svg></span>
               <div>
                 <h3>Tu número, siempre bien parado</h3>
                 <p>Cada envío lleva botón de baja y la baja se respeta sola. Menos bloqueos y reportes — tu número mantiene reputación para seguir vendiendo.</p>
@@ -569,7 +569,7 @@
               <time>10:34</time>
             </div>
             <div class="baja">
-              <svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>
+              <svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>
               La respuesta cae en tu bandeja, asignada — lista para cerrar la venta.
             </div>
             <div class="kpis">
@@ -581,7 +581,7 @@
         </div>
 
         <div class="aviso-ley">
-          <svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-escudo"/></svg>
+          <svg class="ia osc m-terra" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-escudo"/></svg>
           <p>Diseñado para operar con la Ley 81 de Panamá en mente: se envía a quien dio su
           número para eso, la baja se respeta de inmediato y todo queda registrado.</p>
         </div>
@@ -655,13 +655,13 @@
           </div>
           <div class="p-precio"><strong>$39</strong><span>al mes · incluye 5 usuarios</span></div>
           <ul class="p-lista">
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Bandeja compartida con todos tus números de WhatsApp</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Conversaciones asignadas, con historial completo</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Supervisión de la operación en vivo</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Notificaciones en la compu y el celular</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Plantillas de WhatsApp para respuestas y avisos</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Notas internas y menciones dentro del hilo</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Se instala como app en escritorio y celular</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Bandeja compartida con todos tus números de WhatsApp</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Conversaciones asignadas, con historial completo</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Supervisión de la operación en vivo</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Notificaciones en la compu y el celular</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Plantillas de WhatsApp para respuestas y avisos</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Notas internas y menciones dentro del hilo</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Se instala como app en escritorio y celular</li>
           </ul>
           <div class="p-mas">¿Equipo más grande? <b>+$10 al mes</b> por usuario adicional,
           o <b>5 usuarios más por $39</b> — el mismo precio del plan.</div>
@@ -676,9 +676,9 @@
           </div>
           <div class="p-precio"><strong>$56</strong><span>al mes · + tarifa de Meta por mensaje</span></div>
           <ul class="p-lista">
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Envíos en lote con plantillas aprobadas por Meta</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Botón de baja en cada envío, respetado al instante</li>
-            <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Resultados por campaña: enviados, entregados, leídos</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Envíos en lote con plantillas aprobadas por Meta</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Botón de baja en cada envío, respetado al instante</li>
+            <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Resultados por campaña: enviados, entregados, leídos</li>
           </ul>
           <div class="p-mas">Se activa sobre el plan, cuando tu operación lo pida.
           Las respuestas que generen tus campañas caen en la misma bandeja del equipo.</div>
@@ -699,9 +699,9 @@
             <span class="via__tag via__tag--nos">LO HACEMOS NOSOTROS</span>
             <div class="via__precio"><strong>$159</strong><span>pago único · llave en mano</span></div>
             <ul class="p-lista">
-              <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Tu número conectado y andando dentro de Eficore</li>
-              <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>El primer set de plantillas, redactado y sometido a aprobación de Meta</li>
-              <li><svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-check"/></svg>Sesión de arranque con tu equipo, sobre tus casos</li>
+              <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Tu número conectado y andando dentro de Eficore</li>
+              <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>El primer set de plantillas, redactado y sometido a aprobación de Meta</li>
+              <li><svg class="vb" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-visto"/></svg>Sesión de arranque con tu equipo, sobre tus casos</li>
             </ul>
             <p class="via__nota">Un solo pago cubre <b>todos los números</b> que conectes en tu
             primer mes. ¿Sumas otro número más adelante? <b>$99 por número</b>, una sola vez.</p>
@@ -719,7 +719,7 @@
       </div>
 
       <div class="meta-nota">
-        <svg fill="currentColor" aria-hidden="true" viewBox="0 0 256 256"><use href="#i-info"/></svg>
+        <svg class="ia m-azul" viewBox="0 0 64 64" aria-hidden="true"><use href="#a-info"/></svg>
         <div>
           <h3>La tarifa de WhatsApp, sin letra pequeña</h3>
           <p>Cuando un cliente te escribe y tu equipo responde, Meta no cobra nada. Cuando tú
