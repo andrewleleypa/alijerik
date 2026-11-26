@@ -182,11 +182,20 @@
       border-radius:18px;box-shadow:0 18px 44px rgba(20,26,34,.28);
     }
     @media (max-width:860px){
-      .pp{grid-template-columns:1fr;gap:30px;padding:48px 20px 0}
+      .pp{grid-template-columns:minmax(0,1fr);gap:30px;padding:48px 20px 0}
+      .pp__vis{min-width:0}
       .pp__txt{padding-bottom:0}
       .pp__vis{margin-right:-20px;padding-bottom:0}
       .pp__vis figure{max-height:300px}
       .pp__cel{left:auto;top:auto;right:30px;bottom:12px;width:84px}
+    }
+
+    @media (max-width:600px){
+      .pp{padding:48px 20px 40px}
+      .pp__vis{margin:0 -20px;display:flex;flex-direction:column;align-items:center}
+      .pp__vis figure{width:100%;height:190px;max-height:none;border-radius:0}
+      .pp__desk{width:1200px;max-width:none;margin-left:-350px;margin-top:-88px}
+      .pp__cel{position:static;width:250px;margin-top:-4px;border-radius:22px;box-shadow:0 18px 44px rgba(20,26,34,.3)}
     }
 
     /* 2 · Orden, responsables y visibilidad: sobre el lienzo, columnas invertidas */
@@ -206,6 +215,11 @@
     @media (max-width:860px){
       .s-orden{grid-template-columns:1fr;gap:36px;padding:84px 0 64px}
       .s-orden__fig,.s-orden__txt{grid-column:auto;grid-row:auto}
+    }
+    @media (max-width:600px){
+      .s-orden__fig .fig-t,.s-orden__fig .pie{margin-left:0;margin-right:0}
+      .s-orden__fig picture{display:block;margin:0 -20px}
+      .s-orden__fig img{border-radius:0;box-shadow:none}
     }
 
     /* 3 · Campañas: la única banda a todo el ancho */
@@ -469,8 +483,11 @@
     <section class="s-orden">
       <figure class="s-orden__fig reveal">
         <h3 class="fig-t">El equipo se coordina dentro del hilo, sin que el cliente lo vea</h3>
-        <img src="/eficore-bandeja-nota.jpg" width="670" height="300" loading="lazy" decoding="async"
-             alt="Hilo de una conversación en Eficore con una nota interna dentro de un recuadro punteado que menciona a una persona del equipo, entre los mensajes de la clienta.">
+        <picture>
+          <source media="(max-width:600px)" srcset="/eficore-bandeja-nota-angosta.jpg" width="430" height="171">
+          <img src="/eficore-bandeja-nota.jpg" width="670" height="300" loading="lazy" decoding="async"
+               alt="Hilo de una conversación en Eficore con una nota interna dentro de un recuadro punteado que menciona a una persona del equipo, entre los mensajes de la clienta.">
+        </picture>
         <figcaption class="pie">Captura real de la plataforma. Datos de demostración. La nota queda dentro de
         la conversación y marcada como interna — el cliente no la recibe nunca.</figcaption>
       </figure>
